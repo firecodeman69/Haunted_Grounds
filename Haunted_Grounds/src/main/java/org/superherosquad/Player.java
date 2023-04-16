@@ -18,22 +18,17 @@ public class Player extends Character {
         this.currentLocation = currentLocation;
     }
 
-//    public ArrayList<Item> getPlayerInventory() {
+//    public ArrayList<Item> showInventory() {
 //        return playerInventory.toString;
 //    }
 
-//    public void addItemToInventory(Item item) {
+//    public String addItemToInventory(Item item) {
 //        playerInventory.add(item);
+//        return (item.getName() + " was added to your inventory. Use command Inventory to see it now.");
 //    }
 
 //    public void addItemsToInventory(ArrayList<Item> itemAL) {
 //        playerInventory.addAll(itemAL);
-//    }
-
-    /*******************Could be used instead of addItemToInventory***************/
-//    public String pickUpItem(Item item) {
-//        playerInventory.add(item);
-//        return (item.getName() + " was added to your inventory. Use command Inventory to see it now.");
 //    }
 
 
