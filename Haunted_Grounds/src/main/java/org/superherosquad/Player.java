@@ -4,16 +4,16 @@ package org.superherosquad;
 public class Player extends Character {
 
     //ArrayList<Item> playerInventory;
+    //ArrayList<Item> equippedItems;
     int currentLocation;
     int previousLocation;
     public Player(int Id, String name, int hp, int currency, String description,
                   int speed, int defense, int attack,
-                  //ArrayList<Item> playerInventory,
-                  int currentLocation, int previousLocation) {
+                  int currentLocation) {
         super(Id, name, hp, currency, description, speed, defense, attack);
-        //this.playerInventory = playerInventory;
+        //this.playerInventory = new ArrayList<Item>();
+        //this.equippedItems = new ArrayList<Item>();
         this.currentLocation = currentLocation;
-        this.previousLocation = previousLocation;
     }
 
 //    public ArrayList<Item> getPlayerInventory() {
