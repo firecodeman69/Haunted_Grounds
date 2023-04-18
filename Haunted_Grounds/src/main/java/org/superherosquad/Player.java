@@ -115,7 +115,7 @@ public class Player extends Character {
                 "talk" : User can use this command to interact with the NPCs and receive riddles.
                 "shop" : User can use this command for the purchase of consumables.
                 "riddle" : User can use this command to initiate a riddle.
-                "leave" : User can use this command to leave the shop and end the conversion with the NPC..
+                "leave" : User can use this command to leave the shop and end the conversion with the NPC.
                 "buy" + item name + quantity: The user can use this commands in the shop to but consumables.
                 =======================================================================================================================================================================================                                                                          
                 """;
