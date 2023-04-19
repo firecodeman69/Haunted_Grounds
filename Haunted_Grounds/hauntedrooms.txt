@@ -1,5 +1,5 @@
 1
-Inside Room 1
+Inside of Room 1
 You are inside room 1. From here you can go for room 2 or to south if you want to go outside the building.
 ----
 NORTH 0
