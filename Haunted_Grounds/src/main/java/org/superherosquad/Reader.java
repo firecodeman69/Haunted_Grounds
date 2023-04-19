@@ -52,7 +52,8 @@ public class Reader {
 //        Scanner sc;
 //        ArrayList<Item> allItems = new ArrayList<>();
 //        try {
-//            sc = new Scanner(new File("item.txt"));
+//            sc = new Scanner(new File("items.txt"));
+//            sc.nextLine(); // skip the first line
 //            for (int i = 0; i < 4; i++) {
 //                {
 //                    item = new Item(sc.nextLine() //Item name
