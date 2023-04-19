@@ -22,23 +22,23 @@ public class Game {
     Reader reader = new Reader();
     //ArrayList<Room> gameRooms; //TreMya
     //ArrayList<Item> gameItems; //ReAnn
-    //ArrayList<Puzzle> gamePuzzles; //Cobi
+    ArrayList<Puzzle> gamePuzzles; //Cobi
     ArrayList<Monster> gameMonsters; //Cody
-    //ArrayList<NPC> gameNPCs; //Cobi
+    ArrayList<NPC> gameNPCs; //Cobi
     //Shop shop; //Cobi
     //Controller c1 = new Controller();
     Player p;
     public void newGame() {
         //gameRooms = reader.newRoom(); //TreMya
         //gameItems = reader.newItem(); //ReAnn
-        //gamePuzzles = reader.newPuzzle(); //Cobi
+        gamePuzzles = reader.newPuzzle(); //Cobi
 
         gameMonsters = reader.newMonster(); //Cody
 //        for (Monster m: gameMonsters) {
 //            System.out.println(m);
 //        }
 
-        //gameNPCs = reader.newNPC(); //Cobi
+        gameNPCs = reader.newNPC(gamePuzzles); //Cobi
         //shop = reader.newShop(); //Cobi
         p = new Player();
     }

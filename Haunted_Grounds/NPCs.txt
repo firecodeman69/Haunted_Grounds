@@ -1,0 +1,2 @@
+0#Dr. B#A highly experienced software engineer and professor of computer science at the college. Her passion for software development was evident in the way she taught and interacted with her students when alive.#7#true
+1#Jack#Your good friend that has mysteriously gone missing for a few days.#8#false
