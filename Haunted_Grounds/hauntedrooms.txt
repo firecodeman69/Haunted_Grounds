@@ -1,0 +1,56 @@
+1
+Inside Room 1
+You are inside room 1. From here you can go for room 2 or to south if you want to go outside the building.
+----
+NORTH 0
+EAST 0
+WEST 2
+SOUTH 0
+2
+Room 2
+Hi, you entered in room 2. From here you have to visit room 3 in west, room 5 in north, room 7 in south, or room 1 in east.
+----
+NORTH 5
+EAST 1
+WEST 3
+SOUTH 0
+3
+Room 3
+You are in room 3 now. You can go north for room 4 or south for room 6 as well as you can go in to room 2 if you visit east.
+----
+NORTH 4
+EAST 2
+WEST 0
+SOUTH 6
+4
+Room 4
+Entered in room 4. if you want to visit room 5 go to east direction. if you want to visit room 3 go to south direction.
+----
+NORTH 0
+EAST 5
+WEST 0
+SOUTH 3
+5
+Room 5
+Inside room 5. you can visit room 4 if you follow west direction and room 2 if you follow south direction
+----
+NORTH 0
+EAST 0
+WEST 4
+SOUTH 2
+6
+Room 6
+Bingo! you are in room 6 as of now you can go to north direction for goto room 3 or go to east direction for room 7.
+----
+NORTH 4
+EAST 7
+WEST 0
+SOUTH 0
+7
+Room 7
+You are staying in the last room of this building. you can go to room 6 from west direction and room 2 if you process with north direction.
+----
+NORTH 0
+EAST 0
+WEST 6
+SOUTH 0
