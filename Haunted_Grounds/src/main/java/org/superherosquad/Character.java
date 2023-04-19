@@ -11,6 +11,8 @@ public class Character {
     protected int defense;
     protected int attack;
 
+    public Character() {};
+
     public Character(int Id, String name, int hp, int currency, String description, int speed, int defense, int attack) {
         this.Id = Id;
         this.name = name;

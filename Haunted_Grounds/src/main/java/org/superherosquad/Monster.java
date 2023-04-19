@@ -2,19 +2,19 @@
 package org.superherosquad;
 
 public class Monster extends Character {
-    private int monsterLocation;
+    private int[] monsterLocations;
     //private ArrayList<Item> monsterInventory;
     public Monster(int Id, String name, int hp, int currency, String description,
                    int speed, int defense, int attack,
                    //ArrayList<Item> monsterInventory,
-                   int monsterLocation) {
+                   int[] monsterLocations) {
         super(Id, name, hp, currency, description, speed, defense, attack);
         //this.monsterInventory = monsterInventory;
-        this.monsterLocation = monsterLocation;
+        this.monsterLocations = monsterLocations;
     }
 
-    public int getMonsterLocation() {
-        return monsterLocation;
+    public int[] getMonsterLocation() {
+        return monsterLocations;
     }
 
     //todo: implement this attack method.

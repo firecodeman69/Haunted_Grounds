@@ -9,7 +9,9 @@ public class Player extends Character {
     //ArrayList<Item> equippedItems;
     int currentLocation;
     int previousLocation;
-    public Player(int Id, String name, int hp, int currency, String description,
+
+    public Player() {} //create a brand-new player
+    public Player(int Id, String name, int hp, int currency, String description, //to be used for loading
                   int speed, int defense, int attack,
                   int currentLocation) {
         super(Id, name, hp, currency, description, speed, defense, attack);
@@ -69,7 +71,8 @@ public class Player extends Character {
 //        return null;
 //    }
 
- /*   //todo: change the helpmenu to reflect the menu of our game
+    /****************Cody && ReAnn*********************/
+    /*
     public String helpMenu() {
         return """
                 =======================================================================================================================================================================================
