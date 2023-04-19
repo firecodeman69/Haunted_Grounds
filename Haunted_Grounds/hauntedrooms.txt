@@ -8,7 +8,7 @@ WEST 2
 SOUTH 0
 2
 Room 2
-Hi, you entered in room 2. From here you have to visit room 3 in west, room 5 in north, room 7 in south, or room 1 in east.
+You have entered in room 2. Here you have to visit room 3 in west, room 5 in north, room 7 in south, or room 1 in east.
 ----
 NORTH 5
 EAST 1
