@@ -20,5 +20,3 @@
 19#Lawn#The large lawn is neatly mowed, and there is a diagonal sidewalk crossing through it. As you walk along the sidewalk, you notice some large paw prints left behind. There are also chairs scattered about on the grass.#14,0,9,11
 20#Grizzly statue (The Boss)#A strong wind is blowing, causing the GGC flag, the USA flag, and the Georgia flag to flap wildly. The full moon is shining down on the flags, illuminating them. However, the Boss is missing! You notice large paw prints and some of the Boss's fur scattered on the ground.#11,0,19,15
 21#Garden#The Boss lets out a menacing growl. The garden is surrounded by a fence and planted with rows of tomatoes, carrots, and potatoes. The recent rainfall has left the garden muddy, and the vegetables appear to have been freshly watered. There is a small lamp on the ground.#0,6,3,0
-
-
