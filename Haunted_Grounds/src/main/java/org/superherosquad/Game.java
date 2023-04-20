@@ -1,5 +1,6 @@
 package org.superherosquad;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Game {
@@ -8,11 +9,15 @@ public class Game {
         Game game = new Game();
         game.newGame();
         //System.out.println("Hello world!");
-        //Character c1 = new Character(1, "Cody", 100, 0, "First player of the game.", 25, 25, 25);
-        //Character c2 = new Character(1, "Cody", 100, 0, "First player of the game.", 25, 25, 25);
-        //Character c3 = new Character(1, "Cody", 100, 0, "First player of the game.", 25, 25, 25);
-        //Character c4 = new Character(1, "Cody", 100, 0, "First player of the game.", 25, 25, 25);
+        Player p1 = new Player(1, "Cody", 100, 0, "First player of the game.", 25, 25, 25,0);
+        //Character c2 = new Character(2, "ReAnn", 100, 0, "First player of the game.", 25, 25, 25);
+        //Character c3 = new Character(3, "TreMya", 100, 0, "First player of the game.", 25, 25, 25);
+        //Character c4 = new Character(4, "Cobi", 100, 0, "First player of the game.", 25, 25, 25);
         //System.out.println(c1);
+        game.saveGame(p1);
+
+        game.loadGame("playerSave.txt");
+        System.out.println(p1);
     }
 
 
@@ -41,5 +46,48 @@ public class Game {
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
         //shop = reader.newShop(); //Cobi
         p = new Player();
+    }
+
+    public void saveGame(Player player) {
+        ObjectOutputStream oos = null;
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream("playerSave.txt");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(player);
+        } catch (IOException ioe) {
+            //todo: change this to do nothing?
+            System.out.println("File not found!!");
+        } finally {
+            try {
+                if (oos != null) {
+                    oos.close();
+                }
+            } catch (IOException ioe) {
+                System.out.println("Closing the outputstream failed bucko");
+            }
+        }
+    }
+
+    public Player loadGame(String fileName) {
+        ObjectInputStream ois = null;
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(fileName);
+            ois = new ObjectInputStream(fis);
+            p = (Player) ois.readObject();
+        } catch (IOException | ClassNotFoundException ioe) {
+            //todo: change this to do nothing?
+            System.out.println("File not found!!");
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (IOException ioe) {
+                System.out.println("Closing the input Stream failed buckoo");
+            }
+        }
+        return p;
     }
 }
