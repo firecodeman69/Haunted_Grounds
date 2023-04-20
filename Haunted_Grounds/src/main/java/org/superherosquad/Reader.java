@@ -11,7 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 public class Reader {
-    //Scanner sc;
+    Scanner sc;
 
 //    public void newRoom() {
 //        Room room;
@@ -49,7 +49,6 @@ public class Reader {
 //
 //    public void newItem() {
 //        Item item;
-//        Scanner sc;
 //        ArrayList<Item> allItems = new ArrayList<>();
 //        try {
 //            sc = new Scanner(new File("items.txt"));
@@ -74,40 +73,40 @@ public class Reader {
 //        this.allItems = allItems;
 //    }
 //
-//    /************************************Puzzle file reader*****************************/
-//    public void newPuzzle() {
-//        Puzzle puzzle;
-//        Scanner sc;
-//        ArrayList<Puzzle> puzzleAL = new ArrayList<>();
-//        try {
-//            sc = new Scanner(new File("puzzle.txt"));
-//
-//            while (sc.hasNextLine()) {
-//                for (int i = 0; i < 2; i++) {
-//                    puzzle = new Puzzle(Integer.parseInt(sc.nextLine()) //PuzzleId
-//                            , sc.nextLine() //Description
-//                            , sc.nextLine() //Solution
-//                            , Integer.parseInt(sc.nextLine()) //Attempts Allowed
-//                            , sc.nextLine()); //Hints
-//                    puzzleAL.add(puzzle);
-//                }
-//            }//end while
-//            sc.close();
-//        }//end try
-//        catch (IOException ioe) {
-//            ioe.printStackTrace();
-//            System.out.println("IOException!" +
-//                    "No file exists! " +
-//                    "Please make sure that the file exists and try again.");
-//        } catch (NoSuchElementException ignored) {
-//        }
-//        this.allPuzzles = puzzleAL;
-//    }
+//    /************************************Puzzle file reader (Cobi)*****************************/
+	public ArrayList<Puzzle> newPuzzle() {
+		Puzzle puzzle;
+		ArrayList<Puzzle> puzzleAL = new ArrayList<>();
+		try {
+			sc = new Scanner(new File("Puzzles.txt"));
+
+			while (sc.hasNextLine()) {
+				String puzzleInfo = sc.nextLine();
+				// System.out.println("Current line is: " + puzzleInfo);
+				String[] puzzleTokens = puzzleInfo.split("#");
+				String[] puzzleLines = puzzleTokens[2].split(",");
+				String text = puzzleLines[0];
+				if (puzzleLines.length > 1) {
+					for (int i = 1; i < puzzleLines.length; i++) {
+						text.concat("\n" + puzzleLines[i]);
+					}
+				}
+				puzzle = new Puzzle(Integer.parseInt(puzzleTokens[0]), puzzleTokens[1], puzzleTokens[2],
+						puzzleTokens[3], puzzleTokens[4], puzzleTokens[5], puzzleTokens[6], puzzleTokens[7]);
+				puzzleAL.add(puzzle);
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			System.out.println(
+					"IOException!" + "No puzzle file exists! " + "Please make sure that the file exists and try again.");
+		} catch (NoSuchElementException ignored) {
+		}
+		return puzzleAL;
+	}
 
     /************************************Monster file reader (Cody)*****************************/
     public ArrayList<Monster> newMonster() {
         Monster monster;
-        Scanner sc;
         ArrayList<Monster> monsters = new ArrayList<>();
         try {
             sc = new Scanner(new File("monster.txt"));
@@ -138,11 +137,46 @@ public class Reader {
         catch (IOException ioe) {
             ioe.printStackTrace();
             System.out.println("IOException!" +
-                    "No file exists! " +
+                    "No monster file exists! " +
                     "Please make sure that the file exists and try again.");
         } catch (NoSuchElementException nse) {
             nse.printStackTrace();
         }
         return monsters;
+    }
+    
+    /************************************NPC file reader (Cobi)*****************************/
+    public ArrayList<NPC> newNPC(ArrayList<Puzzle> puzzles) {
+    	NPC npc;
+    	ArrayList<NPC> npcs = new ArrayList<>();
+    	try {
+    		sc = new Scanner(new File("NPCs.txt"));
+    		
+    		while(sc.hasNextLine()) {
+    			String npcInfo = sc.nextLine();
+    			// System.out.println("Current line is: " + npcInfo);
+    			String[] npcTokens = npcInfo.split("#");
+    			Puzzle npcPuzzle = null;
+    			for(Puzzle p: puzzles)
+    			{
+    				if(Integer.parseInt(npcTokens[3]) == p.getId())
+    				{
+    					npcPuzzle = p;
+    				}
+    			}
+    			npc = new NPC(Integer.parseInt(npcTokens[0])
+    				  , npcTokens[1]
+    			      , npcTokens[2]
+    			      , npcPuzzle
+    			      , Boolean.parseBoolean(npcTokens[4]));
+    			npcs.add(npc);
+    		}
+    	}
+    	catch (IOException ioe){
+            System.out.println("IOException!" +
+                    "No NPC file exists! " +
+                    "Please make sure that the file exists and try again.");
+    	}
+    	return npcs;
     }
 }
