@@ -58,7 +58,7 @@ public class Game {
         } catch (IOException ioe) {
             //todo: change this to do nothing?
             System.out.println("File not found!!");
-        } finally {
+        } finally { //close the stream even if there is an exception thrown
             try {
                 if (oos != null) {
                     oos.close();
@@ -70,18 +70,18 @@ public class Game {
     }
 
     public Player loadGame(String fileName) {
-        ObjectInputStream ois = null;
+        ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
         FileInputStream fis;
         try {
             fis = new FileInputStream(fileName);
             ois = new ObjectInputStream(fis);
-            p = (Player) ois.readObject();
-        } catch (IOException | ClassNotFoundException ioe) {
+            p = (Player) ois.readObject(); //set current player = the contents of the save file
+        } catch (IOException | ClassNotFoundException ioe) { //multi catch statement instead of using 2 catch statements
             //todo: change this to do nothing?
             System.out.println("File not found!!");
-        } finally {
+        } finally { //close the stream even if there is an exception thrown
             try {
-                if (ois != null) {
+                if (ois != null) { //todo:is there a better way to handle this?
                     ois.close();
                 }
             } catch (IOException ioe) {
