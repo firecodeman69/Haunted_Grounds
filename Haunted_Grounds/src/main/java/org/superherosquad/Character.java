@@ -1,7 +1,7 @@
 /**************** Cody ********************/
 package org.superherosquad;
 
-public class Character {
+public abstract class Character {
     protected int Id;
     protected String name;
     protected int hp;
@@ -74,6 +74,21 @@ public class Character {
 
     public void setAttack(int attack) {
         this.attack = attack;
+    }
+
+    public boolean isAlive() {
+        return hp > 0;
+    }
+
+    public void takeDamage(int damage) {
+        int totalDamage = damage - defense;
+        if (totalDamage < 0) { //if defense is higher than the damage taken
+            totalDamage = 0;
+        }
+        hp -= totalDamage;
+        if (hp <= 0) { //if total hp is below 0
+            hp = 0;
+        }
     }
 
     public String toString() {

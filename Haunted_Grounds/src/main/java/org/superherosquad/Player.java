@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 
-    //ArrayList<Item> playerInventory;
-    //ArrayList<Item> equippedItems;
+    ArrayList<Item> playerInventory;
+    ArrayList<Item> equippedItems;
     int currentLocation;
     int previousLocation;
 
@@ -15,52 +15,46 @@ public class Player extends Character {
                   int speed, int defense, int attack,
                   int currentLocation) {
         super(Id, name, hp, currency, description, speed, defense, attack);
-        //this.playerInventory = new ArrayList<Item>();
-        //this.equippedItems = new ArrayList<Item>();
         this.currentLocation = currentLocation;
     }
 
-//    public ArrayList<Item> showInventory() {
-//        return playerInventory.toString;
-//    }
+    public String addItemToInventory(Item item) {
+        playerInventory.add(item);
+        return (item.getName() + " was added to your inventory. Use command Inventory to see it now.");
+    }
 
-//    public String addItemToInventory(Item item) {
-//        playerInventory.add(item);
-//        return (item.getName() + " was added to your inventory. Use command Inventory to see it now.");
-//    }
-
-//    public void addItemsToInventory(ArrayList<Item> itemAL) {
-//        playerInventory.addAll(itemAL);
-//    }
+    public void addItemsToInventory(ArrayList<Item> itemAL) {
+        playerInventory.addAll(itemAL);
+    }
 
 
-//    public void dropItem(Item item) {
-//        for (Item i: equippedItems) {
-//          if(i.getName.equalsIgnoreCase(item)) {
-//              playerInventory.remove(item);
-//          }
-//        }
-//    }
+    public void dropItem(Item item) {
+        for (Item i: equippedItems) {
+          if(i.getName().equalsIgnoreCase(item.getName())) {
+              playerInventory.remove(item);
+          }
+        }
+    }
 
-//        public void equipItem(Item item) {
-//        equippedItems.add(item);
-//    }
+        public void equipItem(Item item) {
+        equippedItems.add(item);
+    }
 
-//        public void unEquipItem(Item item) {
-//        for (Item i: equippedItems) {
-//          if(i.getName.equalsIgnoreCase(item)) {
-//              equippedItems.remove(item);
-//          }
-//        }
-//    }
+        public void unEquipItem(Item item) {
+        for (Item i: equippedItems) {
+          if(i.getName().equalsIgnoreCase(item.getName())) {
+              equippedItems.remove(item);
+          }
+        }
+    }
 
-//    public String showInventory() {
-//        if (playerInventory != null) {
-//            return playerInventory.toString();
-//        } else {
-//            return ("You don't have any items in your inventory.");
-//        }
-//    }
+    public String showInventory() {
+        if (playerInventory != null) {
+            return playerInventory.toString();
+        } else {
+            return ("You don't have any items in your inventory.");
+        }
+    }
 
 //    public Item explore(String name) {
 //        for (Item i : currentRoom.roomItems) {

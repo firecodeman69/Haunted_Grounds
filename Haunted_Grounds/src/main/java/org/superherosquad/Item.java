@@ -1,6 +1,5 @@
 /**************** ReAnn ********************/
 package org.superherosquad;
-
 public class Item {
 
     protected int Id;

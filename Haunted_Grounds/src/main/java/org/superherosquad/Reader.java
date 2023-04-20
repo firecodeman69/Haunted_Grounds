@@ -1,18 +1,14 @@
 package org.superherosquad;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 public class Reader {
     Scanner sc;
 
+	/************************************Room file reader (TreMya)*****************************/
 //    public void newRoom() {
 //        Room room;
 //
@@ -45,7 +41,7 @@ public class Reader {
 //        this.gameRooms = roomAL;
 //    }
 //
-//    /************************************Item file reader*****************************/
+    /************************************Item file reader (ReAnn)*****************************/
 //
 //    public void newItem() {
 //        Item item;
@@ -73,7 +69,7 @@ public class Reader {
 //        this.allItems = allItems;
 //    }
 //
-//    /************************************Puzzle file reader (Cobi)*****************************/
+    /************************************Puzzle file reader (Cobi)*****************************/
 	public ArrayList<Puzzle> newPuzzle() {
 		Puzzle puzzle;
 		ArrayList<Puzzle> puzzleAL = new ArrayList<>();
@@ -171,6 +167,7 @@ public class Reader {
     			      , Boolean.parseBoolean(npcTokens[4]));
     			npcs.add(npc);
     		}
+			sc.close();
     	}
     	catch (IOException ioe){
             System.out.println("IOException!" +
