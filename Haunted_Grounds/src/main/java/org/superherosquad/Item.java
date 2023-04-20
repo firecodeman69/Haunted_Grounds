@@ -1,5 +1,5 @@
 /**************** ReAnn ********************/
-package Haunted_Grounds.Haunted_Grounds.src.main.java.org.superherosquad;
+package org.superherosquad;
 public class Item {
 
     protected int Id;
