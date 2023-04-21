@@ -1,4 +1,4 @@
-package Haunted_Grounds.Haunted_Grounds.src.main.java.org.superherosquad;
+package org.superherosquad;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Game {
     //todo: determine if this is the right approach
     Reader reader = new Reader();
     //ArrayList<Room> gameRooms; //TreMya
-    ArrayList<Item> gameItems; //ReAnn
+    //ArrayList<Item> gameItems; //ReAnn
     ArrayList<Puzzle> gamePuzzles; //Cobi
     ArrayList<Monster> gameMonsters; //Cody
     ArrayList<NPC> gameNPCs; //Cobi
@@ -35,7 +35,7 @@ public class Game {
     Player p;
     public void newGame() {
         //gameRooms = reader.newRoom(); //TreMya
-        gameItems = reader.newItem(); //ReAnn
+        //gameItems = reader.newItem(); //ReAnn
         gamePuzzles = reader.newPuzzle(); //Cobi
 
         gameMonsters = reader.newMonster(); //Cody
