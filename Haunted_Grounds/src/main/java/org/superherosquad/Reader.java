@@ -1,4 +1,4 @@
-package org.superherosquad;
+package Haunted_Grounds.Haunted_Grounds.src.main.java.org.superherosquad;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -42,33 +42,39 @@ public class Reader {
 //    }
 //
     /************************************Item file reader (ReAnn)*****************************/
-//
-//    public void newItem() {
-//        Item item;
-//        ArrayList<Item> allItems = new ArrayList<>();
-//        try {
-//            sc = new Scanner(new File("items.txt"));
-//            sc.nextLine(); // skip the first line
-//            for (int i = 0; i < 4; i++) {
-//                {
-//                    item = new Item(sc.nextLine() //Item name
-//                            , sc.nextLine()); //Item description
-//
-//                    allItems.add(item);
-//                }
-//            }//end while
-//            sc.close();
-//        }//end try
-//        catch (IOException ioe) {
-//            ioe.printStackTrace();
-//            System.out.println("IOException!" +
-//                    "No file exists! " +
-//                    "Please make sure that the file exists and try again.");
-//        } catch (NoSuchElementException ignored) {
-//        }
-//        this.allItems = allItems;
-//    }
-//
+
+    public ArrayList<Item> newItem() {
+        Item item;
+        ArrayList<Item> allItems = new ArrayList<>();
+        try {
+            sc = new Scanner(new File("items.txt"));
+            sc.nextLine(); // skip the first line
+            // Skip the header line
+            if (sc.hasNextLine()) {
+                sc.nextLine();
+            }
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] parts = line.split("#");
+                int id = Integer.parseInt(parts[0]);
+                String name = parts[1];
+                String description = parts[2];
+                int price = Integer.parseInt(parts[6]);
+                item = new Item(id, name, description, price);
+                allItems.add(item);
+            }
+            sc.close();
+        }//end try
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+            System.out.println("IOException!" +
+                    "No file exists! " +
+                    "Please make sure that the file exists and try again.");
+        } catch (NoSuchElementException ignored) {
+        }
+        return allItems;
+    }
+
     /************************************Puzzle file reader (Cobi)*****************************/
 	public ArrayList<Puzzle> newPuzzle() {
 		Puzzle puzzle;
