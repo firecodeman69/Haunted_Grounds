@@ -89,6 +89,9 @@ public class Room {
                 "[Room to the North:" + northRoom + "] " +
                 "[Room to the South:" + southRoom + "] " +
                 "[Room to the East:" + eastRoom + "] " +
-                "[Room to the West:" + westRoom + "] ";
+                "[Room Items:" + roomItems + "] " +
+                "[Room Puzzle:" + roomPuzzle + "] " +
+                "[Room Monster:" + roomMonster + "] " +
+                "[Has been visited?:" + isVisited + "] ";
     }
 }

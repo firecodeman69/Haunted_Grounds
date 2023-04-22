@@ -18,6 +18,9 @@ public class Game {
         
         //game.loadGame("playerSave.txt");
         //System.out.println(p1);
+        for (Room r: game.gameRooms) {
+            System.out.println(r);
+        }
     }
 
 
@@ -51,7 +54,13 @@ public class Game {
 
         gameMonsters = reader.newMonster(); //Cody
         for (Monster m: gameMonsters) {
-            System.out.println(m);
+            for (int i = 0; i < m.getMonsterLocation().length; i++) {
+                for (Room r: gameRooms) {
+                    if (m.getMonsterLocation().equals(r.getId())) {
+                        r.setMonster(m);
+                    }
+                }
+            }
         }
 
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
