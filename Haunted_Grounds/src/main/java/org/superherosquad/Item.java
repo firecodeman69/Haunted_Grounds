@@ -103,4 +103,5 @@ public class Item {
                 + "[description:" + description + "] "
                 + "[price: $" + price + "] ";
     }
+
 }
