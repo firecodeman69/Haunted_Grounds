@@ -18,6 +18,17 @@ public class Game {
         
         //game.loadGame("playerSave.txt");
         //System.out.println(p1);
+        for (Monster m: game.gameMonsters) {
+            int[] locations = m.getMonsterLocation();
+            for (int i = 0; i < locations.length; i++) {
+                for (Room r: game.gameRooms) {
+                    if (locations[i] == r.getId()) {
+                        r.setMonster(m);
+                    }
+                }
+            }
+        }
+
         for (Room r: game.gameRooms) {
             System.out.println(r);
         }
@@ -53,15 +64,7 @@ public class Game {
         }
 
         gameMonsters = reader.newMonster(); //Cody
-        for (Monster m: gameMonsters) {
-            for (int i = 0; i < m.getMonsterLocation().length; i++) {
-                for (Room r: gameRooms) {
-                    if (m.getMonsterLocation().equals(r.getId())) {
-                        r.setMonster(m);
-                    }
-                }
-            }
-        }
+
 
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
         for (NPC npc: gameNPCs) {
