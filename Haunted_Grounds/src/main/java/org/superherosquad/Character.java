@@ -3,17 +3,19 @@ package org.superherosquad;
 
 public abstract class Character {
     protected int Id;
+
     protected String name;
     protected int hp;
     protected int currency;
+
     protected String description;
     protected int speed;
     protected int defense;
     protected int attack;
 
-    public Character() {};
+    public Character() {}; //no arg constructor
 
-    public Character(int Id, String name, int hp, int currency, String description, int speed, int defense, int attack) {
+    public Character(int Id, String name, int hp, int currency, String description, int speed, int defense, int attack) { //Main constructor for new character type objects
         this.Id = Id;
         this.name = name;
         this.hp = hp;
@@ -28,51 +30,71 @@ public abstract class Character {
         return Id;
     }
 
+    public void setId(int Id) { //Set id for new players
+        this.Id = Id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
+    public void setName(String newName) {
+        name = newName;
+    }
+
+    public String getDescription() { //
         return description;
     }
 
-    public int getHP() {
+    public void setDescription(String description) { //set description for new players
+        this.description = description;
+    }
+
+    public int getHP() { //used for combat and to display HP information
         return hp;
     }
 
-    public void setHP(int hp) {
+    public void setHP(int hp) { //Used for combat and item effects
         this.hp = hp;
     }
 
-    public int getCurrency() {
+    public int getCurrency() { //Show money player has currently
         return currency;
     }
 
-    public void addCurrency(int currency) {
+    public void setCurrency(int currency) { //Set money for new players
+        this.currency = currency;
+    }
+
+    public void addCurrency(int currency) { //Used when gaining currency
         this.currency += currency;
     }
 
-    public int getSpeed() {
+    public void spendCurrency(int currency) { //Used for the shop
+        this.currency -= currency;
+    }
+
+    public int getSpeed() { //Used for combat
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(int speed) { //updated by item effects
         this.speed = speed;
     }
 
-    public int getDefense() {
+    public int getDefense() { //Used for combat
         return defense;
     }
 
-    public void setDefense(int defense) {
+    public void setDefense(int defense) { //updated by item effects
         this.defense = defense;
     }
 
-    public int getAttack() {
+    public int getAttack() { //Used for combat
         return attack;
     }
 
-    public void setAttack(int attack) {
+    public void setAttack(int attack) { //updated by item effects
         this.attack = attack;
     }
 

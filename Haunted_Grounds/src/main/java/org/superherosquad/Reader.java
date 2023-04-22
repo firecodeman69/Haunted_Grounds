@@ -9,6 +9,7 @@ public class Reader {
     Scanner sc;
 
 	/************************************Room file reader (Cody)*****************************/
+    /****This was giving errors with reading the file. Seems to be some special characters or encoding that Scanner doesn't like****/
 //    public ArrayList<Room> newRoom() {
 //        Room room;
 //        ArrayList<Room> rooms = new ArrayList<>();
@@ -48,26 +49,30 @@ public class Reader {
 //        return rooms;
 //    }
 
-    public ArrayList<Room> newRoom() {
+    public ArrayList<Room> newRoom() { //Create rooms for a new game
         Room room;
         ArrayList<Room> rooms = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader("rooms.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split("#");
-                int roomId = Integer.parseInt(tokens[0]);
-                String name = tokens[1];
-                String description = tokens[2];
-                String[] associationTokens = tokens[3].split(",");
+                String[] tokens = line.split("#"); //# delimited
+                String[] associationTokens = tokens[3].split(","); //Split roomAssociations
                 int[] associations = new int[associationTokens.length];
                 for (int i = 0; i < associationTokens.length; i++) {
-                    associations[i] = Integer.parseInt(associationTokens[i]);
+                    associations[i] = Integer.parseInt(associationTokens[i]); //Set int array of roomAssociations
                 }
-                boolean hasAssociations = Boolean.parseBoolean(tokens[4]);
-                room = new Room(roomId, name, description, associations[0], associations[1], associations[2], associations[3], hasAssociations);
-                rooms.add(room);
-            }
+                boolean isVisited = Boolean.parseBoolean(tokens[4]);
+                room = new Room(Integer.parseInt(tokens[0]), //Id
+                        tokens[1], //Name
+                        tokens[2], //Description
+                        associations[0], //northRoom
+                        associations[1], //southRoom
+                        associations[2], //eastRoom
+                        associations[3], //westRoom
+                        isVisited); //isVisited
+                rooms.add(room); //create new Room
+            } //end while
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();

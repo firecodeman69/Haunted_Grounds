@@ -19,12 +19,6 @@ public class Monster extends Character {
         return monsterLocations;
     }
 
-    //todo: implement this attack method.
-    //todo: determine what needs to happen when monster attacks
-    public void monsterAttack() {
-
-    }
-
     //todo: determine what should happen upon monster defeat
     public void defeatMonster() {
 

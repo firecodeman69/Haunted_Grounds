@@ -3,24 +3,24 @@ package org.superherosquad;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements Serializable {
 
     public static void main(String[] args) {
         Game game = new Game();
         game.newGame();
-        //System.out.println("Hello world!");
-        //Player p1 = new Player(1, "Cody", 100, 0, "First player of the game.", 25, 25, 25,0);
-        //Character c2 = new Character(2, "ReAnn", 100, 0, "First player of the game.", 25, 25, 25);
-        //Character c3 = new Character(3, "TreMya", 100, 0, "First player of the game.", 25, 25, 25);
-        //Character c4 = new Character(4, "Cobi", 100, 0, "First player of the game.", 25, 25, 25);
+
         //System.out.println(c1);
-        //game.saveGame(game.p);
+
+        //game.saveGame(game); //Not currently working
         
-        //game.loadGame("playerSave.txt");
-        //System.out.println(p1);
-        for (Room r: game.gameRooms) {
-            System.out.println(r);
-        }
+        //game.loadGame("saveGame.txt"); //Not currently working
+
+        System.out.println(game.p);
+
+        //System.out.println(game.gameMonsters);
+        //System.out.println(game.gameRooms);
+        //System.out.println(game.gameNPCs);
+        //System.out.println(game.gamePuzzles);
     }
 
 
@@ -35,12 +35,13 @@ public class Game {
     ArrayList<NPC> gameNPCs; //Cobi
     //Shop shop; //Cobi
     //Controller c1 = new Controller();
+    private static final long serialVersionUID = 1L; //For the save game method
     Player p;
     public void newGame() {
         gameRooms = reader.newRoom(); //Cody
-        for (Room r: gameRooms) {
-            System.out.println(r);
-        }
+//        for (Room r: gameRooms) {
+//            System.out.println(r);
+//        }
 
         //gameItems = reader.newItem(); //ReAnn
 //        for (Item i: gameItems) {
@@ -48,31 +49,41 @@ public class Game {
 //        }
 
         gamePuzzles = reader.newPuzzle(); //Cobi
-        for (Puzzle p: gamePuzzles) {
-            System.out.println(p);
-        }
+//        for (Puzzle p: gamePuzzles) {
+//            System.out.println(p);
+//        }
 
         gameMonsters = reader.newMonster(); //Cody
 
 
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
-        for (NPC npc: gameNPCs) {
-            System.out.println(npc);
-        }
+//        for (NPC npc: gameNPCs) {
+//            System.out.println(npc);
+//        }
         //shop = reader.newShop(); //Cobi
         p = new Player();
         addMonstersToRoom();
+
+        p.setId(0);
+        p.setName("Cody");
+        p.setHP(100);
+        p.setCurrency(100);
+        p.setDescription("First player of the game.");
+        p.setSpeed(25);
+        p.setDefense(25);
+        p.setAttack(25);
+        p.setCurrentRoom(gameRooms.get(0));
+        //System.out.println(p);
     }
 
-    public void saveGame(Player player) { //Cody
+    public void saveGame(Game game) { //Cody
         ObjectOutputStream oos = null;
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream("playerSave.txt");
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(player);
+            fos = new FileOutputStream("saveGame.txt");
+            oos = new ObjectOutputStream(fos); //Instantiate the ObjectOutputStream
+            oos.writeObject(game); //Write the object to the file
         } catch (IOException ioe) {
-            //todo: change this to do nothing?
             System.out.println("IOException! Oh no!");
         } finally { //close the stream even if there is an exception thrown
             try {
@@ -85,29 +96,31 @@ public class Game {
         }
     }
 
-    public Player loadGame(String fileName) { //Cody
+    public Game loadGame(String fileName) { //Cody
         ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
         FileInputStream fis;
+        Game loadedGame = null;
         try {
             fis = new FileInputStream(fileName);
             ois = new ObjectInputStream(fis);
-            p = (Player) ois.readObject(); //set current player = the contents of the save file
+            //p = (Player) ois.readObject(); //set current player = the contents of the save file
+            loadedGame = (Game) ois.readObject();
         } catch (IOException | ClassNotFoundException ioe) { //multi catch statement instead of using 2 catch statements
-            //todo: change this to do nothing?
+            System.out.println(fileName);
             System.out.println("Either an IOException happened or the class couldn't be found! Youch!");
         } finally { //close the stream even if there is an exception thrown
             try {
-                if (ois != null) { //todo:is there a better way to handle this?
+                if (ois != null) {
                     ois.close();
                 }
             } catch (IOException ioe) {
                 System.out.println("Closing the input Stream failed buckoo");
             }
         }
-        return p;
+        return loadedGame;
     }
 
-    public void addMonstersToRoom() {
+    public void addMonstersToRoom() { //Cody
         for (Monster m: gameMonsters) {
             int[] locations = m.getMonsterLocation();
             for (int i = 0; i < locations.length; i++) {
@@ -118,5 +131,6 @@ public class Game {
                 }
             }
         }
-    }
+    }//End of method
+
 }

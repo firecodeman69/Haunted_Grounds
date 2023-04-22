@@ -1,21 +1,25 @@
 /**************** Cody ********************/
 package org.superherosquad;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player extends Character {
+public class Player extends Character implements Serializable {
 
     ArrayList<Item> playerInventory;
     ArrayList<Item> equippedItems;
     int currentLocation;
     int previousLocation;
+    Room currentRoom;
+
+    Room previousRoom;
 
     public Player() {} //create a brand-new player
-    public Player(int Id, String name, int hp, int currency, String description, //to be used for loading
+    public Player(int Id, String name, int hp, int currency, String description, //to be used for loading??
                   int speed, int defense, int attack,
-                  int currentLocation) {
+                  Room currentRoom) {
         super(Id, name, hp, currency, description, speed, defense, attack);
-        this.currentLocation = currentLocation;
+        this.currentRoom = currentRoom;
     }
 
     public String addItemToInventory(Item item) {
@@ -56,17 +60,44 @@ public class Player extends Character {
         }
     }
 
-//    public Item explore(String name) {
-//        for (Item i : currentRoom.roomItems) {
-//            if (i.getName().equalsIgnoreCase(name)) {
-//                return i;
-//            }
-//        }
-//        return null;
-//    }
+    public Item explore(String name) {
+        for (Item i : currentRoom.getItems()) {
+            if (i.getName().equalsIgnoreCase(name)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room newRoom) {
+        currentRoom = newRoom;
+    }
+
+    public Room getPreviousRoom() {
+        return previousRoom;
+    }
+
+    public int getCurrentLocation() {
+        return previousLocation;
+    }
+
+    public void setCurrentLocation(int currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+    public int getPreviousLocation() {
+        return previousLocation;
+    }
+
+    public void setPreviousLocation(int previousLocation) {
+        this.previousLocation = previousLocation;
+    }
 
     /****************Cody && ReAnn*********************/
-    /*
     public String helpMenu() {
         return """
                 =======================================================================================================================================================================================
@@ -116,22 +147,6 @@ public class Player extends Character {
                 "buy" + item name + quantity: The user can use this commands in the shop to but consumables.
                 =======================================================================================================================================================================================                                                                          
                 """;
-    }*/
-
-    public int getCurrentLocation() {
-        return currentLocation;
-    }
-
-    public void setCurrentLocation(int currentLocation) {
-        this.currentLocation = currentLocation;
-    }
-
-    public int getPreviousLocation() {
-        return previousLocation;
-    }
-
-    public void setPreviousLocation(int previousLocation) {
-        this.previousLocation = previousLocation;
     }
 
 }
