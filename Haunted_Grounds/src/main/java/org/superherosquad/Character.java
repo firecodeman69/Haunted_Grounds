@@ -58,6 +58,14 @@ public abstract class Character {
         this.hp = hp;
     }
 
+    public void addHP(int hp) { //Used for combat and item effects
+        this.hp += hp;
+    }
+
+    public void loseHP(int hp) { //Used for combat and item effects
+        this.hp -= hp;
+    }
+
     public int getCurrency() { //Show money player has currently
         return currency;
     }
