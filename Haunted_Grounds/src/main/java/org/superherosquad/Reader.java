@@ -62,7 +62,7 @@ public class Reader {
                 for (int i = 0; i < associationTokens.length; i++) {
                     associations[i] = Integer.parseInt(associationTokens[i]); //Set int array of roomAssociations
                 }
-                boolean isVisited = Boolean.parseBoolean(tokens[4]);
+
                 room = new Room(Integer.parseInt(tokens[0]), //Id
                         tokens[1], //Name
                         tokens[2], //Description
@@ -70,7 +70,11 @@ public class Reader {
                         associations[1], //southRoom
                         associations[2], //eastRoom
                         associations[3], //westRoom
-                        isVisited); //isVisited
+                        Boolean.parseBoolean(tokens[4]), //isVisited
+                        Integer.parseInt(tokens[5]), //monsterId
+                        Integer.parseInt(tokens[6]), //puzzleId
+                        Integer.parseInt(tokens[7]), //itemId
+                        Integer.parseInt(tokens[8])); //npcId
                 rooms.add(room); //create new Room
             } //end while
             reader.close();
@@ -157,11 +161,11 @@ public class Reader {
                 String monsterInfo = sc.nextLine();
                 //System.out.println("Current line is (you fool): " + monsterInfo);
                 String[] monsterTokens = monsterInfo.split("#");
-                String[] roomAssociationTokens = monsterTokens[8].split(",");
-                int[] roomAssociations = new int[roomAssociationTokens.length];
-                for (int i = 0; i < roomAssociations.length; i++) {
-                    roomAssociations[i] = Integer.parseInt(roomAssociationTokens[i]);
-                }
+//                String[] roomAssociationTokens = monsterTokens[8].split(",");
+//                int[] roomAssociations = new int[roomAssociationTokens.length];
+//                for (int i = 0; i < roomAssociations.length; i++) {
+//                    roomAssociations[i] = Integer.parseInt(roomAssociationTokens[i]);
+//                }
                     monster = new Monster(Integer.parseInt(monsterTokens[0]) //MonsterID
                             , monsterTokens[1] //Name
                             , Integer.parseInt(monsterTokens[2]) //HP
@@ -169,8 +173,8 @@ public class Reader {
                             , monsterTokens[4] //Description
                             , Integer.parseInt(monsterTokens[5]) //Speed
                     , Integer.parseInt(monsterTokens[6]) //Defense
-                    , Integer.parseInt(monsterTokens[7]) //Attack
-                    , roomAssociations); //room associations
+                    , Integer.parseInt(monsterTokens[7])); //Attack
+                   // , roomAssociations); //room associations
                 monsters.add(monster);
             }//end while
             sc.close();
