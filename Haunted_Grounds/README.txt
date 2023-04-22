@@ -9,6 +9,9 @@ Name
 Description
 roomConnections (North, South, East, West)*
 isVisited
+monsterId
+puzzleId
+itemId
 
 *Data delimited by ',' (comma) in text file.
 
@@ -27,7 +30,6 @@ Speed
 Defense
 Attack
 Monster Items (Dropped upon defeat)*
-Location(s)*
 
 *Data delimited by ',' (comma) in text file.
 ---------------------------------------------------------------------------------GENERAL CONTROLS-----------------------------------------------------------------------------------

@@ -11,22 +11,23 @@ public class Game implements Serializable {
 
         //System.out.println(c1);
 
-        //game.saveGame(game); //Not currently working
-        
+        game.saveGame(game); //Not currently working
+
         //game.loadGame("saveGame.txt"); //Not currently working
 
         System.out.println(game.p);
 
-        //System.out.println(game.gameMonsters);
-        //System.out.println(game.gameRooms);
-        //System.out.println(game.gameNPCs);
-        //System.out.println(game.gamePuzzles);
+        System.out.println(game.gameMonsters);
+        System.out.println(game.gameRooms);
+        System.out.println(game.gameNPCs);
+        System.out.println(game.gamePuzzles);
     }
 
 
     /***************************Cody********************/
     //todo: determine if this is the right place for this to go
     //todo: determine if this is the right approach
+    Controller c1 = new Controller();
     Reader reader = new Reader();
     ArrayList<Room> gameRooms; //Cody
     //ArrayList<Item> gameItems; //ReAnn
@@ -37,35 +38,27 @@ public class Game implements Serializable {
     //Controller c1 = new Controller();
     private static final long serialVersionUID = 1L; //For the save game method
     Player p;
+
     public void newGame() {
         gameRooms = reader.newRoom(); //Cody
-//        for (Room r: gameRooms) {
-//            System.out.println(r);
-//        }
 
         //gameItems = reader.newItem(); //ReAnn
-//        for (Item i: gameItems) {
-//            System.out.println(r);
-//        }
 
         gamePuzzles = reader.newPuzzle(); //Cobi
-//        for (Puzzle p: gamePuzzles) {
-//            System.out.println(p);
-//        }
 
         gameMonsters = reader.newMonster(); //Cody
 
-
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
-//        for (NPC npc: gameNPCs) {
-//            System.out.println(npc);
-//        }
+
         //shop = reader.newShop(); //Cobi
+
         p = new Player();
         addMonstersToRoom();
+        addPuzzleToRoom();
+        addNPCToRoom();
 
         p.setId(0);
-        p.setName("Cody");
+        p.setName("Character 1");
         p.setHP(100);
         p.setCurrency(100);
         p.setDescription("First player of the game.");
@@ -73,14 +66,16 @@ public class Game implements Serializable {
         p.setDefense(25);
         p.setAttack(25);
         p.setCurrentRoom(gameRooms.get(0));
-        //System.out.println(p);
+        c1.gamePlay();
+
+        System.out.println(gameRooms);
     }
 
     public void saveGame(Game game) { //Cody
         ObjectOutputStream oos = null;
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream("saveGame.txt");
+            fos = new FileOutputStream("saveGame.bin");
             oos = new ObjectOutputStream(fos); //Instantiate the ObjectOutputStream
             oos.writeObject(game); //Write the object to the file
         } catch (IOException ioe) {
@@ -120,14 +115,41 @@ public class Game implements Serializable {
         return loadedGame;
     }
 
-    public void addMonstersToRoom() { //Cody
-        for (Monster m: gameMonsters) {
-            int[] locations = m.getMonsterLocation();
-            for (int i = 0; i < locations.length; i++) {
-                for (Room r: gameRooms) {
-                    if (locations[i] == r.getId()) {
-                        r.setMonster(m);
-                    }
+    public void addMonstersToRoom() { //Cody - adds monsters to rooms
+        for (Room r : gameRooms) {
+            for (Monster m: gameMonsters) {
+                if (r.getMonsterId() == m.getId()) {
+                    r.setMonster(m);
+                }
+            }
+        }
+    }//End of method
+
+    public void addPuzzleToRoom() { //Cody - adds puzzles to rooms
+        for (Room r : gameRooms) {
+            for (Puzzle p: gamePuzzles) {
+                if (r.getPuzzleId() == p.getId()) {
+                    r.setPuzzle(p);
+                }
+            }
+        }
+    }//End of method
+
+//    public void addItemToRoom() { //Cody - adds items to rooms
+//        for (Room r : gameRooms) {
+//            for (Item i: gameItems) {
+//                if (r.getItemId() == i.getId()) {
+//                    r.setPuzzle(i);
+//                }
+//            }
+//        }
+//    }//End of method
+
+    public void addNPCToRoom() { //Cody - adds puzzles to rooms
+        for (Room r : gameRooms) {
+            for (NPC npc: gameNPCs) {
+                if (r.getPuzzleId() == npc.getId()) {
+                    r.setNPC(npc);
                 }
             }
         }

@@ -1,0 +1,6 @@
+0#Ghost student#150#20#A pale, translucent figure wearing a tattered shirt and blue jeans.#22#20#30#0,2,5#17
+1#Possessed Professor#500#200#A teacher possessed by anger over not having any more students to teach.#30#40#80#3,0#4,6,8
+2#Zombie Librarian#450#50#Librarian who died in the library. Finally can read without being distracted…until you.#50#80#35#4,3#10
+3#Phantom Janitor#355#75#A phantom janitor, still sweeps the halls in eerie silence waiting patiently for the return of the students.#25#70#75#1,2,4#3,11,23
+4#Diligent UnDead Officer#782#1212#One of the many that protected the campus grounds from outside and inside forces. But now they attack any trespasser into their once beautiful campus grounds.#70#123#142#5,4,3,2#19
+5#Evil Campus Spirit#11030#99999999#The times have come and gone. With no more students to watch over, this statue has gained sentience and wishes to lash out into the world that has taken its beautiful students away.#160#184#230#-1#16,22

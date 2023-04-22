@@ -12,13 +12,18 @@ public class Room {
     private int eastRoom;
     private int westRoom;
 
+    private int monsterId;
+    private int puzzleId;
+    private int itemId;
+    private int npcId;
     private ArrayList<Item> roomItems;
     private Puzzle roomPuzzle;
     private Monster roomMonster;
 
+    private NPC roomNPC;
     private boolean isVisited;
 
-    public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited) { //Cody
+    public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId) { //Cody
         this.id = id;
         this.name = name;
         this.description = description;
@@ -27,6 +32,10 @@ public class Room {
         this.eastRoom = eastRoom;
         this.westRoom = westRoom;
         this.isVisited = isVisited;
+        this.monsterId = monsterId;
+        this.puzzleId = puzzleId;
+        this.itemId = itemId;
+        this.npcId = npcId;
     }
 
     public int getId() { //Cody
@@ -61,6 +70,10 @@ public class Room {
         roomMonster = null;
     }
 
+    public void setNPC(NPC npc) {
+        roomNPC = npc;
+    }
+
     public void setVisited() { //TreMya
         isVisited = true;
     }
@@ -79,6 +92,22 @@ public class Room {
                 roomItems.remove(item);
             }
         }
+    }
+
+    public int getMonsterId() {
+        return monsterId;
+    }
+
+    public int getPuzzleId() {
+        return puzzleId;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public int getNpcId() {
+        return npcId;
     }
 
     @Override

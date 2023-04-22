@@ -17,7 +17,10 @@ public class NPC
 		this.puzzle = p;
 		this.shopAccess = a;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
 	public String getName()
 	{
 		return this.name;
