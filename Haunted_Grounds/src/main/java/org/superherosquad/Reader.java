@@ -9,44 +9,72 @@ public class Reader {
     Scanner sc;
 
 	/************************************Room file reader (Cody)*****************************/
+//    public ArrayList<Room> newRoom() {
+//        Room room;
+//        ArrayList<Room> rooms = new ArrayList<>();
+//        try {
+//            sc = new Scanner(new File("rooms.txt"));
+//
+//            while (sc.hasNextLine()) {
+//                String roomInfo = sc.nextLine();
+//                System.out.println("Current line is (you fool): " + roomInfo);
+//                String[] roomTokens = roomInfo.split("#");
+//                String[] roomAssociationTokens = roomTokens[3].split(",");
+//                int[] roomAssociations = new int[roomAssociationTokens.length];
+//                for (int i = 0; i < roomAssociations.length; i++) {
+//                    roomAssociations[i] = Integer.parseInt(roomAssociationTokens[i]);
+//                }
+//                room = new Room(Integer.parseInt(roomTokens[0]) //RoomID
+//                        , roomTokens[1] //Name
+//                        , roomTokens[2] //Description
+//                        , roomAssociations[0] //northRoom
+//                        , roomAssociations[1] //southRoom
+//                        , roomAssociations[2] //eastRoom
+//                        , roomAssociations[3] //westRoom
+//                        ,Boolean.parseBoolean(roomTokens[4])); //isVisited
+//                rooms.add(room);
+//            }//end while
+//            sc.close();
+//            //System.out.println(rooms);
+//        }//end try
+//        catch (IOException ioe) {
+//            ioe.printStackTrace();
+//            System.out.println("IOException!" +
+//                    "No room file exists! " +
+//                    "Please make sure that the file exists and try again.");
+//        } catch (NoSuchElementException nse) {
+//            nse.printStackTrace();
+//        }
+//        return rooms;
+//    }
+
     public ArrayList<Room> newRoom() {
         Room room;
         ArrayList<Room> rooms = new ArrayList<>();
         try {
-            sc = new Scanner(new File("rooms.txt"));
-
-            while (sc.hasNextLine()) {
-                String roomInfo = sc.nextLine();
-                System.out.println("Current line is (you fool): " + roomInfo);
-                String[] roomTokens = roomInfo.split("#");
-                String[] roomAssociationTokens = roomTokens[3].split(",");
-                int[] roomAssociations = new int[roomAssociationTokens.length];
-                for (int i = 0; i < roomAssociations.length; i++) {
-                    roomAssociations[i] = Integer.parseInt(roomAssociationTokens[i]);
+            BufferedReader reader = new BufferedReader(new FileReader("rooms.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split("#");
+                int roomId = Integer.parseInt(tokens[0]);
+                String name = tokens[1];
+                String description = tokens[2];
+                String[] associationTokens = tokens[3].split(",");
+                int[] associations = new int[associationTokens.length];
+                for (int i = 0; i < associationTokens.length; i++) {
+                    associations[i] = Integer.parseInt(associationTokens[i]);
                 }
-                room = new Room(Integer.parseInt(roomTokens[0]) //RoomID
-                        , roomTokens[1] //Name
-                        , roomTokens[2] //Description
-                        , roomAssociations[0] //northRoom
-                        , roomAssociations[1] //southRoom
-                        , roomAssociations[2] //eastRoom
-                        , roomAssociations[3] //westRoom
-                        ,Boolean.parseBoolean(roomTokens[3])); //room associations
+                boolean hasAssociations = Boolean.parseBoolean(tokens[4]);
+                room = new Room(roomId, name, description, associations[0], associations[1], associations[2], associations[3], hasAssociations);
                 rooms.add(room);
-            }//end while
-            sc.close();
-            //System.out.println(rooms);
-        }//end try
-        catch (IOException ioe) {
-            ioe.printStackTrace();
-            System.out.println("IOException!" +
-                    "No room file exists! " +
-                    "Please make sure that the file exists and try again.");
-        } catch (NoSuchElementException nse) {
-            nse.printStackTrace();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return rooms;
     }
+
 
     /************************************Item file reader (ReAnn)*****************************/
 

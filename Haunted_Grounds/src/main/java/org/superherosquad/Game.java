@@ -18,6 +18,20 @@ public class Game {
         
         //game.loadGame("playerSave.txt");
         //System.out.println(p1);
+        for (Monster m: game.gameMonsters) {
+            int[] locations = m.getMonsterLocation();
+            for (int i = 0; i < locations.length; i++) {
+                for (Room r: game.gameRooms) {
+                    if (locations[i] == r.getId()) {
+                        r.setMonster(m);
+                    }
+                }
+            }
+        }
+
+        for (Room r: game.gameRooms) {
+            System.out.println(r);
+        }
     }
 
 
@@ -50,9 +64,7 @@ public class Game {
         }
 
         gameMonsters = reader.newMonster(); //Cody
-        for (Monster m: gameMonsters) {
-            System.out.println(m);
-        }
+
 
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
         for (NPC npc: gameNPCs) {
@@ -62,7 +74,7 @@ public class Game {
         p = new Player();
     }
 
-    public void saveGame(Player player) {
+    public void saveGame(Player player) { //Cody
         ObjectOutputStream oos = null;
         FileOutputStream fos;
         try {
@@ -83,7 +95,7 @@ public class Game {
         }
     }
 
-    public Player loadGame(String fileName) {
+    public Player loadGame(String fileName) { //Cody
         ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
         FileInputStream fis;
         try {
