@@ -1,6 +1,20 @@
+--------------------------------------------------------------------------------------ROOM--------------------------------------------------------------------------------------
+
+Open rooms.txt, you will see a list of elements pertaining to each Room within a new game.
+
+The following is the order of the monster data (delimited by '#'):
+
+Id
+Name
+Description
+roomConnections (North, South, East, West)*
+isVisited
+
+*Data delimited by ',' (comma) in text file.
+
 --------------------------------------------------------------------------------------MONSTERS--------------------------------------------------------------------------------------
 
-Open monster.txt and you will see a list of elements pertaining to each monster. The data is separated with '#' as the delimeter.
+Open monster.txt, you will see a list of elements pertaining to each monster.
 
 The following is the order of the monster data (delimited by '#'):
 
@@ -12,8 +26,10 @@ Description
 Speed
 Defense
 Attack
-Location(s)
+Monster Items (Dropped upon defeat)*
+Location(s)*
 
+*Data delimited by ',' (comma) in text file.
 ---------------------------------------------------------------------------------GENERAL CONTROLS-----------------------------------------------------------------------------------
 For the controls of the game, you will be prompted to enter your player name.
 

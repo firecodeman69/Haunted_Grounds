@@ -25,7 +25,7 @@ public class Game {
     //todo: determine if this is the right place for this to go
     //todo: determine if this is the right approach
     Reader reader = new Reader();
-    //ArrayList<Room> gameRooms; //TreMya
+    ArrayList<Room> gameRooms; //Cody
     //ArrayList<Item> gameItems; //ReAnn
     ArrayList<Puzzle> gamePuzzles; //Cobi
     ArrayList<Monster> gameMonsters; //Cody
@@ -34,16 +34,30 @@ public class Game {
     //Controller c1 = new Controller();
     Player p;
     public void newGame() {
-        //gameRooms = reader.newRoom(); //TreMya
-        //gameItems = reader.newItem(); //ReAnn
-        gamePuzzles = reader.newPuzzle(); //Cobi
+        gameRooms = reader.newRoom(); //Cody
+        for (Room r: gameRooms) {
+            System.out.println(r);
+        }
 
-        gameMonsters = reader.newMonster(); //Cody
-//        for (Monster m: gameMonsters) {
-//            System.out.println(m);
+        //gameItems = reader.newItem(); //ReAnn
+//        for (Item i: gameItems) {
+//            System.out.println(r);
 //        }
 
+        gamePuzzles = reader.newPuzzle(); //Cobi
+        for (Puzzle p: gamePuzzles) {
+            System.out.println(p);
+        }
+
+        gameMonsters = reader.newMonster(); //Cody
+        for (Monster m: gameMonsters) {
+            System.out.println(m);
+        }
+
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
+        for (NPC npc: gameNPCs) {
+            System.out.println(npc);
+        }
         //shop = reader.newShop(); //Cobi
         p = new Player();
     }
