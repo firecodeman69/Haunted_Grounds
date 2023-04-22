@@ -42,4 +42,14 @@ public class NPC
 	{
 		
 	}
+
+	//todo: change this to be how you want - if you want it changed.
+	@Override
+	public String toString() {
+		return "[Id: " + id + "] " +
+				"[Name: " + name + "] " +
+				"[Description: " + description + "] " +
+				"[Puzzle: " + puzzle.getName() + "] " +
+				"[ShopAccess: " + shopAccess + "] ";
+	}
 }

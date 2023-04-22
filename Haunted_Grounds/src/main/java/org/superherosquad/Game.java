@@ -62,7 +62,7 @@ public class Game {
         p = new Player();
     }
 
-    public void saveGame(Player player) {
+    public void saveGame(Player player) { //Cody
         ObjectOutputStream oos = null;
         FileOutputStream fos;
         try {
@@ -83,7 +83,7 @@ public class Game {
         }
     }
 
-    public Player loadGame(String fileName) {
+    public Player loadGame(String fileName) { //Cody
         ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
         FileInputStream fis;
         try {

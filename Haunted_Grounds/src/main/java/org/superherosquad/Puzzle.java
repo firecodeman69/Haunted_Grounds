@@ -76,5 +76,20 @@ public class Puzzle
 	{
 		
 	}
+
+	//todo: change this to be how you want
+	@Override
+	public String toString() {
+		return "[Id: " + id + "] " +
+				"[Name: " + name + "] " +
+				"[Question: " + question + "] " +
+				"[Solution: " + solution + "] " +
+				"[Hint: " + hint + "] " +
+				"[Description: " + description + "] " +
+				"[Correct Response: " + correctResp + "] " +
+				"[Incorrect Response: " + wrongResp + "] " +
+				"[Is Solved?: " + isSolved + "] ";
+
+	}
 	
 }
