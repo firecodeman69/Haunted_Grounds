@@ -12,6 +12,7 @@ isVisited
 monsterId
 puzzleId
 itemId
+npcId
 
 *Data delimited by ',' (comma) in text file.
 

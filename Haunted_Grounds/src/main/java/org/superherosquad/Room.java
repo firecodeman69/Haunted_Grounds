@@ -16,7 +16,7 @@ public class Room {
     private int puzzleId;
     private int itemId;
     private int npcId;
-    private ArrayList<Item> roomItems;
+    private ArrayList<Item> roomItems = new ArrayList<>();
     private Puzzle roomPuzzle;
     private Monster roomMonster;
 
@@ -86,6 +86,10 @@ public class Room {
         return roomItems;
     }
 
+    public void addItem(Item item) {
+        roomItems.add(item);
+    }
+
     public void removeItem(Item item) { //Cody
         for (Item i: roomItems) {
             if (i.getName().equalsIgnoreCase(i.getName())) {
@@ -110,17 +114,33 @@ public class Room {
         return npcId;
     }
 
+    public int getNorthRoom() {
+        return northRoom;
+    }
+
+    public int getSouthRoom() {
+        return southRoom;
+    }
+
+    public int getEastRoom() {
+        return eastRoom;
+    }
+
+    public int getWestRoom() {
+        return westRoom;
+    }
+
     @Override
     public String toString() { //Cody
         return  "[Room Id: " + id + "] " +
                 "[Room Name: " + name + "] " +
-                "[Room Description:" + description + "] " +
-                "[Room to the North:" + northRoom + "] " +
-                "[Room to the South:" + southRoom + "] " +
-                "[Room to the East:" + eastRoom + "] " +
-                "[Room Items:" + roomItems + "] " +
-                "[Room Puzzle:" + roomPuzzle + "] " +
-                "[Room Monster:" + roomMonster + "] " +
-                "[Has been visited?:" + isVisited + "] ";
+                "[Room Description: " + description + "] " +
+                "[Room to the North: " + northRoom + "] " +
+                "[Room to the South: " + southRoom + "] " +
+                "[Room to the East: " + eastRoom + "] " +
+                "[Room Items: " + roomItems + "] " +
+                "[Room Puzzle: " + roomPuzzle + "] " +
+                "[Room Monster: " + roomMonster + "] " +
+                "[Has been visited?: " + isVisited + "] ";
     }
 }

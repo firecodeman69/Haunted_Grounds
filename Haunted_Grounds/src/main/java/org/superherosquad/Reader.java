@@ -161,11 +161,11 @@ public class Reader {
                 String monsterInfo = sc.nextLine();
                 //System.out.println("Current line is (you fool): " + monsterInfo);
                 String[] monsterTokens = monsterInfo.split("#");
-//                String[] roomAssociationTokens = monsterTokens[8].split(",");
-//                int[] roomAssociations = new int[roomAssociationTokens.length];
-//                for (int i = 0; i < roomAssociations.length; i++) {
-//                    roomAssociations[i] = Integer.parseInt(roomAssociationTokens[i]);
-//                }
+                String[] itemAssociationTokens = monsterTokens[8].split(",");
+                int[] itemAssociations = new int[itemAssociationTokens.length];
+                for (int i = 0; i < itemAssociationTokens.length; i++) {
+                    itemAssociations[i] = Integer.parseInt(itemAssociationTokens[i]);
+                }
                     monster = new Monster(Integer.parseInt(monsterTokens[0]) //MonsterID
                             , monsterTokens[1] //Name
                             , Integer.parseInt(monsterTokens[2]) //HP
@@ -173,7 +173,8 @@ public class Reader {
                             , monsterTokens[4] //Description
                             , Integer.parseInt(monsterTokens[5]) //Speed
                     , Integer.parseInt(monsterTokens[6]) //Defense
-                    , Integer.parseInt(monsterTokens[7])); //Attack
+                    , Integer.parseInt(monsterTokens[7]), //Attack
+                            itemAssociations); //Item associations
                    // , roomAssociations); //room associations
                 monsters.add(monster);
             }//end while
