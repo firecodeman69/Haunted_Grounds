@@ -220,6 +220,7 @@ public class Controller {
                     }
                 } else {
                     mode = prevMode;
+                    break;
                 }
 
             case 2: { //Puzzle
