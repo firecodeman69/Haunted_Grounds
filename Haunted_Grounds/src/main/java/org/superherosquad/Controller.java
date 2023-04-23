@@ -115,23 +115,100 @@ public class Controller {
 		        case "north":
 		        case "n":
 		            p.moveRooms("n", rooms);
+					if (p.roomHasMonster()) {
+						mode = 1;
+					}
 		            return mode;
 		        case "south":
 		        case "s":
 	                p.moveRooms("s", rooms);
+					if (p.roomHasMonster()) {
+						mode = 1;
+					}
 	                return mode;
 	            case "east":
 	            case "e":
 	                p.moveRooms("e", rooms);
+					if (p.roomHasMonster()) {
+						mode = 1;
+					}
 	                return mode;
 	            case "west":
 	            case "w":
 	                p.moveRooms("w", rooms);
+					if (p.roomHasMonster()) {
+						mode = 1;
+					}
 	                return mode;
 	            default:
 	            	view.invalid();
 	            	return mode;
         		}
+
+			case 1:
+				boolean playerTurn = true;
+				boolean monsterTurn = false;
+				boolean defending = false;
+				System.out.println("Starting combat!");
+				while (true) {
+					playerInput = input.nextLine().toLowerCase();
+					tokens = playerInput.split(" ");
+					Monster monster = p.getCurrentRoom().getRoomMonster();
+					view.print("What would you like to do?\n Attack, Defend, Use {item name}, Run");
+
+					if (monster.isAlive() || p.isAlive()) {
+						if (playerTurn) {
+							switch (tokens[0]) {
+								case "attack":
+								case "a":
+									monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
+									break;
+								case "defend":
+								case "d":
+									defending = true;
+									break;
+								case "use":
+									if (p.hasItem(tokens[1])) {
+										p.useConsumableItem(tokens[1]); //add item effect to player's health
+									}
+									break;
+								case "run":
+								case "r":
+									System.out.println("Player run percentage is " + p.getRunChance() + "\nRun away successfully? " + p.runSuccess(monster));
+									break;
+								case "inventory":
+								case "i":
+									System.out.println(p.getPlayerInventory().toString());
+									break;
+
+							}
+						} else if (monsterTurn) {
+							if (defending) {
+								p.loseHP(monster.getAttack() / 2); //if player defends, deal half of monster attack
+								System.out.println("Monster attacked and hit you for " + (monster.getAttack() / 2) + "." +
+										"Remaining HP: " + p.getHP());
+							} else {
+								p.loseHP(monster.getAttack());
+								System.out.println("Monster attacked and hit you for " + (monster.getAttack()) + "." +
+										"Remaining HP: " + p.getHP());
+							}
+						}
+					} else if (monster.isAlive()) {
+						System.out.println("You have been defeated in battle. Regroup and try again!");
+						mode = 5;
+						break;
+					}
+					else {
+						System.out.println("You successfully defeated " + monster.getName() + "!" +
+								"You have earned " + monster.getCurrency() + " and gained items: " +
+								monster.getMonsterInventory());
+						p.addItemsToInventory(monster.getMonsterInventory());
+						p.addCurrency(monster.getCurrency());
+						mode = prevMode;
+						break;
+					}
+				}
+
         }  
     return mode;
     }

@@ -23,9 +23,10 @@ public class Monster extends Character {
 //    }
 
     //TODO: determine what should happen upon monster defeat
-    public void defeatMonster() {
-
-    }
+//    public void defeatMonster() {
+//        dropItems();
+//        dropCurrency();
+//    }
 
     public ArrayList<Item> dropItems() {
         return monsterInventory;
@@ -41,6 +42,10 @@ public class Monster extends Character {
 
     public int[] getMonsterItemAssociations() {
         return monsterItemAssociations;
+    }
+
+    public ArrayList<Item> getMonsterInventory() {
+        return monsterInventory;
     }
 
     public String toString() {
