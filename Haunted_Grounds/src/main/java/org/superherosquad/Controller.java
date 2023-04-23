@@ -84,129 +84,130 @@ public class Controller {
                         return mode;
                 }
 
-        	case 0: //Navigating between rooms
-        		view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
-        		view.print("Please input a command."); //Prompt the player for what they need to input.
+            case 0: //Navigating between rooms
+                view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
+                view.print("Please input a command."); //Prompt the player for what they need to input.
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
                 tokens = playerInput.split(" ");
 
                 switch (tokens[0]) { //This is the first word of the input.
 
-                    case "north": //Attempt to move to the room to the north.
-                    case "n": //Included shorthand commands because I do not feel like typing out the entire word :)
+                    //Attempt to move to the room to the north.
+                    case "north", "n" -> { //Included shorthand commands because I do not feel like typing out the entire word :)
                         p.moveRooms("n", rooms);
                         return mode;
-
-                    case "south": //Attempt to move to the room to the south.
-                    case "s":
+                    } //Attempt to move to the room to the south.
+                    case "south", "s" -> {
                         p.moveRooms("s", rooms);
                         return mode;
-                    case "east": //Attempt to move to the room to the east.
-                    case "e":
+                    } //Attempt to move to the room to the east.
+                    case "east", "e" -> {
                         p.moveRooms("e", rooms);
                         return mode;
-                    case "west": //Attempt to move to the room to the west.
-                    case "w":
+                    } //Attempt to move to the room to the west.
+                    case "west", "w" -> {
                         p.moveRooms("w", rooms);
                         return mode;
-
-                    case "exitroom": //Move to the room that the player was previously in.
+                    }
+                    case "exitroom" -> { //Move to the room that the player was previously in.
                         p.exitRoom();
                         return mode;
-
-                    case "inspectroom": //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
+                    }
+                    case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
                         mode = p.getCurrentRoom().inspect(p, mode);
                         return mode;
-
-                    case "lights": //Turns the lights on in a dark room, or lets the user know the lights are already on.
+                    }
+                    case "lights" -> { //Turns the lights on in a dark room, or lets the user know the lights are already on.
                         p.getCurrentRoom().lightsOn();
                         return mode;
-
-                    case "inventory": //Turns the lights on in a dark room, or lets the user know the lights are already on.
+                    }
+                    case "inventory" -> { //Turns the lights on in a dark room, or lets the user know the lights are already on.
                         view.print(p.showInventory());
                         return mode;
-
-                    case "help": //Prints out the help menu.
+                    }
+                    case "help" -> { //Prints out the help menu.
                         view.helpMenu();
                         return mode;
+                    }
+                    case "pickup" -> {
+                        if (tokens.length == 2) p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1]));
+                        else p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1] + " " + tokens[2]));
+                    }
 
-                    default:
+                    default -> {
                         view.invalid();
                         return mode;
+                    }
                 }
 
-            case 1:
+            case 1: //Combat - Cody
                 boolean playerTurn = true;
-                boolean monsterTurn = false;
                 boolean defending = false;
                 Monster monster = p.getCurrentRoom().getRoomMonster();
-                System.out.println(monster.getName() + " Attacked you! Starting combat!");
-                while (monster.isAlive() && p.isAlive()) {
+                int decision = p.initialCombat(monster, input); // if 0, player turn first. if 1, monster turn first, if -1, escape combat, change mode to prevMode
 
-                    if (playerTurn) {
-						view.print("What would you like to do?\n(A)ttack, (D)efend, Use {item name}, (R)un");
-						playerInput = input.nextLine().toLowerCase();
-						tokens = playerInput.split(" ");
-                        switch (tokens[0]) {
-                            case "attack":
-                            case "a":
-                                monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
-                                System.out.println("You hit the monster for " + p.getAttack() + "! " +
-                                        "Monster has " + monster.getHP() + "hp left.");
-                                playerTurn = false;
-                                monsterTurn = true;
-                                break;
-                            case "defend":
-                            case "d":
-                                defending = true;
-                                System.out.println("You are defending.");
-                                playerTurn = false;
-                                monsterTurn = true;
-                                break;
-                            case "use":
-                                if (p.hasItem(tokens[1])) {
-                                    p.useConsumableItem(tokens[1]); //add item effect to player's health
+                if (decision == 0 || decision == 1) { //didn't run from monster
+                    if (decision == 1) playerTurn = false; //ignored the monster
+                    while (monster.isAlive() && p.isAlive()) {
+                        if (playerTurn) {
+                            view.print("What would you like to do?\n(A)ttack, (D)efend, Use {item name}, (R)un");
+                            playerInput = input.nextLine().toLowerCase();
+                            tokens = playerInput.split(" ");
+                            switch (tokens[0]) {
+                                case "attack", "a" -> {
+                                    monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
+                                    view.print("You hit the monster for " + p.getAttack() + "! " +
+                                            "Monster has " + monster.getHP() + "hp left.");
+                                    playerTurn = false;
                                 }
-                                playerTurn = false;
-                                monsterTurn = true;
-                                break;
-                            case "run":
-                            case "r":
-                                p.setRunChance(monster);
-                                System.out.println("Player run percentage is " + p.getRunChance() + "\nRun away successfully? " + p.runSuccess(monster));
-                                playerTurn = false;
-                                monsterTurn = true;
-                                break;
-                        }
-                    } else if (monsterTurn) {
-                        if (defending) {
-                            p.loseHP(monster.getAttack() / 2); //if player defends, deal half of monster attack
-                            System.out.println("Monster attacked and hit you for " + (monster.getAttack() / 2) + ". " +
-                                    "Remaining HP: " + p.getHP());
-                            playerTurn = true;
-                            monsterTurn = false;
+                                case "defend", "d" -> {
+                                    defending = true;
+                                    view.print("You are defending.");
+                                    playerTurn = false;
+                                }
+                                case "use" -> {
+                                    if (p.hasItem(tokens[1])) {
+                                        p.useConsumableItem(tokens[1]); //add item effect to player's health
+                                    }
+                                    playerTurn = false;
+                                }
+                                case "run", "r" -> {
+                                    p.setRunChance(monster);
+                                    view.print("Player run percentage is " + p.getRunChance() + "\nRun away successfully? " + p.runSuccess(monster));
+                                    playerTurn = false;
+                                }
+                            }
                         } else {
-                            p.loseHP(monster.getAttack());
-                            System.out.println("Monster attacked and hit you for " + (monster.getAttack()) + ". " +
-                                    "Remaining HP: " + p.getHP());
-                            playerTurn = true;
-                            monsterTurn = false;
+                            if (defending) {
+                                p.loseHP(monster.getAttack() / 2); //if player defends, deal half of monster attack
+                                view.print("Monster attacked and hit you for " + (monster.getAttack() / 2) + ". " +
+                                        "Remaining HP: " + p.getHP());
+                                playerTurn = true;
+                            } else {
+                                p.loseHP(monster.getAttack());
+                                view.print("Monster attacked and hit you for " + (monster.getAttack()) + ". " +
+                                        "Remaining HP: " + p.getHP());
+                                playerTurn = true;
+                            }
                         }
                     }
-                } if (monster.isAlive() && !p.isAlive()) {
-                System.out.println("You have been defeated in battle. Regroup and try again!");
-                mode = 5;
-                break;
-            } else {
-                System.out.println("You successfully defeated " + monster.getName() + "! " +
-                        "You have earned " + monster.getCurrency() + " and gained items: " +
-                        monster.getMonsterInventory());
-                p.addItemsToInventory(monster.getMonsterInventory());
-                p.addCurrency(monster.getCurrency());
-                p.currentRoom.removeMonster();
-                mode = prevMode;
-                break;
-            }
+                    if (monster.isAlive() && !p.isAlive()) {
+                        view.print("You have been defeated in battle. Regroup and try again!");
+                        mode = 5;
+                        break;
+                    } else {
+                        view.print("You successfully defeated " + monster.getName() + "! " +
+                                "You have earned " + monster.getCurrency() + " and gained items: " +
+                                monster.getMonsterInventory());
+                        p.addItemsToInventory(monster.getMonsterInventory());
+                        p.addCurrency(monster.getCurrency());
+                        p.currentRoom.removeMonster();
+                        mode = prevMode;
+                        break;
+                    }
+                } else {
+                    mode = prevMode;
+                }
         }
         return mode;
     }

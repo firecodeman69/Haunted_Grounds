@@ -3,6 +3,7 @@ package org.superherosquad;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player extends Character implements Serializable {
 
@@ -248,5 +249,27 @@ public class Player extends Character implements Serializable {
 
     public void setPreviousroom(Room oldRoom) {
         previousRoom = oldRoom;
+    }
+
+    public int initialCombat(Monster monster, Scanner input) {
+        int playerTurn = -1;
+        view.print("You see " + monster.getName() + " in the room with you.\n" +
+                "What would you like to do?\n(A)ttack, (I)gnore, (R)un");
+        String playerInput = input.nextLine().toLowerCase();
+        String[] tokens = playerInput.split(" ");
+        switch (tokens[0]) {
+            case "attack", "a" -> {
+                view.print("Good luck brave one - may you be successful in your combat.");
+                playerTurn = 0;
+            }
+            case "ignore", "i" -> {
+                view.print(monster.getName() + " Attacked you! Can't leave them on read so easily.\nStarting combat!");
+                playerTurn = 1;
+            }
+            case "run", "r" -> {
+                exitRoom();
+            }
+        }
+        return playerTurn;
     }
 }
