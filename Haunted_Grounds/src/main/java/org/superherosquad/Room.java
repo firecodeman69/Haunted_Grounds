@@ -26,7 +26,8 @@ public class Room {
     private boolean isVisited;
     private boolean isDark;
 
-    public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId, boolean isDark) { //Cody
+    //Cody
+    public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId, boolean isDark) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -74,7 +75,7 @@ public class Room {
         roomPuzzle = null;
     }
 
-    public Monster getRoomMonster() {
+    public Monster getRoomMonster() { //Cody
         return roomMonster;
     }
 
@@ -86,7 +87,7 @@ public class Room {
         roomMonster = null;
     }
 
-    public void setNPC(NPC npc) {
+    public void setNPC(NPC npc) { //Cody
         roomNPC = npc;
     }
 

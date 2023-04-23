@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public class Player extends Character implements Serializable {
 
-    ArrayList<Item> playerInventory;
-    ArrayList<Item> equippedItems;
+    ArrayList<Item> playerInventory = new ArrayList<>();
+    ArrayList<Item> equippedItems = new ArrayList<>();
     Room currentRoom;
     Room previousRoom;
     View view = new View();
     double runChance = 0;
 
     public Player() {
-        super(0, "Character 1", 1000000, 9999999, "First player of the game.", 250000, 250000, 250000);
+        super(0, "Character 1", 1000, 0, "First player of the game.", 100, 100, 100);
     } //create a default player
 
     public Player(int Id, String name, int hp, int currency, String description, //to be used for loading??
@@ -62,10 +62,10 @@ public class Player extends Character implements Serializable {
     }
 
     public String showInventory() {
-        if (playerInventory != null) {
-            return playerInventory.toString();
-        } else {
+        if (playerInventory.size() < 0) {
             return ("You don't have any items in your inventory.");
+        } else {
+            return playerInventory.toString();
         }
     }
 
@@ -102,7 +102,6 @@ public class Player extends Character implements Serializable {
     }
 
     public boolean runSuccess(Monster monster) {
-        runChance = (double) (speed/(speed + monster.getSpeed()));
         return Math.ceil(Math.random() * 100) <= runChance;
     }
 
@@ -169,8 +168,10 @@ public class Player extends Character implements Serializable {
 		            break;
 	            	}
 	            }
-	            else view.print("You cannot go that way.");
-	            break;
+	            else {
+	            	view.print("You cannot go that way.");
+		            break;
+	            }
 
     		case "s":
 	            if(this.currentRoom.getSouthRoom() != -1) {
@@ -190,8 +191,11 @@ public class Player extends Character implements Serializable {
 		            break;
 	            	}
 	            }
-	            else view.print("You cannot go that way.");
-	            break;
+	            else {
+	            	view.print("You cannot go that way.");
+	            	break;
+	            }
+
 
     		case "w":
 	            if(this.currentRoom.getWestRoom() != -1) {
@@ -211,14 +215,17 @@ public class Player extends Character implements Serializable {
 		            
 	            	}
 	            }
-	            else view.print("You cannot go that way.");
-	            break;
+	            else {
+	            	view.print("You cannot go that way.");
+	            	break;
+	            }
+
 	         
 	        default:
 	        	view.print("This message should not be displayed during regular gameplay. Please report this bug to the developers.");
 	        	break;
+    		}
     	}
-    }
 
     public void exitRoom() { //Cobi
         Room temp = this.currentRoom;

@@ -122,6 +122,10 @@ public class Controller {
                         p.getCurrentRoom().lightsOn();
                         return mode;
 
+                    case "inventory": //Turns the lights on in a dark room, or lets the user know the lights are already on.
+                        view.print(p.showInventory());
+                        return mode;
+
                     case "help": //Prints out the help menu.
                         view.helpMenu();
                         return mode;
@@ -199,6 +203,7 @@ public class Controller {
                         monster.getMonsterInventory());
                 p.addItemsToInventory(monster.getMonsterInventory());
                 p.addCurrency(monster.getCurrency());
+                p.currentRoom.removeMonster();
                 mode = prevMode;
                 break;
             }
