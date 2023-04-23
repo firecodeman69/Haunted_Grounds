@@ -4,6 +4,8 @@ package org.superherosquad;
 import java.util.ArrayList;
 
 public class Room {
+	private View view = new View();
+	
     private int id;
     private String name;
     private String description;
@@ -22,8 +24,9 @@ public class Room {
 
     private NPC roomNPC;
     private boolean isVisited;
+    private boolean isDark;
 
-    public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId) { //Cody
+    public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId, boolean isDark) { //Cody
         this.id = id;
         this.name = name;
         this.description = description;
@@ -36,6 +39,7 @@ public class Room {
         this.puzzleId = puzzleId;
         this.itemId = itemId;
         this.npcId = npcId;
+        this.isDark = isDark;
     }
 
     public int getId() { //Cody
@@ -49,6 +53,10 @@ public class Room {
     public String getDescription() { //Cody
         return description;
     }
+    
+    public boolean getIsDark() { //Cobi
+    	return isDark;
+    }
 
     public void setItem(Item item) { //Cody
         roomItems.add(item);
@@ -56,6 +64,10 @@ public class Room {
 
     public void setPuzzle(Puzzle puzzle) { //Cody
         roomPuzzle = puzzle;
+    }
+    
+    public Puzzle getPuzzle() { //Cobi
+    	return roomPuzzle;
     }
 
     public void removePuzzle() { //Cody
@@ -96,6 +108,26 @@ public class Room {
                 roomItems.remove(item);
             }
         }
+    }
+    
+    //TODO: Fill in the process for initiating combat.
+    //TODO: Figure out how to deal with null values in the items and puzzles.
+    public void inspect(Player p) {
+    	if(p.getCurrentRoom().getIsDark()) {
+    		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
+    	}
+    	else if(p.getCurrentRoom().getMonsterId() != 0) {
+    		//Initiate combat
+    	}
+    	else {
+        	view.print("Room description: " + p.getCurrentRoom().getDescription() + "\n");
+        	view.print("Items in room: " + p.getCurrentRoom().getItems() + "\n");
+        	view.print("Puzzles in room: " + p.getCurrentRoom().getPuzzle());
+    	}
+    }
+    
+    public void lightsOn() {
+    	this.isDark = false;
     }
 
     public int getMonsterId() {
