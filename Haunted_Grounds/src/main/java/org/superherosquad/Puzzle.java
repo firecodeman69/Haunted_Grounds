@@ -11,8 +11,7 @@ public class Puzzle
 	private String question;
 	private String solution;
 	private String hint;
-	private int rewardItem;
-	//private boolean doorReward;
+	private int reward;
 	private String description;
 	private String correctResp;
 	private String wrongResp;
@@ -25,7 +24,7 @@ public class Puzzle
 		this.question = q;
 		this.solution = s;
 		this.hint = h;
-		this.rewardItem = i;
+		this.reward = i;
 		this.description = d;
 		this.correctResp = c;
 		this.wrongResp = c;
@@ -76,14 +75,22 @@ public class Puzzle
 		return this.isSolved;
 	}
 	
-	public void itemSolve(Room r, ArrayList<Item> items)
+	public void onSolve(Room r, ArrayList<Item> items)
 	{
-		for(Item i: items) {
-			if(i.getId() == this.rewardItem) {
-				r.addItem(i);
-				break;
+		if (reward != -1 && reward != -2) { //This indicates the reward is an item ID, so we drop the item with the corresponding ID in the player's current rooom.
+			for (Item i : items) {
+				if (i.getId() == this.reward) {
+					r.addItem(i);
+					break;
+				}
 			}
-		}
+		} else if(reward == -1){ //This implies that the puzzle is a door unlock puzzle, so we unlock all locked connections in the room.
+			if (r.getNorthRoom() > 100) {r.setNorthRoom(r.getNorthRoom() - 100);};
+			if (r.getSouthRoom() > 100) {r.setSouthRoom(r.getSouthRoom() - 100);};
+			if (r.getEastRoom() > 100) {r.setEastRoom(r.getEastRoom() - 100);};
+			if (r.getWestRoom() > 100) {r.setWestRoom(r.getWestRoom() - 100);};
+		} //If the reward is -2, that just unlocks the friend which has no discernable affect on the program except for marking the puzzle as solved.
+		markSolved();
 	}
 	
 	public void doorSolve()
@@ -98,15 +105,7 @@ public class Puzzle
 
 	@Override
 	public String toString() {
-		return "[Id: " + id + "] " +
-				"[Name: " + name + "] " +
-				"[Question: " + question + "] " +
-				"[Solution: " + solution + "] " +
-				"[Hint: " + hint + "] " +
-				"[Description: " + description + "] " +
-				"[Correct Response: " + correctResp + "] " +
-				"[Incorrect Response: " + wrongResp + "] " +
-				"[Is Solved?: " + isSolved + "] ";
+		return getName();
 
 	}
 	

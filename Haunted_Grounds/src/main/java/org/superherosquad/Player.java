@@ -133,59 +133,75 @@ public class Player extends Character implements Serializable {
     		 */
     		case "n":
 	            if(this.currentRoom.getNorthRoom() != -1) {
-	            	for(Room r: rooms) {
-	            		if(r.getId() == this.currentRoom.getNorthRoom()) {
-	            			this.previousRoom = this.currentRoom;
-	            			this.currentRoom = r;
-	            			r.setVisited();
-	            			break;
-	            		}
+	            	if(this.currentRoom.getNorthRoom() >= 100) { //Locked connections have an ID of 100 or greater.
+	            		view.print("The path in that direction is locked.");
+	            	}
+	            	else {
+		            	for(Room r: rooms) {
+		            		if(r.getId() == this.currentRoom.getNorthRoom()) {
+		            			this.previousRoom = this.currentRoom;
+		            			this.currentRoom = r;
+		            			r.setVisited();
+		            			break;
+		            		}
+		            	}
 	            	}
 	            }
 	            else view.print("You cannot go that way.");
-	            break;
 
     		case "e":
 	            if(this.currentRoom.getEastRoom() != -1) {
-	            	for(Room r: rooms) {
-	            		if(r.getId() == this.currentRoom.getEastRoom()) {
-	            			this.previousRoom = this.currentRoom;
-	            			this.currentRoom = r;
-	            			r.setVisited();
-	            			break;
-	            		}
+	            	if(this.currentRoom.getEastRoom() >= 100) {
+	            		view.print("The path in that direction is locked.");
+	            	}
+	            	else {
+		            	for(Room r: rooms) {
+		            		if(r.getId() == this.currentRoom.getEastRoom()) {
+		            			this.previousRoom = this.currentRoom;
+		            			this.currentRoom = r;
+		            			r.setVisited();
+		            			break;
+		            		}
+		            	}
 	            	}
 	            }
-	            else view.print("You cannot go that way");
-	            break;
+	            else view.print("You cannot go that way.");
 
     		case "s":
 	            if(this.currentRoom.getSouthRoom() != -1) {
-	            	for(Room r: rooms) {
-	            		if(r.getId() == this.currentRoom.getSouthRoom()) {
-	            			this.previousRoom = this.currentRoom;
-	            			this.currentRoom = r;
-	            			r.setVisited();
-	            			break;
-	            		}
+	            	if(this.currentRoom.getSouthRoom() >= 100) {
+	            		view.print("The path in that direction is locked.");
+	            	}
+	            	else {
+		            	for(Room r: rooms) {
+		            		if(r.getId() == this.currentRoom.getSouthRoom()) {
+		            			this.previousRoom = this.currentRoom;
+		            			this.currentRoom = r;
+		            			r.setVisited();
+		            			break;
+		            		}
+		            	}
 	            	}
 	            }
 	            else view.print("You cannot go that way.");
-	            break;
 
     		case "w":
 	            if(this.currentRoom.getWestRoom() != -1) {
-	            	for(Room r: rooms) {
-	            		if(r.getId() == this.currentRoom.getWestRoom()) {
-	            			this.previousRoom = this.currentRoom;
-	            			this.currentRoom = r;
-	            			r.setVisited();
-	            			break;
-	            		}
+	            	if(this.currentRoom.getWestRoom() >= 100) {
+	            		view.print("The path in that direction is locked.");
+	            	}
+	            	else {
+		            	for(Room r: rooms) {
+		            		if(r.getId() == this.currentRoom.getWestRoom()) {
+		            			this.previousRoom = this.currentRoom;
+		            			this.currentRoom = r;
+		            			r.setVisited();
+		            			break;
+		            		}
+		            	}
 	            	}
 	            }
 	            else view.print("You cannot go that way.");
-	            break;
 	         
 	        default:
 	        	view.print("This message should not be displayed during regular gameplay. Please report this bug to the developers.");
