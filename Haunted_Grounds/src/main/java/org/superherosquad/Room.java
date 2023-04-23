@@ -115,22 +115,31 @@ public class Room {
     }
     
     //TODO: Fill in the process for initiating combat.
-    public void inspect(Player p) {
+    public int inspect(Player p, int currentMode) {
+        int mode;
     	if(p.getCurrentRoom().getIsDark()) {
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
+            mode = currentMode;
     	}
     	/*else if(p.getCurrentRoom().getMonsterId() != -1) {
     		//Initiate combat
     	}*/
     	else {
         	view.print("Room description: " + p.getCurrentRoom().getDescription());
+        	view.print("Items in room: " + p.getCurrentRoom().getItems());
+        	view.print("Puzzles in room: " + p.getCurrentRoom().getPuzzle());
+            if (p.roomHasMonster()) {
+                mode = 1;
+            }else {
+                mode = currentMode;
+            }
         	if(p.getCurrentRoom().getItems().isEmpty()) {
         		view.print("There are no items in the current room.");
         	}
         	else {
             	view.print("Items in room: " + p.getCurrentRoom().getItems());
         	}
-        	try { 
+        	try {
         		p.getCurrentRoom().getPuzzle().getId();
     			view.print("Puzzle in room: " + p.getCurrentRoom().getPuzzle());
         	}
@@ -138,6 +147,7 @@ public class Room {
         		view.print("There is no puzzle in the current room.");
         	}
     	}
+        return mode;
     }
     
     public void lightsOn() {
@@ -169,7 +179,7 @@ public class Room {
     public int getNorthRoom() {
         return northRoom;
     }
-    
+
     public void setNorthRoom(int i) {
     	northRoom = i;
     }
@@ -177,7 +187,7 @@ public class Room {
     public int getSouthRoom() {
         return southRoom;
     }
-    
+
     public void setSouthRoom(int i) {
     	southRoom = i;
     }
@@ -185,7 +195,7 @@ public class Room {
     public int getEastRoom() {
         return eastRoom;
     }
-    
+
     public void setEastRoom(int i) {
     	eastRoom = i;
     }
@@ -193,7 +203,7 @@ public class Room {
     public int getWestRoom() {
         return westRoom;
     }
-    
+
     public void setWestRoom(int i) {
     	westRoom = i;
     }
