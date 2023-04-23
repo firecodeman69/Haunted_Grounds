@@ -29,9 +29,13 @@ public class Player extends Character implements Serializable {
         return playerInventory;
     }
 
-    public String addItemToInventory(Item item) {
-        playerInventory.add(item);
-        return (item.getName() + " was added to your inventory. Use command Inventory to see it now.");
+    public void addItemToInventory(String itemName) {
+        for (Item i: getCurrentRoom().getItems()) {
+            if (i.getName().equalsIgnoreCase(itemName)) {
+                playerInventory.add(i);
+                System.out.println(i.getName() + " was added to your inventory. Use command Inventory to see it now.");
+            }
+        }
     }
     
     public void silentAdder(Item item) {
@@ -102,6 +106,16 @@ public class Player extends Character implements Serializable {
                 if(item.getType().equalsIgnoreCase("use")) {
                     hp += item.getEffect();
                 }
+            }
+        }
+    }
+
+    public void inspectInventoryItem(String itemName) {
+        for (Item item: playerInventory) {
+            if(item.getName().equalsIgnoreCase(itemName)) {
+                System.out.println(item.getDescription());
+            } else {
+                System.out.println("You don't have that item in your inventory.");
             }
         }
     }
