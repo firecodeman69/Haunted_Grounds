@@ -49,6 +49,12 @@ public class Game {
         reader.addItemToRoom(gameRooms, gameItems);
         reader.addPuzzleToRoom(gameRooms, gamePuzzles);
         reader.addNPCToRoom(gameRooms, gameNPCs);
+        
+        for(Item i: gameItems) { //Cobi - adding all consumable items to the shop.
+        	if(i.getType().equalsIgnoreCase("c")); {
+        		shop.getItems().add(i);
+        	}
+        }
 
         p.setCurrentRoom(gameRooms.get(14)); //initialize the spawning room
         //System.out.println(p);
@@ -105,7 +111,7 @@ public class Game {
     	game.newGame();
     	game.gameMode = 5;
     	while (true) { //Cobi
-    		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode, game.prevMode, game.saveMode);
+    		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.shop, game.gameMode, game.prevMode, game.saveMode);
     		
     		int setting = m / 10;
     		int newMode = m % 10;

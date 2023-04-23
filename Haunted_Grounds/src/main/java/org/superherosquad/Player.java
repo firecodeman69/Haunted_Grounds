@@ -33,6 +33,10 @@ public class Player extends Character implements Serializable {
         playerInventory.add(item);
         return (item.getName() + " was added to your inventory. Use command Inventory to see it now.");
     }
+    
+    public void silentAdder(Item item) {
+    	playerInventory.add(item);
+    }
 
     public void addItemsToInventory(ArrayList<Item> itemAL) {
         playerInventory.addAll(itemAL);
@@ -79,8 +83,8 @@ public class Player extends Character implements Serializable {
         return null;
     }
 
-    public void spendCurrency(int currency) { //Used for the shop
-        this.currency -= currency;
+    public void spendCurrency(int c) { //Used for the shop
+        currency -= c;
     }
 
     public boolean hasItem(String itemName) {

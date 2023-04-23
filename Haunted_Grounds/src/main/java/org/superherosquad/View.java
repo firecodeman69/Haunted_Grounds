@@ -19,8 +19,12 @@ public class View {
 	}
 
 	public void encounterMonster(Monster monster) { //Cody
-		System.out.println(monster.getName() + "is in the room!");
+		print(monster.getName() + "is in the room!");
 	}
+	
+    public void shopPrint(Item i) {
+    	print(i.getName() + ": $" + i.getPrice());
+    }
 	
     public void helpMenu() { //ReAnn & Cobi
          print("""
@@ -65,11 +69,12 @@ public class View {
                 "use " + item name : Users can use this command to use an item followed by the name of the item.
                 "drink " + item name : Users can use this command to drink an item followed by the name of the item.
                 
-                NPCS:
+                NPCS/SHOP:
                 "shop" : User can use this command for the purchase of consumables.
                 "riddle" : User can use this command to initiate a riddle with the NPC.
                 "leave" : User can use this command to leave the shop or end the conversion with the NPC.
-                "buy " + item name + quantity: The user can use this commands in the shop to buy consumables.
+                "buy " + item name + quantity: When in the shop, the user can use this command to purchase consumables.
+                "list" : When in the shop, the user can use this command to list all items available for purchase in the shop.
                 =======================================================================================================================================================================================                                                                          
                 """);
     }

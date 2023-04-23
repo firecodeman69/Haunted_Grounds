@@ -15,7 +15,7 @@ public class Controller { //Cobi && Cobi
      */
 
     //Cody and Cobi
-    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode, int prevMode, int saveMode) {
+    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, Shop shop, int mode, int prevMode, int saveMode) {
         String playerInput;
         String[] tokens;
         switch (mode) {
@@ -81,7 +81,7 @@ public class Controller { //Cobi && Cobi
                         //save game
                         return mode;
 
-                    default:
+                    default: //If none of the previous cases were reached, a message telling the user that their command is invalid will be printed.
                         view.invalid();
                         return mode;
                 }
@@ -150,6 +150,10 @@ public class Controller { //Cobi && Cobi
                         if (tokens.length < 2) p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1]));
                         else p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1] + " " + tokens[2]));
                     }
+                    
+                    case "menu" -> { //Pauses the game.
+                    	return 6;
+                    }
 
                     default -> {
                         view.invalid();
@@ -178,6 +182,10 @@ public class Controller { //Cobi && Cobi
                         view.print(active.getHint());
                         return mode;
                     }
+                    
+                    case "menu" -> { //Pauses the game.
+                    	return 26;
+                    }
 
                     default -> { //All other commands are treated as guesses to the solution of the puzzle.
                         if(playerInput.equalsIgnoreCase(active.getSolution())) {
@@ -202,7 +210,7 @@ public class Controller { //Cobi && Cobi
             			return mode;
             		}
             		
-            		case "shop" -> { //Enter the shop.
+            		case "shop" -> { //Attempt to enter the shop.
             			mode = active.enterShop();
             			return mode;
             		}
@@ -212,10 +220,49 @@ public class Controller { //Cobi && Cobi
             			return mode;
             		}
             		
+            		case "menu" -> { //Pauses the game.
+            			return 36;
+            		}
+            		
             		default -> {
             			view.invalid();
             			return mode;
             		}
+            	}
+            }
+            
+            case 4: { //Shop - Cobi
+                playerInput = input.nextLine().toLowerCase(); //Interpret player input.
+                tokens = playerInput.split(" ");
+            	
+            	switch(tokens[0]) {
+	            	case "leave" -> { //Exits the shop and returns to talk mode.
+	            		mode = shop.leave();
+	            		return mode;
+	            	}
+	            	
+	            	case "buy" -> { //Attempts to purchase the given quantity of the given item.
+	            		try {
+		            		try {
+		            			shop.purchase(p, tokens[1], Integer.parseInt(tokens[2]));
+			            		return mode;
+		            		} catch(NumberFormatException nfe) { //This is reached if the given quantity is not an integer.
+		            			view.print("You must send an integer for the quantity in this command.");
+		            			return mode;
+		            		}
+	            		} catch (IndexOutOfBoundsException ioob) {
+	            			view.print("You must send a quantity to use this command.");
+	            		}
+	            	}
+	            	
+	            	case "list" -> { //Lists all items in the shop.
+	            		shop.list();
+	            		return mode;
+	            	}
+	            	
+	            	case "menu" -> { //Pauses the game.
+	            		return 46;
+	            	}
             	}
             }
         }
