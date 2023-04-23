@@ -26,7 +26,8 @@ public class Room {
     private boolean isVisited;
     private boolean isDark;
 
-    public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId, boolean isDark) { //Cody
+    //Cody
+    public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId, boolean isDark) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -74,7 +75,7 @@ public class Room {
         roomPuzzle = null;
     }
 
-    public Monster getRoomMonster() {
+    public Monster getRoomMonster() { //Cody
         return roomMonster;
     }
 
@@ -86,7 +87,7 @@ public class Room {
         roomMonster = null;
     }
 
-    public void setNPC(NPC npc) {
+    public void setNPC(NPC npc) { //Cody
         roomNPC = npc;
     }
 
@@ -115,25 +116,20 @@ public class Room {
     }
     
     //TODO: Fill in the process for initiating combat.
-    public int inspect(Player p, int currentMode) {
-        int mode;
+    public int inspect(Player p, int currentMode) { //Cody and Cobi
     	if(p.getCurrentRoom().getIsDark()) {
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
-            mode = currentMode;
     	}
     	/*else if(p.getCurrentRoom().getMonsterId() != -1) {
     		//Initiate combat
     	}*/
     	else {
-        	view.print("Room description: " + p.getCurrentRoom().getDescription());
-        	view.print("Items in room: " + p.getCurrentRoom().getItems());
-        	view.print("Puzzles in room: " + p.getCurrentRoom().getPuzzle());
             if (p.roomHasMonster()) {
-                mode = 1;
+                currentMode = 1;
             }else {
-                mode = currentMode;
+                view.print("Room description: " + p.getCurrentRoom().getDescription());
             }
-        	if(p.getCurrentRoom().getItems().isEmpty()) {
+            if(p.getCurrentRoom().getItems().isEmpty()) {
         		view.print("There are no items in the current room.");
         	}
         	else {
@@ -147,7 +143,7 @@ public class Room {
         		view.print("There is no puzzle in the current room.");
         	}
     	}
-        return mode;
+        return currentMode;
     }
     
     public void lightsOn() {
