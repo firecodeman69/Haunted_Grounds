@@ -45,6 +45,7 @@ public class View {
                 "lights" : When in a room with lights, the user can use this command to turn on the lights.
                 "inspect " + item : Users can use this command to read a description of an item located in the room or inventory.
                 "inventory" : Command used to view all items currently in the player's inventory. Also, displays current items equipped.
+                "startpuzzle" : When in a room with a puzzle, the user can use this command to start attempting to solve the puzzle.
                 
                 COMBAT:
                 "attack" : When in combat, the user can use this command to attack the current enemy.

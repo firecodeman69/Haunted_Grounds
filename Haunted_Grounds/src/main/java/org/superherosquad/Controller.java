@@ -12,7 +12,7 @@ public class Controller {
      * Main gameplay loop.
      * The reason this returns an integer is to change the game mode.
      */
-    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzle, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode, int prevMode, int saveMode) {
+    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode, int prevMode, int saveMode) {
         String playerInput;
         String[] tokens;
         switch (mode) {
@@ -21,8 +21,7 @@ public class Controller {
              * The way the game interprets commands is based on this switch statement.
              */
 
-            case 5: //Initial menu
-            case 6: //Pause menu
+            case 5, 6: //Initial menu
                 if (mode == 5 && prevMode != 5) { //Welcoming messages for the main menu.
                     view.print("Welcome to the Haunted Grounds game!\n\nMAIN MENU\n");
                     view.mainMenuHelp();
@@ -92,36 +91,41 @@ public class Controller {
 
                 switch (tokens[0]) { //This is the first word of the input.
 
-                    //Attempt to move to the room to the north.
-                    case "north", "n" -> { //Included shorthand commands because I do not feel like typing out the entire word :)
+                    case "north", "n" -> { //Attempt to move to the room to the north.
                         p.moveRooms("n", rooms);
                         return mode;
-                    } //Attempt to move to the room to the south.
-                    case "south", "s" -> {
+                    }
+                    case "south", "s" -> { //Attempt to move to the room to the south.
                         p.moveRooms("s", rooms);
                         return mode;
-                    } //Attempt to move to the room to the east.
-                    case "east", "e" -> {
+                    }
+                    case "east", "e" -> { //Attempt to move to the room to the east.
                         p.moveRooms("e", rooms);
                         return mode;
-                    } //Attempt to move to the room to the west.
-                    case "west", "w" -> {
+                    }
+                    case "west", "w" -> { //Attempt to move to the room to the west.
                         p.moveRooms("w", rooms);
                         return mode;
                     }
+
                     case "exitroom" -> { //Move to the room that the player was previously in.
                         p.exitRoom();
                         return mode;
                     }
                     case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
+                    }
+
+                    case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
                         mode = p.getCurrentRoom().inspect(p, mode);
                         return mode;
                     }
+
                     case "lights" -> { //Turns the lights on in a dark room, or lets the user know the lights are already on.
                         p.getCurrentRoom().lightsOn();
                         return mode;
                     }
-                    case "inventory" -> { //Turns the lights on in a dark room, or lets the user know the lights are already on.
+
+                    case "inventory" -> { //Shows the user all items in their inventory.
                         view.print(p.showInventory());
                         return mode;
                     }
@@ -208,7 +212,39 @@ public class Controller {
                 } else {
                     mode = prevMode;
                 }
+
+            case 2: { //Puzzle
+                Puzzle active = null;
+                for(Puzzle pz: puzzles) { //Find the active puzzle.
+                    if(pz.getActive()) {
+                        active = pz;
+                        break;
+                    }
+                }
+
+                playerInput = input.nextLine().toLowerCase(); //Interpret player input.
+
+                switch(playerInput) {
+                    case "hint" -> {
+                        view.print(active.getHint());
+                        return mode;
+                    }
+
+                    default -> {
+                        if(playerInput.equalsIgnoreCase(active.getSolution())) {
+                            mode = active.onSolve(p.getCurrentRoom(), items);
+                            return mode;
+                        }
+                        else {
+                            active.incorrect();
+                            return mode;
+                        }
+                    }
+                }
+            }
         }
+
+
         return mode;
     }
 }
