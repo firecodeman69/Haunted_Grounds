@@ -204,7 +204,7 @@ public class Controller {
                             }
                         }
                     }
-                    if (monster.isAlive() && !p.isAlive()) {
+                    if (!p.isAlive()) {
                         view.print("You have been defeated in battle. Regroup and try again!");
                         mode = 5;
                         break;
