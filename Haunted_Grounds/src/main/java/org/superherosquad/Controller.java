@@ -113,9 +113,6 @@ public class Controller {
                         return mode;
                     }
                     case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
-                    }
-
-                    case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
                         mode = p.getCurrentRoom().inspect(p, mode);
                         return mode;
                     }
@@ -195,7 +192,7 @@ public class Controller {
                             }
                         }
                     }
-                    if (monster.isAlive() && !p.isAlive()) {
+                    if (!p.isAlive()) {
                         view.print("You have been defeated in battle. Regroup and try again!");
                         mode = 5;
                         break;
@@ -211,6 +208,7 @@ public class Controller {
                     }
                 } else {
                     mode = prevMode;
+                    break;
                 }
 
             case 2: { //Puzzle
