@@ -25,6 +25,7 @@ public class Room {
     private NPC roomNPC;
     private boolean isVisited;
     private boolean isDark;
+    private boolean inspected = false;
 
     //Cody
     public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId, boolean isDark) {
@@ -90,6 +91,10 @@ public class Room {
     public void setNPC(NPC npc) { //Cody
         roomNPC = npc;
     }
+    
+    public NPC getNPC() { //Cobi
+    	return roomNPC;
+    }
 
     public void setVisited() { //TreMya
         isVisited = true;
@@ -97,6 +102,10 @@ public class Room {
 
     public boolean isVisited() { //TreMya
         return isVisited;
+    }
+    
+    public boolean getInspected() { //Cobi
+    	return inspected;
     }
 
     public ArrayList<Item> getItems() { //TreMya
@@ -134,6 +143,8 @@ public class Room {
             if (p.roomHasMonster()) {
                 currentMode = 1;
             } else {
+            	inspected = true;
+            	
             	view.print("Room description: " + p.getCurrentRoom().getDescription());
             	
             	if(p.getCurrentRoom().getItems().isEmpty()) {
@@ -172,7 +183,21 @@ public class Room {
     		currentMode = 2;
     		roomPuzzle.activate();
     		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
-    		view.print(roomPuzzle.getDescription());
+    		view.print(roomPuzzle.getQuestion());
+    	}
+    	return currentMode;
+    }
+    
+    public int talk(int currentMode) {
+    	if(npcId == -1) {
+    		view.print("There is no NPC in this room to talk to.");
+    	}
+    	if(inspected == false) {
+    		view.print("You can't tell if there's anyone in the room. Try inspecting first.");
+    	}
+    	else {
+    		currentMode = 3;
+    		view.print(roomNPC.getGreets());
     	}
     	return currentMode;
     }

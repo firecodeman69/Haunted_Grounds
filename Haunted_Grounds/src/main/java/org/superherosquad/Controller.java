@@ -60,16 +60,16 @@ public class Controller {
                         return mode;
 
                     case "newgame": //Create a new game by effectively resetting to the start state.
-                        System.out.println("Starting a New Game!");
+                        view.print("Starting a New Game!");
                         return 90;
 
                     case "newhard": //Create a new hard mode game.
-                        System.out.println("Starting a New Hard-mode Game!");
+                        view.print("Starting a New Hard-mode Game!");
                         return 80;
 
                     //TODO: Create the load game logic.
                     case "load": //Load a game from a previous save file
-                        System.out.println("Loading game!");
+                        view.print("Loading game!");
                         //load game
                         return mode;
 
@@ -112,6 +112,7 @@ public class Controller {
                         p.exitRoom();
                         return mode;
                     }
+
                     case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
                         mode = p.getCurrentRoom().inspect(p, mode);
                         return mode;
@@ -126,6 +127,17 @@ public class Controller {
                         view.print(p.showInventory());
                         return mode;
                     }
+                        
+                    case "startpuzzle" -> { //Initiates the puzzle if there is a puzzle in the room.
+                    	mode = p.getCurrentRoom().activatePuzzle(mode, puzzles);
+                    	return mode;
+                    }
+                    
+                    case "talk" -> { //Initiate conversation with the NPC in the room if there is one.
+                    	mode = p.getCurrentRoom().talk(mode);
+                    	return mode;
+                    }
+
                     case "help" -> { //Prints out the help menu.
                         view.helpMenu();
                         return mode;
@@ -223,12 +235,12 @@ public class Controller {
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
 
                 switch(playerInput) {
-                    case "hint" -> {
+                    case "hint" -> { //Print the hint associated with the puzzle.
                         view.print(active.getHint());
                         return mode;
                     }
 
-                    default -> {
+                    default -> { //All other commands are treated as guesses to the solution of the puzzle.
                         if(playerInput.equalsIgnoreCase(active.getSolution())) {
                             mode = active.onSolve(p.getCurrentRoom(), items);
                             return mode;
@@ -240,9 +252,34 @@ public class Controller {
                     }
                 }
             }
+            
+            case 3: { //Talking to NPCs - Cobi
+            	NPC active = p.getCurrentRoom().getNPC(); //The active NPC is the one in the room with the player.
+            	playerInput = input.nextLine().toLowerCase(); //Interpret player input.
+            	
+            	switch(playerInput) {
+            		case "riddle" -> { //Activate the NPC's riddle.
+            			mode = active.activatePuzzle();
+            			return mode;
+            		}
+            		
+            		case "shop" -> { //Enter the shop.
+            			mode = active.enterShop();
+            			return mode;
+            		}
+            		
+            		case "leave" -> { //Exit conversation with the NPC.
+            			mode = active.leave();
+            			return mode;
+            		}
+            		
+            		default -> {
+            			view.invalid();
+            			return mode;
+            		}
+            	}
+            }
         }
-
-
         return mode;
     }
 }

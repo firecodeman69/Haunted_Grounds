@@ -3,24 +3,29 @@ package org.superherosquad;
 
 public class NPC 
 {
+	private View view = new View();
+	
 	private int id;
 	private String name;
 	private String description;
 	private Puzzle puzzle;
+	private String greets;
 	private boolean shopAccess;
 	
-	public NPC(int i, String n, String d, Puzzle p, boolean a)
+	public NPC(int i, String n, String d, Puzzle p, String g, boolean a)
 	{
 		this.id = i;
 		this.name = n;
 		this.description = d;
 		this.puzzle = p;
+		this.greets = g;
 		this.shopAccess = a;
 	}
 
 	public int getId() {
 		return id;
 	}
+	
 	public String getName()
 	{
 		return this.name;
@@ -36,23 +41,47 @@ public class NPC
 		return this.puzzle;
 	}
 	
+	public String getGreets()
+	{
+		return this.greets;
+	}
+	
 	public boolean hasShopAccess()
 	{
 		return this.shopAccess;
 	}
 	
-	public void talk()
+	public int activatePuzzle()
 	{
-		
+		view.print("The NPC has given you the " + puzzle + ". Here is the prompt:");
+		view.print(puzzle.getQuestion());
+		if(id == 0) {
+			view.print("Also... You're different from us. If you die, you'll die.");
+		}
+		puzzle.activate();
+		return 2;
+	}
+	
+	public int enterShop()
+	{
+		if(shopAccess) {
+			view.print("Welcome to the shop!");
+			return 4;
+		}
+		else {
+			view.print("This NPC does not have access to the shop.");
+			return 3;
+		}
+	}
+	
+	public int leave()
+	{
+		view.print("Thanks for chatting!");
+		return 0;
 	}
 
-	//todo: change this to be how you want - if you want it changed.
 	@Override
 	public String toString() {
-		return "[Id: " + id + "] " +
-				"[Name: " + name + "] " +
-				"[Description: " + description + "] " +
-				"[Puzzle: " + puzzle.getName() + "] " +
-				"[ShopAccess: " + shopAccess + "] ";
+		return name;
 	}
 }

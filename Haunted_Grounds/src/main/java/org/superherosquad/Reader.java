@@ -184,7 +184,8 @@ public class Reader {
     				  , npcTokens[1]
     			      , npcTokens[2]
     			      , npcPuzzle
-    			      , Boolean.parseBoolean(npcTokens[4]));
+    			      , npcTokens[4]
+    			      , Boolean.parseBoolean(npcTokens[5]));
     			npcs.add(npc);
     		}
 			sc.close();
