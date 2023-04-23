@@ -32,7 +32,6 @@ public class Player extends Character implements Serializable {
         playerInventory.addAll(itemAL);
     }
 
-
     public void dropItem(Item item) {
         for (Item i: equippedItems) {
           if(i.getName().equalsIgnoreCase(item.getName())) {
@@ -41,16 +40,16 @@ public class Player extends Character implements Serializable {
         }
     }
 
-        public void equipItem(Item item) {
+    public void equipItem(Item item) {
         equippedItems.add(item);
     }
 
-        public void unEquipItem(Item item) {
+    public void unEquipItem(Item item) {
         for (Item i: equippedItems) {
           if(i.getName().equalsIgnoreCase(item.getName())) {
               equippedItems.remove(item);
-          }
-        }
+         }
+       }
     }
 
     public String showInventory() {
@@ -60,15 +59,6 @@ public class Player extends Character implements Serializable {
             return ("You don't have any items in your inventory.");
         }
     }
-
-    public Item explore(String name) {
-        for (Item i : currentRoom.getItems()) {
-            if (i.getName().equalsIgnoreCase(name)) {
-                return i;
-            }
-        }
-        return null;
-    }
     
     public void spendCurrency(int currency) { //Used for the shop
         this.currency -= currency;
@@ -76,7 +66,6 @@ public class Player extends Character implements Serializable {
     
     public void moveRooms(String d, ArrayList<Room> rooms) { //Cobi
     	switch (d) { //Checks direction
-    	
     		/*
     		 * All directional cases do the same thing for each different direction.
     		 * It checks through all of the rooms in the ArrayList. When it finds a matching rooms, it sets the player's current room to that room and the room that the player was in to the previous room.
@@ -88,6 +77,7 @@ public class Player extends Character implements Serializable {
 	            		if(r.getId() == this.currentRoom.getNorthRoom()) {
 	            			this.previousRoom = this.currentRoom;
 	            			this.currentRoom = r;
+	            			r.setVisited();
 	            			break;
 	            		}
 	            	}
@@ -101,6 +91,7 @@ public class Player extends Character implements Serializable {
 	            		if(r.getId() == this.currentRoom.getEastRoom()) {
 	            			this.previousRoom = this.currentRoom;
 	            			this.currentRoom = r;
+	            			r.setVisited();
 	            			break;
 	            		}
 	            	}
@@ -114,6 +105,7 @@ public class Player extends Character implements Serializable {
 	            		if(r.getId() == this.currentRoom.getSouthRoom()) {
 	            			this.previousRoom = this.currentRoom;
 	            			this.currentRoom = r;
+	            			r.setVisited();
 	            			break;
 	            		}
 	            	}
@@ -127,6 +119,7 @@ public class Player extends Character implements Serializable {
 	            		if(r.getId() == this.currentRoom.getWestRoom()) {
 	            			this.previousRoom = this.currentRoom;
 	            			this.currentRoom = r;
+	            			r.setVisited();
 	            			break;
 	            		}
 	            	}
@@ -137,6 +130,13 @@ public class Player extends Character implements Serializable {
 	        default:
 	        	view.print("This message should not be displayed during regular gameplay. Please report this bug to the developers.");
     	}
+    }
+    
+    public void exitRoom() { //Cobi
+    	Room temp = this.currentRoom;
+    	this.currentRoom = this.previousRoom;
+    	this.previousRoom = temp;
+    	view.print("You have the exited the room that you were in.");
     }
 
     public Room getCurrentRoom() {
@@ -151,7 +151,7 @@ public class Player extends Character implements Serializable {
         return previousRoom;
     }
     
-    public void setPreviousroom(Room oldRoom) {
+    public void setPreviousRoom(Room oldRoom) {
     	previousRoom = oldRoom;
     }
 }
