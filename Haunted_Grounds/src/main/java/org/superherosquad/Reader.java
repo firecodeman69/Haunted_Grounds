@@ -35,7 +35,8 @@ public class Reader {
                         Integer.parseInt(tokens[5]), //monsterId
                         Integer.parseInt(tokens[6]), //puzzleId
                         Integer.parseInt(tokens[7]), //itemId
-                        Integer.parseInt(tokens[8])); //npcId
+                        Integer.parseInt(tokens[8]), //npcId
+                		Boolean.parseBoolean(tokens[9])); //isDark
                 rooms.add(room); //create new Room
             } //end while
             reader.close();

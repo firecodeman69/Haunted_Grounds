@@ -37,9 +37,11 @@ public class View {
                 "continue" : When in the main menu, this command returns the user back into the current game(only displayed if the user is already in a game).
                 "exit" : When in the main menu, the user can use this command to leave the game.
 
-                PLAYER:
-                "move " + direction : Command used to move in the specified direction of 'North', 'South', 'East', or 'West'.
+                PLAYER/ROOM:
+                "north" / "south" / "east" / "west" : Command used to move the player to the room in the specified direction if said room exists.
+                "exitroom" : Command used to move the player to the room that they were previously in.
                 "help" : When in the game, the user can use this command to display a list of commands followed by a brief description for each one.
+                "inspectroom" : When in the game, the user can use this command to display information about the room that they are currently in. This includes the room's description, items, and puzzles. If there is a monster in the room, this will instantly initiate combat.
                 "inspect " + item : Users can use this command to read a description of an item located in the room or inventory.
                 "inventory" : Command used to view all items currently in the player's inventory. Also, displays current items equipped.
                 
@@ -71,5 +73,31 @@ public class View {
                 "buy " + item name + quantity: The user can use this commands in the shop to but consumables.
                 =======================================================================================================================================================================================                                                                          
                 """;
+    }
+    
+    public void mainMenuHelp() {
+ 		print("""
+			  List of main menu commands:
+			  
+			  "newgame" : Use this command to create a new game and save file.
+              "newhard" : This command is the same as the new game command, but if the player dies during the game, the game is over and cannot be returned to.          			  
+              "load " + save name : Use this command to load a save by inputting the previously determined save name.      	              
+              "menuhelp" : Use this command to see a list of commands that can be used in the menu.
+              "exit" : Use this command to leave the game.
+			  """);
+    }
+    
+    public void pauseMenuHelp() {
+    	print("""
+			  List of pause menu commands:
+			  
+			  "newgame" : Use this command to create a new game and save file.
+              "newhard" : This command is the same as the new game command, but if the player dies during the game, the game is over and cannot be returned to.          			  
+              "load " + save name : Use this command to load a save by inputting the previously determined save name.      	              
+              "menuhelp" : Use this command to see a list of commands that can be used in the menu.
+              "exit" : Use this command to leave the game.
+              "continue" : Use this command to return to the current game.      	              
+              "save " + save name : Use this command with a save name to save all progress. This command saves all information about the player and the map.
+			  """);
     }
 }

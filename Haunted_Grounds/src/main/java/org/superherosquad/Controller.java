@@ -8,6 +8,10 @@ public class Controller {
     private Scanner input = new Scanner(System.in);
     private View view = new View();
 
+    /*
+     * Main gameplay loop.
+     * The reason this returns an integer is to change the game mode.
+     */
     public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzle, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode, int prevMode) {
     	String playerInput;
     	String[] tokens;
@@ -20,38 +24,14 @@ public class Controller {
         	
         	case 5: //Initial menu
         	case 6: //Pause menu
-        		String mainhelp = 
-        		      """
-          			  List of main menu commands:
-          			  
-      	              "menuhelp" : Use this command to see a list of commands that can be used in the menu.
-      	              "newgame" : Use this command to create a new game and save file.
-      	              "newhard" : This command is the same as the new game command, but if the player dies during the game, the game is over and cannot be returned to.
-      	              "load " + save name : Use this command to load a save by inputting the previously determined save name.
-      	              "exit" : Use this command to leave the game.
-          			  """;
-        		
-        		String pausehelp = 
-    				  """
-        			  List of pause menu commands:
-        			  
-    	              "menuhelp" : Use this command to see a list of commands that can be used in the menu.
-    				  "continue" : Use this command to return to the current game.      	              
-    	              "newgame" : Use this command to create a new game and save file.
-    	              "newhard" : This command is the same as the new game command, but if the player dies during the game, the game is over and cannot be returned to.
-    	              "load " + save name : Use this command to load a save by inputting the previously determined save name.
-    	              "save " + save name : Use this command with a save name to save all progress. This command saves all information about the player and the map.
-    	              "exit" : Use this command to leave the game.
-        			  """;
-        		
         		if(mode == 5 && prevMode != 5) { //Welcoming messages for the main menu.
         			view.print("Welcome to the Haunted Grounds game!\nMAIN MENU\n");
-        			view.print(mainhelp);
+        			view.mainMenuHelp();
         		}
         		
         		if(mode == 6 && prevMode != 6) { //Welcoming messages for the pause menu.
-        			view.print("PAUSE MENU");
-        			view.print(pausehelp);
+        			view.print("PAUSE MENU\n");
+        			view.pauseMenuHelp();
         		}
         		
                 playerInput = input.nextLine().toLowerCase(); //Parse user input
@@ -60,11 +40,11 @@ public class Controller {
         		switch(tokens[0]) { //Direct user input to the proper methods.
 		    		case "menuhelp": //Prints out the help message for the menu that the user is on.
 		    			if(mode == 5) {
-		    				view.print(mainhelp);
+		    				view.mainMenuHelp();
 		    			}
 		    			
 		    			if(mode == 6) {
-		    				view.print(pausehelp);
+		    				view.pauseMenuHelp();
 		    			}
 		    			return mode;
 		    			
@@ -100,7 +80,7 @@ public class Controller {
 		        	case "save": //Save a game from a previous save file
 		        		
 		        		
-		        	default: //This is reached if none of the previous cases were reached.
+		        	default:
 		        		view.invalid();
 		        		return mode;
         		}
@@ -112,6 +92,7 @@ public class Controller {
                 tokens = playerInput.split(" "); 
                 
         		switch (tokens[0]) { //This is the first word of the input.
+        		
 		        case "north":
 		        case "n":
 		            p.moveRooms("n", rooms);
@@ -119,6 +100,7 @@ public class Controller {
 						mode = 1;
 					}
 		            return mode;
+		            
 		        case "south":
 		        case "s":
 	                p.moveRooms("s", rooms);
@@ -126,6 +108,7 @@ public class Controller {
 						mode = 1;
 					}
 	                return mode;
+	                
 	            case "east":
 	            case "e":
 	                p.moveRooms("e", rooms);
@@ -133,6 +116,7 @@ public class Controller {
 						mode = 1;
 					}
 	                return mode;
+	                
 	            case "west":
 	            case "w":
 	                p.moveRooms("w", rooms);
@@ -140,6 +124,15 @@ public class Controller {
 						mode = 1;
 					}
 	                return mode;
+	                
+	            case "exitroom":
+	            	p.exitRoom();
+	            	return mode;
+	            	
+	            case "inspectroom":
+	            	p.getCurrentRoom().inspect(p);
+	            	return mode;
+	                
 	            default:
 	            	view.invalid();
 	            	return mode;

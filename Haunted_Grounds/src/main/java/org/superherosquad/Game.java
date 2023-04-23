@@ -2,11 +2,14 @@ package org.superherosquad;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game {
     Player p = new Player();
     Reader reader = new Reader();
     private Controller controller = new Controller();
+    private static View view = new View();
+    private static Scanner input = new Scanner(System.in);
     
     private ArrayList<Room> gameRooms; //Cody
     private ArrayList<Item> gameItems; //ReAnn
@@ -158,7 +161,7 @@ public class Game {
     		game.gameMode = newMode;
     		
     		if(setting == 9 || setting == 8) { //Cobi - this resets the game.
-    			game.gameMode = 5;
+    			game.gameMode = 0;
     			game.prevMode = -1;
     			if(setting == 8) { //80 is returned by the new hard mode game activator.
     				game.hard = true;
@@ -166,6 +169,9 @@ public class Game {
     			else { //90 is returned by the new game activator - this is here in case a regular game is started after a hard game.
     				game.hard = false;
     			}
+    			
+    			view.print("What shall be the name of your character?");
+    			game.p.setName(input.nextLine());
     		}
     	}
     }
