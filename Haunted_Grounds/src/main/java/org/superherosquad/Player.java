@@ -213,4 +213,5 @@ public class Player extends Character implements Serializable {
 
     public void setPreviousroom(Room oldRoom) {
         previousRoom = oldRoom;
+    }
 }
