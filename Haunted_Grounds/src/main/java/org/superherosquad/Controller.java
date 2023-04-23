@@ -147,8 +147,20 @@ public class Controller { //Cobi && Cobi
                         return mode;
                     }
                     case "pickup" -> {
-                        if (tokens.length < 2) p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1]));
-                        else p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1] + " " + tokens[2]));
+                        if (tokens.length < 2) p.addItemToInventory(tokens[1]);
+                        else p.addItemToInventory(tokens[1] + " " + tokens[2]);
+                        return mode;
+                    }
+                    case "inspect" -> {
+                        if (tokens.length < 2) {
+                            if (p.hasItem (tokens[1])) {
+                                p.inspectInventoryItem(tokens[1]);
+                            }
+                        }
+                        else if (p.hasItem (tokens[1] + " " + tokens[2])) {
+                            p.inspectInventoryItem(tokens[1] + " " + tokens[2]);
+                        }
+                        return mode;
                     }
 
                     default -> {
