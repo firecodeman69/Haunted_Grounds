@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Controller { //Cobi && Cobi
     private Scanner input = new Scanner(System.in);
     private View view = new View();
+    private Combat combat = new Combat();
 
     /*
      * Main gameplay loop.
@@ -146,8 +147,20 @@ public class Controller { //Cobi && Cobi
                         return mode;
                     }
                     case "pickup" -> {
-                        if (tokens.length == 2) p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1]));
-                        else p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1] + " " + tokens[2]));
+                        if (tokens.length < 2) p.addItemToInventory(tokens[1]);
+                        else p.addItemToInventory(tokens[1] + " " + tokens[2]);
+                        return mode;
+                    }
+                    case "inspect" -> {
+                        if (tokens.length < 2) {
+                            if (p.hasItem (tokens[1])) {
+                                p.inspectInventoryItem(tokens[1]);
+                            }
+                        }
+                        else if (p.hasItem (tokens[1] + " " + tokens[2])) {
+                            p.inspectInventoryItem(tokens[1] + " " + tokens[2]);
+                        }
+                        return mode;
                     }
 
                     default -> {
@@ -157,74 +170,9 @@ public class Controller { //Cobi && Cobi
                 }
 
             case 1: //Combat - Cody
-                boolean playerTurn = true;
-                boolean defending = false;
-                Monster monster = p.getCurrentRoom().getRoomMonster();
-                int decision = p.initialCombat(monster, input); // if 0, player turn first. if 1, monster turn first, if -1, escape combat, change mode to prevMode
+                mode = combat.combatLoop(p, input, prevMode);
+                return mode;
 
-                if (decision == 0 || decision == 1) { //didn't run from monster
-                    if (decision == 1) playerTurn = false; //ignored the monster
-                    while (monster.isAlive() && p.isAlive()) {
-                        if (playerTurn) {
-                            view.print("What would you like to do?\n(A)ttack, (D)efend, Use {item name}, (R)un");
-                            playerInput = input.nextLine().toLowerCase();
-                            tokens = playerInput.split(" ");
-                            switch (tokens[0]) {
-                                case "attack", "a" -> {
-                                    monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
-                                    view.print("You hit the monster for " + p.getAttack() + "! " +
-                                            "Monster has " + monster.getHP() + "hp left.");
-                                    playerTurn = false;
-                                }
-                                case "defend", "d" -> {
-                                    defending = true;
-                                    view.print("You are defending.");
-                                    playerTurn = false;
-                                }
-                                case "use" -> {
-                                    if (p.hasItem(tokens[1])) {
-                                        p.useConsumableItem(tokens[1]); //add item effect to player's health
-                                    }
-                                    playerTurn = false;
-                                }
-                                case "run", "r" -> {
-                                    p.setRunChance(monster);
-                                    view.print("Player run percentage is " + p.getRunChance() + "\nRun away successfully? " + p.runSuccess(monster));
-                                    playerTurn = false;
-                                }
-                            }
-                        } else {
-                            if (defending) {
-                                p.loseHP(monster.getAttack() / 2); //if player defends, deal half of monster attack
-                                view.print("Monster attacked and hit you for " + (monster.getAttack() / 2) + ". " +
-                                        "Remaining HP: " + p.getHP());
-                                playerTurn = true;
-                            } else {
-                                p.loseHP(monster.getAttack());
-                                view.print("Monster attacked and hit you for " + (monster.getAttack()) + ". " +
-                                        "Remaining HP: " + p.getHP());
-                                playerTurn = true;
-                            }
-                        }
-                    }
-                    if (!p.isAlive()) {
-                        view.print("You have been defeated in battle. Regroup and try again!");
-                        mode = 5;
-                        break;
-                    } else {
-                        view.print("You successfully defeated " + monster.getName() + "! " +
-                                "You have earned " + monster.getCurrency() + " and gained items: " +
-                                monster.getMonsterInventory());
-                        p.addItemsToInventory(monster.getMonsterInventory());
-                        p.addCurrency(monster.getCurrency());
-                        p.currentRoom.removeMonster();
-                        mode = prevMode;
-                        break;
-                    }
-                } else {
-                    mode = prevMode;
-                    break;
-                }
 
             case 2: { //Puzzle - Cobi
                 Puzzle active = null;
