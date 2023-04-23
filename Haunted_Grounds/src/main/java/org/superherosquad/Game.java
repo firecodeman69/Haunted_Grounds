@@ -10,12 +10,13 @@ public class Game {
     private ArrayList<Puzzle> gamePuzzles; //Cobi
     private ArrayList<Monster> gameMonsters; //Cody
     private ArrayList<NPC> gameNPCs; //Cobi
-    //Shop shop; //Cobi
+    Shop shop; //Cobi
     //private static final long serialVersionUID = 1L; //For the save game method
     Player p = new Player();
     Reader reader = new Reader();
     
     private int gameMode = -1; //Cobi
+    private int prevMode = -1;
     /**
      * Game Mode is an integer representing the state that the game is in.
      * 0 = free roam mode
@@ -100,7 +101,7 @@ public class Game {
                 }
             }
         }
-    }//End of method
+    }
 
     public void addPuzzleToRoom() { //Cody - adds puzzles to rooms
         for (Room r : gameRooms) {
@@ -110,7 +111,7 @@ public class Game {
                 }
             }
         }
-    }//End of method
+    }
 
     public void addItemToRoom() { //Cody - adds items to rooms
         for (Room r : gameRooms) {
@@ -120,7 +121,7 @@ public class Game {
                 }
             }
         }
-    }//End of method
+    }
 
     public void addItemToMonster() { //Cody - adds items to rooms
         for (Monster m : gameMonsters) {
@@ -130,7 +131,7 @@ public class Game {
                 }
             }
         }
-    }//End of method
+    }
 
     public void addNPCToRoom() { //Cody - adds puzzles to rooms
         for (Room r : gameRooms) {
@@ -140,14 +141,16 @@ public class Game {
                 }
             }
         }
-    }//End of method
+    }
     
     public static void main(String[] args) {
     	Game game = new Game();
     	game.newGame();
     	game.gameMode = 5;
     	while (true) {
-    		game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode);
+    		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode, game.prevMode);
+    		game.prevMode = game.gameMode;
+    		game.gameMode = m;
     	}
     }
 }
