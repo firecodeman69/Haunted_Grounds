@@ -115,7 +115,7 @@ public class Room {
         }
     }
     
-    public int inspect(Player p, int currentMode) {        
+    public int inspect(Player p, int currentMode) { //Cobi & Cody
     	if(p.getCurrentRoom().getIsDark()) {
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
     	}
@@ -144,7 +144,7 @@ public class Room {
         return currentMode;
     }
     
-    public void lightsOn() {
+    public void lightsOn() { //Cobi
     	if(isDark) {
     		isDark = false;
     		view.print("You have turned the lights on.");
@@ -152,6 +152,19 @@ public class Room {
     	else {
     		view.print("The lights are already on.");
     	}
+    }
+    
+    public int activatePuzzle(int currentMode, ArrayList<Puzzle> puzzles) {
+    	if(puzzleId == -1) {
+    		view.print("There is no puzzle in this room.");
+    	}
+    	else {
+    		currentMode = 2;
+    		roomPuzzle.activate();
+    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
+    		view.print(roomPuzzle.getDescription());
+    	}
+    	return currentMode;
     }
 
     public int getMonsterId() {

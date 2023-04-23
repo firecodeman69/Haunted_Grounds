@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Puzzle 
 {
+	View view = new View();
 	private int id;
 	private String name;
 	private String question;
@@ -16,6 +17,7 @@ public class Puzzle
 	private String correctResp;
 	private String wrongResp;
 	private boolean isSolved = false;
+	private boolean active = false;
 	
 	public Puzzle(int i, String n, String q, String s, String h, int r, String d, String c, String w)
 	{
@@ -60,23 +62,32 @@ public class Puzzle
 		return this.description;
 	}
 	
-	public String getCorrectResp()
-	{
-		return this.correctResp;
-	}
-	
-	public String getWrongResp()
-	{
-		return this.wrongResp;
-	}
-	
 	public boolean getIsSolved()
 	{
 		return this.isSolved;
 	}
 	
-	public void onSolve(Room r, ArrayList<Item> items)
+	public boolean getActive()
 	{
+		return this.active;
+	}
+	
+	public void activate()
+	{
+		this.active = true;
+	}
+	
+	public void incorrect()
+	{
+		if(!wrongResp.equals("X")) {
+			view.print(wrongResp);
+		}
+	}
+	
+	public int onSolve(Room r, ArrayList<Item> items)
+	{
+		view.print(correctResp);
+		
 		if (reward != -1 && reward != -2) { //This indicates the reward is an item ID, so we drop the item with the corresponding ID in the player's current rooom.
 			for (Item i : items) {
 				if (i.getId() == this.reward) {
@@ -90,23 +101,13 @@ public class Puzzle
 			if (r.getEastRoom() > 100) {r.setEastRoom(r.getEastRoom() - 100);};
 			if (r.getWestRoom() > 100) {r.setWestRoom(r.getWestRoom() - 100);};
 		} //If the reward is -2, that just unlocks the friend which has no discernable affect on the program except for marking the puzzle as solved.
-		markSolved();
-	}
-	
-	public void doorSolve()
-	{
+		isSolved = true;
 		
-	}
-	
-	public void markSolved()
-	{
-		this.isSolved = false;
+		return 0;
 	}
 
 	@Override
 	public String toString() {
 		return getName();
-
 	}
-	
 }
