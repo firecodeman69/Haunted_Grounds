@@ -91,7 +91,7 @@ public class Item {
 
 
     /*/
-    /todo: complete the method.
+    /TODO:: complete the method.
     public void use()
     {
     }*/
@@ -99,9 +99,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "[Name:'" + name + "] "
-                + "[description:" + description + "] "
-                + "[price: $" + price + "] ";
+        return getName();
     }
 
 }

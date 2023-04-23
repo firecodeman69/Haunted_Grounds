@@ -23,6 +23,7 @@ public class Game {
     //Game modes - Cobi
     private int gameMode = -1; 
     private int prevMode = -1;
+    private int saveMode = -1; //This mode is stored when the user goes into the pause menu.
     /**
      * Game Mode is an integer representing the state that the game is in.
      * 0 = free roam
@@ -154,11 +155,20 @@ public class Game {
     	game.newGame();
     	game.gameMode = 5;
     	while (true) {
-    		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode, game.prevMode);
+    		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode, game.prevMode, game.saveMode);
     		int setting = m / 10;
     		int newMode = m % 10;
     		game.prevMode = game.gameMode;
     		game.gameMode = newMode;
+    		
+    		/*
+    		 * This if statement stores the mode of the game before the pause menu was accessed.
+    		 * Previous mode is meant to check if this is the first run of the loop in which the menu was accessed. If it is, it prints the menu's help message.
+    		 * Save mode is meant to return the user to the previous mode of the game once continue is ran.
+    		 */
+    		if(game.gameMode == 6) {
+    			game.saveMode = m / 10;
+    		}
     		
     		if(setting == 9 || setting == 8) { //Cobi - this resets the game.
     			game.gameMode = 0;

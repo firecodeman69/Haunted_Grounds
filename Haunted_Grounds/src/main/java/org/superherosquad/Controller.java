@@ -12,7 +12,7 @@ public class Controller {
      * Main gameplay loop.
      * The reason this returns an integer is to change the game mode.
      */
-    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzle, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode, int prevMode) {
+    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzle, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode, int prevMode, int saveMode) {
     	String playerInput;
     	String[] tokens;
     	
@@ -55,7 +55,7 @@ public class Controller {
 		    		
 		    		case "continue": //Return the user from the pause menu to their currently-active game.
 		    			if(mode == 6) {
-		    				return 0;
+		    				return saveMode;
 		    			}
 		    			else {
 		    				view.invalid();
@@ -70,7 +70,7 @@ public class Controller {
 		          		System.out.println("Starting a New Hard-mode Game!");
 		          		return 80;
 		
-		          	//TODO: Create the new game logic.
+		          	//TODO: Create the load game logic.
 		        	case "load": //Load a game from a previous save file
 		        		System.out.println("Loading game!");
 		        		//load game
@@ -141,13 +141,16 @@ public class Controller {
 	            case "help": //Prints out the help menu.
 	            	view.helpMenu();
 	            	return mode;
+	            	
+	            case "menu":
+	            	return 6;
 	                
 	            default:
 	            	view.invalid();
 	            	return mode;
         		}
 
-			case 1:
+			case 1: //Combat
 				boolean playerTurn = true;
 				boolean monsterTurn = false;
 				boolean defending = false;
@@ -210,7 +213,9 @@ public class Controller {
 						break;
 					}
 				}
-
+				
+			case 2: //Puzzle
+				
         }  
     return mode;
     }
