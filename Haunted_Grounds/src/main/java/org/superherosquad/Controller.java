@@ -25,7 +25,7 @@ public class Controller {
         	case 5: //Initial menu
         	case 6: //Pause menu
         		if(mode == 5 && prevMode != 5) { //Welcoming messages for the main menu.
-        			view.print("Welcome to the Haunted Grounds game!\nMAIN MENU\n");
+        			view.print("Welcome to the Haunted Grounds game!\n\nMAIN MENU\n");
         			view.mainMenuHelp();
         		}
         		
@@ -78,7 +78,8 @@ public class Controller {
 		        		
 		        	//TODO: Create the save game logic.
 		        	case "save": //Save a game from a previous save file
-		        		
+		        		//save game
+		        		return mode;
 		        		
 		        	default:
 		        		view.invalid();
@@ -87,21 +88,21 @@ public class Controller {
         		
         	case 0: //Navigating between rooms
         		view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
-        		view.print("Please input a direction."); //Prompt the player for what they need to input.
+        		view.print("Please input a command."); //Prompt the player for what they need to input.
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
                 tokens = playerInput.split(" "); 
                 
         		switch (tokens[0]) { //This is the first word of the input.
         		
-		        case "north":
-		        case "n":
+		        case "north": //Attempt to move to the room to the north.
+		        case "n": //Included shorthand commands because I do not feel like typing out the entire word :)
 		            p.moveRooms("n", rooms);
 					if (p.roomHasMonster()) {
 						mode = 1;
 					}
 		            return mode;
 		            
-		        case "south":
+		        case "south": //Attempt to move to the room to the south.
 		        case "s":
 	                p.moveRooms("s", rooms);
 					if (p.roomHasMonster()) {
@@ -109,7 +110,7 @@ public class Controller {
 					}
 	                return mode;
 	                
-	            case "east":
+	            case "east": //Attempt to move to the room to the east.
 	            case "e":
 	                p.moveRooms("e", rooms);
 					if (p.roomHasMonster()) {
@@ -117,7 +118,7 @@ public class Controller {
 					}
 	                return mode;
 	                
-	            case "west":
+	            case "west": //Attempt to move to the room to the west.
 	            case "w":
 	                p.moveRooms("w", rooms);
 					if (p.roomHasMonster()) {
@@ -125,12 +126,20 @@ public class Controller {
 					}
 	                return mode;
 	                
-	            case "exitroom":
+	            case "exitroom": //Move to the room that the player was previously in.
 	            	p.exitRoom();
 	            	return mode;
 	            	
-	            case "inspectroom":
+	            case "inspectroom": //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
 	            	p.getCurrentRoom().inspect(p);
+	            	return mode;
+	            	
+	            case "lights": //Turns the lights on in a dark room, or lets the user know the lights are already on.
+	            	p.getCurrentRoom().lightsOn();
+	            	return mode;
+	            	
+	            case "help": //Prints out the help menu.
+	            	view.helpMenu();
 	            	return mode;
 	                
 	            default:

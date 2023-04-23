@@ -104,7 +104,7 @@ public class Reader {
 									puzzleTokens[2],
 									puzzleTokens[3], 
 									puzzleTokens[4], 
-									Integer.parseInt(puzzleTokens[5]), 
+									Integer.parseInt(puzzleTokens[5]),
 									puzzleTokens[6], 
 									puzzleTokens[7],
 									puzzleTokens[8]);
@@ -198,7 +198,7 @@ public class Reader {
     }
     
 	/************************************Scanner Room file reader (Cody)*****************************/
-    /****This was giving errors with reading the file. Seems to be some special characters or encoding that Scanner doesn't like****/
+    /****This was giving errors with reading the file. Seems to be some special characters or encoding that Scanner doesn't like. This is only here just in case.****/
 //    public ArrayList<Room> newRoom() {
 //        Room room;
 //        ArrayList<Room> rooms = new ArrayList<>();

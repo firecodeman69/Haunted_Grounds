@@ -17,7 +17,7 @@ public class Game {
     private ArrayList<Monster> gameMonsters; //Cody
     private ArrayList<NPC> gameNPCs; //Cobi
     Shop shop; //Cobi
-    private boolean hard = false;
+    private boolean hard = false; //Cobi
     //private static final long serialVersionUID = 1L; //For the save game method
     
     //Game modes - Cobi
@@ -50,8 +50,8 @@ public class Game {
         addNPCToRoom();
 
         p.setCurrentRoom(gameRooms.get(14));
-        System.out.println(p);
-        System.out.println(p.getCurrentRoom());
+        //System.out.println(p);
+        //System.out.println(p.getCurrentRoom());
         /****END***/
     }
 
@@ -63,14 +63,14 @@ public class Game {
             oos = new ObjectOutputStream(fos); //Instantiate the ObjectOutputStream
             oos.writeObject(p); //Write the object to the file
         } catch (IOException ioe) {
-            System.out.println("IOException! Oh no!");
+            System.out.println("IOException!");
         } finally { //close the stream even if there is an exception thrown
             try {
                 if (oos != null) {
                     oos.close();
                 }
             } catch (IOException ioe) {
-                System.out.println("Closing the outputstream failed bucko");
+                System.out.println("Closing the outputstream failed.");
             }
         }
     }

@@ -1,3 +1,4 @@
+/***********************************Cobi************************************/
 package org.superherosquad;
 
 public class View {
@@ -9,23 +10,22 @@ public class View {
 	
 	public void invalid()
 	{
-		System.out.println("That is an invalid command.");
+		print("That is an invalid command.");
 	}
 	
 	public void room(String s)
 	{
-		System.out.println("You are now in the " + s + ".");
+		print("You are now in the " + s + ".");
 	}
 
 	public void encounterMonster(Monster monster) {
 		System.out.println(monster.getName() + "is in the room!");
 	}
 	
-    /****************ReAnn*********************/
-    public String helpMenu() {
-        return """
+    public void helpMenu() { //ReAnn & Cobi
+         print("""
                 =======================================================================================================================================================================================
-                GAME COMMANDS ->
+                GAME COMMANDS:
 
                 MENU:
                 "menu" : When in the game, the user can use this command to display the main menu.
@@ -39,9 +39,10 @@ public class View {
 
                 PLAYER/ROOM:
                 "north" / "south" / "east" / "west" : Command used to move the player to the room in the specified direction if said room exists.
-                "exitroom" : Command used to move the player to the room that they were previously in.
+                "exitroom" : When in a room, the user can use this command to return to the previous room.
                 "help" : When in the game, the user can use this command to display a list of commands followed by a brief description for each one.
-                "inspectroom" : When in the game, the user can use this command to display information about the room that they are currently in. This includes the room's description, items, and puzzles. If there is a monster in the room, this will instantly initiate combat.
+                "inspectroom" : When in a room, the user can use this command to see a list of all contents in the current room.
+                "lights" : When in a room with lights, the user can use this command to turn on the lights.
                 "inspect " + item : Users can use this command to read a description of an item located in the room or inventory.
                 "inventory" : Command used to view all items currently in the player's inventory. Also, displays current items equipped.
                 
@@ -61,9 +62,6 @@ public class View {
                 "equip " + item name : Users can use this command to unequip an item followed by the name of the item. The item returns to the character's inventory.
                 "use " + item name : Users can use this command to use an item followed by the name of the item.
                 "drink " + item name : Users can use this command to drink an item followed by the name of the item.
-                "inspectroom" : When in a room, the user can use this command to see a list of all contents in the current room.
-                "exitroom" : When in a room, the user can use this command to return to the previous room.
-                "lights" : When in a room with lights, the user can use this command to turn on the lights.
                 
                 NPCS:
                 "talk" : User can use this command to interact with the NPCs and receive riddles.
@@ -72,7 +70,7 @@ public class View {
                 "leave" : User can use this command to leave the shop and end the conversion with the NPC.
                 "buy " + item name + quantity: The user can use this commands in the shop to but consumables.
                 =======================================================================================================================================================================================                                                                          
-                """;
+                """);
     }
     
     public void mainMenuHelp() {
@@ -80,10 +78,10 @@ public class View {
 			  List of main menu commands:
 			  
 			  "newgame" : Use this command to create a new game and save file.
-              "newhard" : This command is the same as the new game command, but if the player dies during the game, the game is over and cannot be returned to.          			  
-              "load " + save name : Use this command to load a save by inputting the previously determined save name.      	              
-              "menuhelp" : Use this command to see a list of commands that can be used in the menu.
-              "exit" : Use this command to leave the game.
+			  "newhard" : This command is the same as the new game command, but if the player dies during the game, the game is over and cannot be returned to.          			  
+			  "load " + save name : Use this command to load a save by inputting the previously determined save name.      	              
+			  "menuhelp" : Use this command to see a list of commands that can be used in the menu.
+			  "exit" : Use this command to leave the game.
 			  """);
     }
     
