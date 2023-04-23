@@ -22,7 +22,7 @@ public class Monster extends Character {
 //        return monsterLocations;
 //    }
 
-    //todo: determine what should happen upon monster defeat
+    //TODO: determine what should happen upon monster defeat
     public void defeatMonster() {
 
     }

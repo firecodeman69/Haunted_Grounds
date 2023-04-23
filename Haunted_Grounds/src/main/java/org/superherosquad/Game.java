@@ -4,26 +4,29 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Game {
+    Player p = new Player();
+    Reader reader = new Reader();
     private Controller controller = new Controller();
+    
     private ArrayList<Room> gameRooms; //Cody
     private ArrayList<Item> gameItems; //ReAnn
     private ArrayList<Puzzle> gamePuzzles; //Cobi
     private ArrayList<Monster> gameMonsters; //Cody
     private ArrayList<NPC> gameNPCs; //Cobi
     Shop shop; //Cobi
+    private boolean hard = false;
     //private static final long serialVersionUID = 1L; //For the save game method
-    Player p = new Player();
-    Reader reader = new Reader();
     
-    private int gameMode = -1; //Cobi
+    //Game modes - Cobi
+    private int gameMode = -1; 
     private int prevMode = -1;
     /**
      * Game Mode is an integer representing the state that the game is in.
-     * 0 = free roam mode
-     * 1 = combat mode
-     * 2 = puzzle mode
-     * 3 = talk mode
-     * 4 = shop mode
+     * 0 = free roam
+     * 1 = combat
+     * 2 = puzzle
+     * 3 = talk
+     * 4 = shop
      * 5 = initial menu
      * 6 = pause menu
      */
@@ -43,7 +46,7 @@ public class Game {
         addPuzzleToRoom();
         addNPCToRoom();
 
-        p.setCurrentRoom(gameRooms.get(0));
+        p.setCurrentRoom(gameRooms.get(14));
         System.out.println(p);
         System.out.println(p.getCurrentRoom());
         /****END***/
@@ -143,14 +146,27 @@ public class Game {
         }
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) { //Cobi - this is run to start the game.
     	Game game = new Game();
     	game.newGame();
     	game.gameMode = 5;
     	while (true) {
     		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode, game.prevMode);
+    		int setting = m / 10;
+    		int newMode = m % 10;
     		game.prevMode = game.gameMode;
-    		game.gameMode = m;
+    		game.gameMode = newMode;
+    		
+    		if(setting == 9 || setting == 8) { //Cobi - this resets the game.
+    			game.gameMode = 5;
+    			game.prevMode = -1;
+    			if(setting == 8) { //80 is returned by the new hard mode game activator.
+    				game.hard = true;
+    			}
+    			else { //90 is returned by the new game activator - this is here in case a regular game is started after a hard game.
+    				game.hard = false;
+    			}
+    		}
     	}
     }
 }

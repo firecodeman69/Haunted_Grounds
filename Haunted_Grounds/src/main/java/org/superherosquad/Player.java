@@ -70,7 +70,11 @@ public class Player extends Character implements Serializable {
         return null;
     }
     
-    public void moveRooms(String d, ArrayList<Room> rooms) {
+    public void spendCurrency(int currency) { //Used for the shop
+        this.currency -= currency;
+    }
+    
+    public void moveRooms(String d, ArrayList<Room> rooms) { //Cobi
     	switch (d) { //Checks direction
     	
     		/*
@@ -84,11 +88,11 @@ public class Player extends Character implements Serializable {
 	            		if(r.getId() == this.currentRoom.getNorthRoom()) {
 	            			this.previousRoom = this.currentRoom;
 	            			this.currentRoom = r;
-	            			view.print("You are now in the " + this.currentRoom.getName() + ".");
+	            			break;
 	            		}
 	            	}
 	            }
-	            else view.print("You can't go that way honey-boo-boo!");
+	            else view.print("You cannot go that way.");
 	            break;
 	            
     		case "e":
@@ -97,11 +101,11 @@ public class Player extends Character implements Serializable {
 	            		if(r.getId() == this.currentRoom.getEastRoom()) {
 	            			this.previousRoom = this.currentRoom;
 	            			this.currentRoom = r;
-	            			view.print("You are now in the " + this.currentRoom.getName() + ".");
+	            			break;
 	            		}
 	            	}
 	            }
-	            else view.print("You can't go that way honey-boo-boo!");
+	            else view.print("You cannot go that way");
 	            break;
 	            
     		case "s":
@@ -110,11 +114,11 @@ public class Player extends Character implements Serializable {
 	            		if(r.getId() == this.currentRoom.getSouthRoom()) {
 	            			this.previousRoom = this.currentRoom;
 	            			this.currentRoom = r;
-	            			view.print("You are now in the " + this.currentRoom.getName() + ".");
+	            			break;
 	            		}
 	            	}
 	            }
-	            else view.print("You can't go that way honey-boo-boo!");
+	            else view.print("You cannot go that way.");
 	            break;
 	            
     		case "w":
@@ -123,15 +127,15 @@ public class Player extends Character implements Serializable {
 	            		if(r.getId() == this.currentRoom.getWestRoom()) {
 	            			this.previousRoom = this.currentRoom;
 	            			this.currentRoom = r;
-	            			view.print("You are now in the " + this.currentRoom.getName() + ".");
+	            			break;
 	            		}
 	            	}
 	            }
-	            else view.print("You can't go that way honey-boo-boo!");
+	            else view.print("You cannot go that way.");
 	            break;
 	         
 	        default:
-	        	view.print("How the hell did you get here?");
+	        	view.print("This message should not be displayed during regular gameplay. Please report this bug to the developers.");
     	}
     }
 

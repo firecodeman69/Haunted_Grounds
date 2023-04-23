@@ -12,6 +12,11 @@ public class View {
 		System.out.println("That is an invalid command.");
 	}
 	
+	public void room(String s)
+	{
+		System.out.println("You are now in the " + s + ".");
+	}
+	
     /****************ReAnn*********************/
     public String helpMenu() {
         return """
