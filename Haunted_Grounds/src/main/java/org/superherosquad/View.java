@@ -1,4 +1,4 @@
-/***********************************Cobi************************************/
+/***********************************Cobi && Cody - ReAnn (Created initial class)************************************/
 package org.superherosquad;
 
 public class View {

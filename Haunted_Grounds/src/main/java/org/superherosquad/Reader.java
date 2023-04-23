@@ -197,6 +197,59 @@ public class Reader {
     	}
     	return npcs;
     }
+
+
+    /************************************Add things to rooms (Cody)*****************************/
+
+    public void addMonstersToRoom(ArrayList<Room> gameRooms, ArrayList<Monster> gameMonsters) { //Cody - adds monsters to rooms
+        for (Room r : gameRooms) {
+            for (Monster m : gameMonsters) {
+                if (r.getMonsterId() == m.getId()) {
+                    r.setMonster(m);
+                }
+            }
+        }
+    }
+
+    public void addPuzzleToRoom(ArrayList<Room> gameRooms, ArrayList<Puzzle> gamePuzzles) { //Cody - adds puzzles to rooms
+        for (Room r : gameRooms) {
+            for (Puzzle p : gamePuzzles) {
+                if (r.getPuzzleId() == p.getId()) {
+                    r.setPuzzle(p);
+                }
+            }
+        }
+    }
+
+    public void addItemToRoom(ArrayList<Room> gameRooms, ArrayList<Item> gameItems) { //Cody - adds items to rooms
+        for (Room r : gameRooms) {
+            for (Item i: gameItems) {
+                if (r.getItemId() == i.getId()) {
+                    r.addItem(i);
+                }
+            }
+        }
+    }
+
+    public void addItemToMonster(ArrayList<Monster> gameMonsters, ArrayList<Item> gameItems) { //Cody - adds items to rooms
+        for (Monster m : gameMonsters) {
+            for (Item item: gameItems) {
+                for (int i = 0; i < m.getMonsterItemAssociations().length; i++) {
+                    if (m.getMonsterItemAssociations()[i] == item.getId()) m.addItems(item);
+                }
+            }
+        }
+    }
+
+    public void addNPCToRoom(ArrayList<Room> gameRooms, ArrayList<NPC> gameNPCs) { //Cody - adds puzzles to rooms
+        for (Room r : gameRooms) {
+            for (NPC npc : gameNPCs) {
+                if (r.getPuzzleId() == npc.getId()) {
+                    r.setNPC(npc);
+                }
+            }
+        }
+    }
     
 	/************************************Scanner Room file reader (Cody)*****************************/
     /****This was giving errors with reading the file. Seems to be some special characters or encoding that Scanner doesn't like. This is only here just in case.****/

@@ -1,10 +1,10 @@
-/**************** ReAnn ********************/
+/**************** ReAnn (created initial class) ********************/
 package org.superherosquad;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Controller {
+public class Controller { //Cobi && Cobi
     private Scanner input = new Scanner(System.in);
     private View view = new View();
 
@@ -12,6 +12,8 @@ public class Controller {
      * Main gameplay loop.
      * The reason this returns an integer is to change the game mode.
      */
+
+    //Cody and Cobi
     public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode, int prevMode, int saveMode) {
         String playerInput;
         String[] tokens;
@@ -83,6 +85,7 @@ public class Controller {
                         return mode;
                 }
 
+                //Cody
             case 0: //Navigating between rooms
                 view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
                 view.print("Please input a command."); //Prompt the player for what they need to input.
@@ -223,7 +226,7 @@ public class Controller {
                     break;
                 }
 
-            case 2: { //Puzzle
+            case 2: { //Puzzle - Cobi
                 Puzzle active = null;
                 for(Puzzle pz: puzzles) { //Find the active puzzle.
                     if(pz.getActive()) {

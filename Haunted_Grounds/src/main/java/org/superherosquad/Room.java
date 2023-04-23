@@ -24,7 +24,7 @@ public class Room {
 
     private NPC roomNPC;
     private boolean isVisited;
-    private boolean isDark;
+    private boolean isDark; //Cobi
     private boolean inspected = false;
 
     //Cody

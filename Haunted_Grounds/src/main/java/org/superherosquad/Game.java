@@ -44,12 +44,15 @@ public class Game {
         //shop = reader.newShop(); //Cobi
         
         /***Cody***/
-        addItemToMonster();
-        addMonstersToRoom();
-        addItemToRoom();
-        addPuzzleToRoom();
-        addNPCToRoom();
-        p.setCurrentRoom(gameRooms.get(14));
+        reader.addItemToMonster(gameMonsters, gameItems);
+        reader.addMonstersToRoom(gameRooms, gameMonsters);
+        reader.addItemToRoom(gameRooms, gameItems);
+        reader.addPuzzleToRoom(gameRooms, gamePuzzles);
+        reader.addNPCToRoom(gameRooms, gameNPCs);
+
+        p.setCurrentRoom(gameRooms.get(14)); //initialize the spawning room
+        //System.out.println(p);
+        //System.out.println(p.getCurrentRoom());
         /****END***/
     }
 
@@ -61,14 +64,14 @@ public class Game {
             oos = new ObjectOutputStream(fos); //Instantiate the ObjectOutputStream
             oos.writeObject(p); //Write the object to the file
         } catch (IOException ioe) {
-            System.out.println("IOException!");
+            view.print("IOException!");
         } finally { //close the stream even if there is an exception thrown
             try {
                 if (oos != null) {
                     oos.close();
                 }
             } catch (IOException ioe) {
-                System.out.println("Closing the outputstream failed.");
+                view.print("Closing the outputstream failed.");
             }
         }
     }
@@ -82,76 +85,26 @@ public class Game {
             p = (Player) ois.readObject(); //set current player = the contents of the save file
             //loadedGame = (Game) ois.readObject();
         } catch (IOException | ClassNotFoundException ioe) { //multi catch statement instead of using 2 catch statements
-            System.out.println(fileName);
-            System.out.println("Either an IOException happened or the class couldn't be found! Youch!");
+            view.print(fileName);
+            view.print("Either an IOException happened or the class couldn't be found! Youch!");
         } finally { //close the stream even if there is an exception thrown
             try {
                 if (ois != null) {
                     ois.close();
                 }
             } catch (IOException ioe) {
-                System.out.println("Closing the input Stream failed buckoo");
+                view.print("Closing the input Stream failed buckoo");
             }
         }
         //return loadedGame;
         return p;
-    }
-
-    public void addMonstersToRoom() { //Cody - adds monsters to rooms
-        for (Room r : gameRooms) {
-            for (Monster m : gameMonsters) {
-                if (r.getMonsterId() == m.getId()) {
-                    r.setMonster(m);
-                }
-            }
-        }
-    }
-
-    public void addPuzzleToRoom() { //Cody - adds puzzles to rooms
-        for (Room r : gameRooms) {
-            for (Puzzle p : gamePuzzles) {
-                if (r.getPuzzleId() == p.getId()) {
-                    r.setPuzzle(p);
-                }
-            }
-        }
-    }
-
-    public void addItemToRoom() { //Cody - adds items to rooms
-        for (Room r : gameRooms) {
-            for (Item i: gameItems) {
-                if (r.getItemId() == i.getId()) {
-                    r.addItem(i);
-                }
-            }
-        }
-    }
-
-    public void addItemToMonster() { //Cody - adds items to rooms
-        for (Monster m : gameMonsters) {
-            for (Item item: gameItems) {
-                for (int i = 0; i < m.getMonsterItemAssociations().length; i++) {
-                    if (m.getMonsterItemAssociations()[i] == item.getId()) m.addItems(item);
-                }
-            }
-        }
-    }
-
-    public void addNPCToRoom() { //Cody - adds puzzles to rooms
-        for (Room r : gameRooms) {
-            for (NPC npc : gameNPCs) {
-                if (r.getPuzzleId() == npc.getId()) {
-                    r.setNPC(npc);
-                }
-            }
-        }
     }
     
     public static void main(String[] args) { //Cobi - this is run to start the game.
     	Game game = new Game();
     	game.newGame();
     	game.gameMode = 5;
-    	while (true) {
+    	while (true) { //Cobi
     		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode, game.prevMode, game.saveMode);
     		
     		int setting = m / 10;
