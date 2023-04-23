@@ -14,9 +14,9 @@ public class Player extends Character implements Serializable {
     double runChance = 0;
 
     public Player() {
-    	super(0, "Character 1", 1000000, 9999999, "First player of the game.", 250000, 250000, 250000);
+        super(0, "Character 1", 1000000, 9999999, "First player of the game.", 250000, 250000, 250000);
     } //create a default player
-    
+
     public Player(int Id, String name, int hp, int currency, String description, //to be used for loading??
                   int speed, int defense, int attack,
                   Room currentRoom) {
@@ -39,10 +39,10 @@ public class Player extends Character implements Serializable {
 
 
     public void dropItem(Item item) {
-        for (Item i: playerInventory) {
-          if(i.getName().equalsIgnoreCase(item.getName())) {
-              playerInventory.remove(item);
-          }
+        for (Item i : playerInventory) {
+            if (i.getName().equalsIgnoreCase(item.getName())) {
+                playerInventory.remove(item);
+            }
         }
     }
 
@@ -112,8 +112,8 @@ public class Player extends Character implements Serializable {
         return runChance;
     }
 
-    public void setRunChance(double runChance) {
-        this.runChance = runChance;
+    public void setRunChance(Monster monster) {
+        this.runChance = (double) ((speed / (speed + monster.getSpeed())) * 100);
     }
 
     public boolean roomHasMonster() {
@@ -209,10 +209,10 @@ public class Player extends Character implements Serializable {
     }
 
     public void exitRoom() { //Cobi
-    	Room temp = this.currentRoom;
-    	this.currentRoom = this.previousRoom;
-    	this.previousRoom = temp;
-    	view.print("You have the exited the room that you were in.");
+        Room temp = this.currentRoom;
+        this.currentRoom = this.previousRoom;
+        this.previousRoom = temp;
+        view.print("You have the exited the room that you were in.");
     }
 
     public Room getCurrentRoom() {
