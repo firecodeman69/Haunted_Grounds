@@ -5,9 +5,9 @@ public class Equipment extends Item{
     protected int statsGain;
     protected boolean isEquipped;
 
-    public Equipment(int Id, String name, String description, int price, int statsGain, boolean isEquipped)
+    public Equipment(int Id, String name, String description, String type, String command, int effect, int price, int[] roomAssociations, int statsGain, boolean isEquipped)
     {
-        super(Id, name, description, price);
+        super(Id, name, description, type, command, effect, price, roomAssociations);
         this.statsGain = statsGain;
         this.isEquipped = isEquipped;
     }
@@ -25,4 +25,5 @@ public class Equipment extends Item{
     {
 
     }*/
+
 }

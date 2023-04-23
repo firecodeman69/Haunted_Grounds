@@ -3,81 +3,58 @@ package org.superherosquad;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Game implements Serializable {
-
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.newGame();
-
-        //System.out.println(c1);
-
-        game.saveGame(game); //Not currently working
-
-        //game.loadGame("saveGame.txt"); //Not currently working
-
-        System.out.println(game.p);
-
-        System.out.println(game.gameMonsters);
-        System.out.println(game.gameRooms);
-        System.out.println(game.gameNPCs);
-        System.out.println(game.gamePuzzles);
-    }
-
-
-    /***************************Cody********************/
-    //todo: determine if this is the right place for this to go
-    //todo: determine if this is the right approach
-    Controller c1 = new Controller();
-    Reader reader = new Reader();
-    ArrayList<Room> gameRooms; //Cody
-    //ArrayList<Item> gameItems; //ReAnn
-    ArrayList<Puzzle> gamePuzzles; //Cobi
-    ArrayList<Monster> gameMonsters; //Cody
-    ArrayList<NPC> gameNPCs; //Cobi
+public class Game {
+    private Controller controller = new Controller();
+    private ArrayList<Room> gameRooms; //Cody
+    private ArrayList<Item> gameItems; //ReAnn
+    private ArrayList<Puzzle> gamePuzzles; //Cobi
+    private ArrayList<Monster> gameMonsters; //Cody
+    private ArrayList<NPC> gameNPCs; //Cobi
     //Shop shop; //Cobi
-    //Controller c1 = new Controller();
-    private static final long serialVersionUID = 1L; //For the save game method
-    Player p;
+    //private static final long serialVersionUID = 1L; //For the save game method
+    Player p = new Player();
+    Reader reader = new Reader();
+    
+    private int gameMode = -1; //Cobi
+    /**
+     * Game Mode is an integer representing the state that the game is in.
+     * 0 = free roam mode
+     * 1 = combat mode
+     * 2 = puzzle mode
+     * 3 = talk mode
+     * 4 = shop mode
+     * 5 = initial menu
+     * 6 = pause menu
+     */
 
     public void newGame() {
         gameRooms = reader.newRoom(); //Cody
-
-        //gameItems = reader.newItem(); //ReAnn
-
+        gameItems = reader.newItem(); //ReAnn
         gamePuzzles = reader.newPuzzle(); //Cobi
-
         gameMonsters = reader.newMonster(); //Cody
-
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
-
         //shop = reader.newShop(); //Cobi
-
-        p = new Player();
+        
+        /***Cody***/
+        addItemToMonster();
         addMonstersToRoom();
+        addItemToRoom();
         addPuzzleToRoom();
         addNPCToRoom();
 
-        p.setId(0);
-        p.setName("Character 1");
-        p.setHP(100);
-        p.setCurrency(100);
-        p.setDescription("First player of the game.");
-        p.setSpeed(25);
-        p.setDefense(25);
-        p.setAttack(25);
         p.setCurrentRoom(gameRooms.get(0));
-        c1.gamePlay();
-
-        System.out.println(gameRooms);
+        System.out.println(p);
+        System.out.println(p.getCurrentRoom());
+        /****END***/
     }
 
-    public void saveGame(Game game) { //Cody
+    public void saveGame(Player p) { //Cody
         ObjectOutputStream oos = null;
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream("saveGame.bin");
+            fos = new FileOutputStream("playerSave.bin");
             oos = new ObjectOutputStream(fos); //Instantiate the ObjectOutputStream
-            oos.writeObject(game); //Write the object to the file
+            oos.writeObject(p); //Write the object to the file
         } catch (IOException ioe) {
             System.out.println("IOException! Oh no!");
         } finally { //close the stream even if there is an exception thrown
@@ -91,15 +68,14 @@ public class Game implements Serializable {
         }
     }
 
-    public Game loadGame(String fileName) { //Cody
+    public Player loadGame(String fileName) { //Cody
         ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
         FileInputStream fis;
-        Game loadedGame = null;
         try {
             fis = new FileInputStream(fileName);
             ois = new ObjectInputStream(fis);
-            //p = (Player) ois.readObject(); //set current player = the contents of the save file
-            loadedGame = (Game) ois.readObject();
+            p = (Player) ois.readObject(); //set current player = the contents of the save file
+            //loadedGame = (Game) ois.readObject();
         } catch (IOException | ClassNotFoundException ioe) { //multi catch statement instead of using 2 catch statements
             System.out.println(fileName);
             System.out.println("Either an IOException happened or the class couldn't be found! Youch!");
@@ -112,12 +88,13 @@ public class Game implements Serializable {
                 System.out.println("Closing the input Stream failed buckoo");
             }
         }
-        return loadedGame;
+        //return loadedGame;
+        return p;
     }
 
     public void addMonstersToRoom() { //Cody - adds monsters to rooms
         for (Room r : gameRooms) {
-            for (Monster m: gameMonsters) {
+            for (Monster m : gameMonsters) {
                 if (r.getMonsterId() == m.getId()) {
                     r.setMonster(m);
                 }
@@ -127,7 +104,7 @@ public class Game implements Serializable {
 
     public void addPuzzleToRoom() { //Cody - adds puzzles to rooms
         for (Room r : gameRooms) {
-            for (Puzzle p: gamePuzzles) {
+            for (Puzzle p : gamePuzzles) {
                 if (r.getPuzzleId() == p.getId()) {
                     r.setPuzzle(p);
                 }
@@ -135,24 +112,42 @@ public class Game implements Serializable {
         }
     }//End of method
 
-//    public void addItemToRoom() { //Cody - adds items to rooms
-//        for (Room r : gameRooms) {
-//            for (Item i: gameItems) {
-//                if (r.getItemId() == i.getId()) {
-//                    r.setPuzzle(i);
-//                }
-//            }
-//        }
-//    }//End of method
+    public void addItemToRoom() { //Cody - adds items to rooms
+        for (Room r : gameRooms) {
+            for (Item i: gameItems) {
+                if (r.getItemId() == i.getId()) {
+                    r.addItem(i);
+                }
+            }
+        }
+    }//End of method
+
+    public void addItemToMonster() { //Cody - adds items to rooms
+        for (Monster m : gameMonsters) {
+            for (Item item: gameItems) {
+                for (int i = 0; i < m.getMonsterItemAssociations().length; i++) {
+                    if (m.getMonsterItemAssociations()[i] == item.getId()) m.addItems(item);
+                }
+            }
+        }
+    }//End of method
 
     public void addNPCToRoom() { //Cody - adds puzzles to rooms
         for (Room r : gameRooms) {
-            for (NPC npc: gameNPCs) {
+            for (NPC npc : gameNPCs) {
                 if (r.getPuzzleId() == npc.getId()) {
                     r.setNPC(npc);
                 }
             }
         }
     }//End of method
-
+    
+    public static void main(String[] args) {
+    	Game game = new Game();
+    	game.newGame();
+    	game.gameMode = 5;
+    	while (true) {
+    		game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode);
+    	}
+    }
 }

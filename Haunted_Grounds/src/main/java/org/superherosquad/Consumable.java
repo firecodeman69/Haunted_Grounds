@@ -4,9 +4,9 @@ package org.superherosquad;
 public class Consumable extends Item {
     protected int healthGain;
 
-    public Consumable(int Id, String name, String description, int price, int healthGain)
+    public Consumable(int Id, String name, String description, String type, String command, int effect, int price, int[] roomAssociations, int healthGain)
     {
-        super(Id, name, description, price);
+        super(Id, name, description, type, command, effect, price, roomAssociations);
         this.healthGain = healthGain;
     }
 
@@ -19,4 +19,5 @@ public class Consumable extends Item {
     {
 
     }*/
+
 }

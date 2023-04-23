@@ -91,30 +91,30 @@ public class Reader {
         Item item;
         ArrayList<Item> allItems = new ArrayList<>();
         try {
-            sc = new Scanner(new File("items.txt"));
-            sc.nextLine(); // skip the first line
-            // Skip the header line
-            if (sc.hasNextLine()) {
-                sc.nextLine();
-            }
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                String[] parts = line.split("#");
-                int id = Integer.parseInt(parts[0]);
-                String name = parts[1];
-                String description = parts[2];
-                int price = Integer.parseInt(parts[6]);
-                item = new Item(id, name, description, price);
+            BufferedReader reader = new BufferedReader(new FileReader("items.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split("#"); //# delimited
+                String[] associationTokens = tokens[7].split(","); //Split roomAssociations
+                int[] roomAssociations = new int[associationTokens.length];
+                for (int i = 0; i < associationTokens.length; i++) {
+                    roomAssociations[i] = Integer.parseInt(associationTokens[i]); //Set int array of roomAssociations
+                }
+
+                item = new Item(Integer.parseInt(tokens[0]) // ID
+                        , tokens[1] // Name
+                        , tokens[2] // Description
+                        , tokens[3] // Type
+                        , tokens[4] // Command
+                        , Integer.parseInt(tokens[5]) //Effect
+                        , Integer.parseInt(tokens[6]) //Price
+                        , roomAssociations); // Room Associations
                 allItems.add(item);
-            }
-            sc.close();
-        }//end try
-        catch (IOException ioe) {
-            ioe.printStackTrace();
-            System.out.println("IOException!" +
-                    "No file exists! " +
-                    "Please make sure that the file exists and try again.");
-        } catch (NoSuchElementException ignored) {
+
+            } //end while
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return allItems;
     }
@@ -161,11 +161,11 @@ public class Reader {
                 String monsterInfo = sc.nextLine();
                 //System.out.println("Current line is (you fool): " + monsterInfo);
                 String[] monsterTokens = monsterInfo.split("#");
-//                String[] roomAssociationTokens = monsterTokens[8].split(",");
-//                int[] roomAssociations = new int[roomAssociationTokens.length];
-//                for (int i = 0; i < roomAssociations.length; i++) {
-//                    roomAssociations[i] = Integer.parseInt(roomAssociationTokens[i]);
-//                }
+                String[] itemAssociationTokens = monsterTokens[8].split(",");
+                int[] itemAssociations = new int[itemAssociationTokens.length];
+                for (int i = 0; i < itemAssociationTokens.length; i++) {
+                    itemAssociations[i] = Integer.parseInt(itemAssociationTokens[i]);
+                }
                     monster = new Monster(Integer.parseInt(monsterTokens[0]) //MonsterID
                             , monsterTokens[1] //Name
                             , Integer.parseInt(monsterTokens[2]) //HP
@@ -173,7 +173,8 @@ public class Reader {
                             , monsterTokens[4] //Description
                             , Integer.parseInt(monsterTokens[5]) //Speed
                     , Integer.parseInt(monsterTokens[6]) //Defense
-                    , Integer.parseInt(monsterTokens[7])); //Attack
+                    , Integer.parseInt(monsterTokens[7]), //Attack
+                            itemAssociations); //Item associations
                    // , roomAssociations); //room associations
                 monsters.add(monster);
             }//end while
