@@ -116,18 +116,24 @@ public class Room {
     	if(p.getCurrentRoom().getIsDark()) {
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
     	}
-    	else if(p.getCurrentRoom().getMonsterId() != 0) {
+    	/*else if(p.getCurrentRoom().getMonsterId() != -1) {
     		//Initiate combat
-    	}
+    	}*/
     	else {
-        	view.print("Room description: " + p.getCurrentRoom().getDescription() + "\n");
-        	view.print("Items in room: " + p.getCurrentRoom().getItems() + "\n");
+        	view.print("Room description: " + p.getCurrentRoom().getDescription());
+        	view.print("Items in room: " + p.getCurrentRoom().getItems());
         	view.print("Puzzles in room: " + p.getCurrentRoom().getPuzzle());
     	}
     }
     
     public void lightsOn() {
-    	this.isDark = false;
+    	if(isDark) {
+    		isDark = false;
+    		view.print("You have turned the lights on.");
+    	}
+    	else {
+    		view.print("The lights are already on.");
+    	}
     }
 
     public int getMonsterId() {
