@@ -118,6 +118,8 @@ public class Controller {
 	            	return mode;
 	            	
 	            case "inspectroom":
+	            	p.getCurrentRoom().inspect(p);
+	            	return mode;
 	                
 	            default:
 	            	view.invalid();
