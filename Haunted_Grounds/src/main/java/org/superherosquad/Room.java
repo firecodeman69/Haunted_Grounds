@@ -74,6 +74,10 @@ public class Room {
         roomPuzzle = null;
     }
 
+    public Monster getRoomMonster() {
+        return roomMonster;
+    }
+
     public void setMonster(Monster monster) { //Cody
         roomMonster = monster;
     }
@@ -102,10 +106,10 @@ public class Room {
         roomItems.add(item);
     }
 
-    public void removeItem(Item item) { //Cody
+    public void dropItem(String itemName) { //Cody
         for (Item i: roomItems) {
-            if (i.getName().equalsIgnoreCase(i.getName())) {
-                roomItems.remove(item);
+            if (i.getName().equalsIgnoreCase(itemName)) {
+                roomItems.remove(i);
             }
         }
     }

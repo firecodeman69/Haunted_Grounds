@@ -17,6 +17,10 @@ public class View {
 	{
 		print("You are now in the " + s + ".");
 	}
+
+	public void encounterMonster(Monster monster) {
+		System.out.println(monster.getName() + "is in the room!");
+	}
 	
     public void helpMenu() { //ReAnn & Cobi
          print("""
