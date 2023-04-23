@@ -8,47 +8,8 @@ import java.util.NoSuchElementException;
 public class Reader {
     Scanner sc;
 
-	/************************************Room file reader (Cody)*****************************/
-    /****This was giving errors with reading the file. Seems to be some special characters or encoding that Scanner doesn't like****/
-//    public ArrayList<Room> newRoom() {
-//        Room room;
-//        ArrayList<Room> rooms = new ArrayList<>();
-//        try {
-//            sc = new Scanner(new File("rooms.txt"));
-//
-//            while (sc.hasNextLine()) {
-//                String roomInfo = sc.nextLine();
-//                System.out.println("Current line is (you fool): " + roomInfo);
-//                String[] roomTokens = roomInfo.split("#");
-//                String[] roomAssociationTokens = roomTokens[3].split(",");
-//                int[] roomAssociations = new int[roomAssociationTokens.length];
-//                for (int i = 0; i < roomAssociations.length; i++) {
-//                    roomAssociations[i] = Integer.parseInt(roomAssociationTokens[i]);
-//                }
-//                room = new Room(Integer.parseInt(roomTokens[0]) //RoomID
-//                        , roomTokens[1] //Name
-//                        , roomTokens[2] //Description
-//                        , roomAssociations[0] //northRoom
-//                        , roomAssociations[1] //southRoom
-//                        , roomAssociations[2] //eastRoom
-//                        , roomAssociations[3] //westRoom
-//                        ,Boolean.parseBoolean(roomTokens[4])); //isVisited
-//                rooms.add(room);
-//            }//end while
-//            sc.close();
-//            //System.out.println(rooms);
-//        }//end try
-//        catch (IOException ioe) {
-//            ioe.printStackTrace();
-//            System.out.println("IOException!" +
-//                    "No room file exists! " +
-//                    "Please make sure that the file exists and try again.");
-//        } catch (NoSuchElementException nse) {
-//            nse.printStackTrace();
-//        }
-//        return rooms;
-//    }
-
+    /************************************Buffered room file reader (Cody)*****************************/
+    
     public ArrayList<Room> newRoom() { //Create rooms for a new game
         Room room;
         ArrayList<Room> rooms = new ArrayList<>();
@@ -227,4 +188,45 @@ public class Reader {
     	}
     	return npcs;
     }
+    
+	/************************************Scanner Room file reader (Cody)*****************************/
+    /****This was giving errors with reading the file. Seems to be some special characters or encoding that Scanner doesn't like****/
+//    public ArrayList<Room> newRoom() {
+//        Room room;
+//        ArrayList<Room> rooms = new ArrayList<>();
+//        try {
+//            sc = new Scanner(new File("rooms.txt"));
+//
+//            while (sc.hasNextLine()) {
+//                String roomInfo = sc.nextLine();
+//                System.out.println("Current line is (you fool): " + roomInfo);
+//                String[] roomTokens = roomInfo.split("#");
+//                String[] roomAssociationTokens = roomTokens[3].split(",");
+//                int[] roomAssociations = new int[roomAssociationTokens.length];
+//                for (int i = 0; i < roomAssociations.length; i++) {
+//                    roomAssociations[i] = Integer.parseInt(roomAssociationTokens[i]);
+//                }
+//                room = new Room(Integer.parseInt(roomTokens[0]) //RoomID
+//                        , roomTokens[1] //Name
+//                        , roomTokens[2] //Description
+//                        , roomAssociations[0] //northRoom
+//                        , roomAssociations[1] //southRoom
+//                        , roomAssociations[2] //eastRoom
+//                        , roomAssociations[3] //westRoom
+//                        ,Boolean.parseBoolean(roomTokens[4])); //isVisited
+//                rooms.add(room);
+//            }//end while
+//            sc.close();
+//            //System.out.println(rooms);
+//        }//end try
+//        catch (IOException ioe) {
+//            ioe.printStackTrace();
+//            System.out.println("IOException!" +
+//                    "No room file exists! " +
+//                    "Please make sure that the file exists and try again.");
+//        } catch (NoSuchElementException nse) {
+//            nse.printStackTrace();
+//        }
+//        return rooms;
+//    }
 }

@@ -7,9 +7,8 @@ import java.util.Scanner;
 public class Controller {
     private Scanner input = new Scanner(System.in);
     private View view = new View();
-    private String invalid = "That is an invalid command.";
 
-    public void gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzle, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode) {
+    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzle, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, int mode, int prevMode) {
     	String playerInput;
     	String[] tokens;
     	
@@ -45,12 +44,12 @@ public class Controller {
     	              "exit" : Use this command to leave the game.
         			  """;
         		
-        		if(mode == 5) { //Welcoming messages for the main menu.
+        		if(mode == 5 && prevMode != 5) { //Welcoming messages for the main menu.
         			view.print("Welcome to the Haunted Grounds game!\nMAIN MENU\n");
         			view.print(mainhelp);
         		}
         		
-        		if(mode == 6) { //Welcoming messages for the pause menu.
+        		if(mode == 6 && prevMode != 6) { //Welcoming messages for the pause menu.
         			view.print("PAUSE MENU");
         			view.print(pausehelp);
         		}
@@ -67,69 +66,76 @@ public class Controller {
 		    			if(mode == 6) {
 		    				view.print(pausehelp);
 		    			}
-		    			break;
+		    			return mode;
 		    			
 		    		case "exit": //Exit the program.
 		    			view.print("Thanks for playing!");
 		    			System.exit(0);
+		    			return mode;
 		    		
-		    		//TODO: Fix the continue command to where it brings you to the mode you were in before you entered the menu.
 		    		case "continue": //Return the user from the pause menu to their currently-active game.
 		    			if(mode == 6) {
-		    				mode = 0;
+		    				return 0;
 		    			}
-		    			break;
+		    			else {
+		    				view.invalid();
+		    			}
+		    			return mode;
 		    		
 		    		//TODO: Create the new game logic.
-		        	case "new": //Create a new game.
+		        	case "newgame": //Create a new game.
 		        		System.out.println("Starting a New Game!");
 		        		//new game logic
-		        		break;
+		        		return 0;
 		        		
 		        	//TODO: Create the new hard game logic.
-		          	case "hard": //Create a new hard mode game.
+		          	case "newhard": //Create a new hard mode game.
 		          		System.out.println("Starting a New Hard-mode Game!");
 		            	//hard game logic 
-		          		break;
+		          		return mode;
 		
 		          	//TODO: Create the new game logic.
 		        	case "load": //Load a game from a previous save file
 		        		System.out.println("Loading game!");
 		        		//load game
-		        		break;
+		        		return mode;
 		        		
 		        	default: //This is reached if none of the previous cases were reached.
-		        		view.print(invalid);
-		        		break;
+		        		view.invalid();
+		        		return mode;
         		}
-        		break;
         		
         	case 0:
+        		view.print("Please input a direction.");
                 playerInput = input.nextLine().toLowerCase();
                 tokens = playerInput.split(" ");
                 
         		switch (tokens[0]) {
 		        case "north":
-		            System.out.println("Do the north thing.");
-		            if(p.currentRoom.getNorthRoom() != -1) p.setCurrentRoom(rooms.get(p.currentRoom.getNorthRoom()));
-		            else System.out.println("You can't go that way honey-boo-boo!");
-		            break;
+		        case "n":
+		            view.print("Do the north thing!");
+		            p.moveRooms("n", rooms);
+		            return mode;
 		        case "south":
-	                System.out.println("Do the south thing.");
-	                if(p.currentRoom.getSouthRoom() != -1) p.setCurrentRoom(rooms.get(p.currentRoom.getSouthRoom()));
-	                else System.out.println("You can't go that way honey-boo-boo!");
-	                break;
+		        case "s":
+	                view.print("Do the south thing.");
+	                p.moveRooms("s", rooms);
+	                return mode;
 	            case "east":
-	                System.out.println("Do the east thing.");
-	                if(p.currentRoom.getEastRoom() != -1) p.setCurrentRoom(rooms.get(p.currentRoom.getEastRoom()));
-	                else System.out.println("You can't go that way honey-boo-boo!");
-	                break;
+	            case "e":
+	                view.print("Do the east thing.");
+	                p.moveRooms("e", rooms);
+	                return mode;
 	            case "west":
-	                System.out.println("Do the west thing.");
-	                if(p.currentRoom.getWestRoom() != -1) p.setCurrentRoom(rooms.get(p.currentRoom.getWestRoom()));
-	                else System.out.println("You can't go that way honey-boo-boo!");
-	                break;
+	            case "w":
+	                view.print("Do the west thing.");
+	                p.moveRooms("w", rooms);
+	                return mode;
+	            default:
+	            	view.invalid();
+	            	return mode;
         		}
         }  
+    return mode;
     }
 }
