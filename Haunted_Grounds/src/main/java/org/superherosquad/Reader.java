@@ -98,8 +98,15 @@ public class Reader {
 						text.concat("\n" + puzzleLines[i]);
 					}
 				}
-				puzzle = new Puzzle(Integer.parseInt(puzzleTokens[0]), puzzleTokens[1], puzzleTokens[2],
-						puzzleTokens[3], puzzleTokens[4], puzzleTokens[5], puzzleTokens[6], puzzleTokens[7]);
+				puzzle = new Puzzle(Integer.parseInt(puzzleTokens[0]), 
+									puzzleTokens[1], 
+									puzzleTokens[2],
+									puzzleTokens[3], 
+									puzzleTokens[4], 
+									Integer.parseInt(puzzleTokens[5]), 
+									puzzleTokens[6], 
+									puzzleTokens[7],
+									puzzleTokens[8]);
 				puzzleAL.add(puzzle);
 			}
 		} catch (IOException ioe) {

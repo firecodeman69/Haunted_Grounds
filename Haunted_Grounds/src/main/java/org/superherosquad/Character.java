@@ -78,10 +78,6 @@ public abstract class Character {
         this.currency += currency;
     }
 
-    public void spendCurrency(int currency) { //Used for the shop
-        this.currency -= currency;
-    }
-
     public int getSpeed() { //Used for combat
         return speed;
     }

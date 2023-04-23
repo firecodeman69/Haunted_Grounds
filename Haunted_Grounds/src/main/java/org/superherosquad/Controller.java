@@ -82,17 +82,13 @@ public class Controller {
 		    			}
 		    			return mode;
 		    		
-		    		//TODO: Create the new game logic.
-		        	case "newgame": //Create a new game.
+		        	case "newgame": //Create a new game by effectively resetting to the start state.
 		        		System.out.println("Starting a New Game!");
-		        		//new game logic
-		        		return 0;
+		        		return 90;
 		        		
-		        	//TODO: Create the new hard game logic.
 		          	case "newhard": //Create a new hard mode game.
 		          		System.out.println("Starting a New Hard-mode Game!");
-		            	//hard game logic 
-		          		return mode;
+		          		return 80;
 		
 		          	//TODO: Create the new game logic.
 		        	case "load": //Load a game from a previous save file
@@ -100,35 +96,36 @@ public class Controller {
 		        		//load game
 		        		return mode;
 		        		
+		        	//TODO: Create the save game logic.
+		        	case "save": //Save a game from a previous save file
+		        		
+		        		
 		        	default: //This is reached if none of the previous cases were reached.
 		        		view.invalid();
 		        		return mode;
         		}
         		
-        	case 0:
-        		view.print("Please input a direction.");
-                playerInput = input.nextLine().toLowerCase();
-                tokens = playerInput.split(" ");
+        	case 0: //Navigating between rooms
+        		view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
+        		view.print("Please input a direction."); //Prompt the player for what they need to input.
+                playerInput = input.nextLine().toLowerCase(); //Interpret player input.
+                tokens = playerInput.split(" "); 
                 
-        		switch (tokens[0]) {
+        		switch (tokens[0]) { //This is the first word of the input.
 		        case "north":
 		        case "n":
-		            view.print("Do the north thing!");
 		            p.moveRooms("n", rooms);
 		            return mode;
 		        case "south":
 		        case "s":
-	                view.print("Do the south thing.");
 	                p.moveRooms("s", rooms);
 	                return mode;
 	            case "east":
 	            case "e":
-	                view.print("Do the east thing.");
 	                p.moveRooms("e", rooms);
 	                return mode;
 	            case "west":
 	            case "w":
-	                view.print("Do the west thing.");
 	                p.moveRooms("w", rooms);
 	                return mode;
 	            default:
