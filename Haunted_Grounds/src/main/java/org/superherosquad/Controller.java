@@ -83,9 +83,9 @@ public class Controller {
                         return mode;
                 }
 
-        	case 0: //Navigating between rooms
-        		view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
-        		view.print("Please input a command."); //Prompt the player for what they need to input.
+            case 0: //Navigating between rooms
+                view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
+                view.print("Please input a command."); //Prompt the player for what they need to input.
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
                 tokens = playerInput.split(" ");
 
@@ -142,6 +142,10 @@ public class Controller {
                         view.helpMenu();
                         return mode;
                     }
+                    case "pickup" -> {
+                        if (tokens.length == 2) p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1]));
+                        else p.addItemToInventory(p.getCurrentRoom().getItem(tokens[1] + " " + tokens[2]));
+                    }
 
                     default -> {
                         view.invalid();
@@ -149,106 +153,102 @@ public class Controller {
                     }
                 }
 
-            case 1:
+            case 1: //Combat - Cody
                 boolean playerTurn = true;
-                boolean monsterTurn = false;
                 boolean defending = false;
                 Monster monster = p.getCurrentRoom().getRoomMonster();
-                System.out.println(monster.getName() + " Attacked you! Starting combat!");
-                while (monster.isAlive() && p.isAlive()) {
+                int decision = p.initialCombat(monster, input); // if 0, player turn first. if 1, monster turn first, if -1, escape combat, change mode to prevMode
 
-                    if (playerTurn) {
-						view.print("What would you like to do?\n(A)ttack, (D)efend, Use {item name}, (R)un");
-						playerInput = input.nextLine().toLowerCase();
-						tokens = playerInput.split(" ");
-                        switch (tokens[0]) {
-                            case "attack":
-                            case "a":
-                                monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
-                                System.out.println("You hit the monster for " + p.getAttack() + "! " +
-                                        "Monster has " + monster.getHP() + "hp left.");
-                                playerTurn = false;
-                                monsterTurn = true;
-                                break;
-                            case "defend":
-                            case "d":
-                                defending = true;
-                                System.out.println("You are defending.");
-                                playerTurn = false;
-                                monsterTurn = true;
-                                break;
-                            case "use":
-                                if (p.hasItem(tokens[1])) {
-                                    p.useConsumableItem(tokens[1]); //add item effect to player's health
+                if (decision == 0 || decision == 1) { //didn't run from monster
+                    if (decision == 1) playerTurn = false; //ignored the monster
+                    while (monster.isAlive() && p.isAlive()) {
+                        if (playerTurn) {
+                            view.print("What would you like to do?\n(A)ttack, (D)efend, Use {item name}, (R)un");
+                            playerInput = input.nextLine().toLowerCase();
+                            tokens = playerInput.split(" ");
+                            switch (tokens[0]) {
+                                case "attack", "a" -> {
+                                    monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
+                                    view.print("You hit the monster for " + p.getAttack() + "! " +
+                                            "Monster has " + monster.getHP() + "hp left.");
+                                    playerTurn = false;
                                 }
-                                playerTurn = false;
-                                monsterTurn = true;
-                                break;
-                            case "run":
-                            case "r":
-                                p.setRunChance(monster);
-                                System.out.println("Player run percentage is " + p.getRunChance() + "\nRun away successfully? " + p.runSuccess(monster));
-                                playerTurn = false;
-                                monsterTurn = true;
-                                break;
-                        }
-                    } else if (monsterTurn) {
-                        if (defending) {
-                            p.loseHP(monster.getAttack() / 2); //if player defends, deal half of monster attack
-                            System.out.println("Monster attacked and hit you for " + (monster.getAttack() / 2) + ". " +
-                                    "Remaining HP: " + p.getHP());
-                            playerTurn = true;
-                            monsterTurn = false;
+                                case "defend", "d" -> {
+                                    defending = true;
+                                    view.print("You are defending.");
+                                    playerTurn = false;
+                                }
+                                case "use" -> {
+                                    if (p.hasItem(tokens[1])) {
+                                        p.useConsumableItem(tokens[1]); //add item effect to player's health
+                                    }
+                                    playerTurn = false;
+                                }
+                                case "run", "r" -> {
+                                    p.setRunChance(monster);
+                                    view.print("Player run percentage is " + p.getRunChance() + "\nRun away successfully? " + p.runSuccess(monster));
+                                    playerTurn = false;
+                                }
+                            }
                         } else {
-                            p.loseHP(monster.getAttack());
-                            System.out.println("Monster attacked and hit you for " + (monster.getAttack()) + ". " +
-                                    "Remaining HP: " + p.getHP());
-                            playerTurn = true;
-                            monsterTurn = false;
+                            if (defending) {
+                                p.loseHP(monster.getAttack() / 2); //if player defends, deal half of monster attack
+                                view.print("Monster attacked and hit you for " + (monster.getAttack() / 2) + ". " +
+                                        "Remaining HP: " + p.getHP());
+                                playerTurn = true;
+                            } else {
+                                p.loseHP(monster.getAttack());
+                                view.print("Monster attacked and hit you for " + (monster.getAttack()) + ". " +
+                                        "Remaining HP: " + p.getHP());
+                                playerTurn = true;
+                            }
                         }
                     }
-                } if (monster.isAlive() && !p.isAlive()) {
-                System.out.println("You have been defeated in battle. Regroup and try again!");
-                mode = 5;
-                break;
-            } else {
-                System.out.println("You successfully defeated " + monster.getName() + "! " +
-                        "You have earned " + monster.getCurrency() + " and gained items: " +
-                        monster.getMonsterInventory());
-                p.addItemsToInventory(monster.getMonsterInventory());
-                p.addCurrency(monster.getCurrency());
-                p.currentRoom.removeMonster();
-                mode = prevMode;
-                break;
-            }
-                
+                    if (monster.isAlive() && !p.isAlive()) {
+                        view.print("You have been defeated in battle. Regroup and try again!");
+                        mode = 5;
+                        break;
+                    } else {
+                        view.print("You successfully defeated " + monster.getName() + "! " +
+                                "You have earned " + monster.getCurrency() + " and gained items: " +
+                                monster.getMonsterInventory());
+                        p.addItemsToInventory(monster.getMonsterInventory());
+                        p.addCurrency(monster.getCurrency());
+                        p.currentRoom.removeMonster();
+                        mode = prevMode;
+                        break;
+                    }
+                } else {
+                    mode = prevMode;
+                }
+
             case 2: { //Puzzle
-            	Puzzle active = null;
-            	for(Puzzle pz: puzzles) { //Find the active puzzle.
-            		if(pz.getActive()) {
-            			active = pz;
-            			break;
-            		}
-            	}
-            	
+                Puzzle active = null;
+                for(Puzzle pz: puzzles) { //Find the active puzzle.
+                    if(pz.getActive()) {
+                        active = pz;
+                        break;
+                    }
+                }
+
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
-                
+
                 switch(playerInput) {
-	                case "hint" -> {
-	                	view.print(active.getHint());
-	                	return mode;
-	                }
-	                
-	                default -> {
-	                	if(playerInput.equalsIgnoreCase(active.getSolution())) {
-	                		mode = active.onSolve(p.getCurrentRoom(), items);
-	                		return mode;
-	                	}
-	                	else {
-	                		active.incorrect();
-	                		return mode;
-	                	}
-	                }
+                    case "hint" -> {
+                        view.print(active.getHint());
+                        return mode;
+                    }
+
+                    default -> {
+                        if(playerInput.equalsIgnoreCase(active.getSolution())) {
+                            mode = active.onSolve(p.getCurrentRoom(), items);
+                            return mode;
+                        }
+                        else {
+                            active.incorrect();
+                            return mode;
+                        }
+                    }
                 }
             }
             
@@ -256,6 +256,8 @@ public class Controller {
             	
             }
         }
-        return mode; //This is only here because the program yells at me if it isn't. The program is mean.
+
+
+        return mode;
     }
 }

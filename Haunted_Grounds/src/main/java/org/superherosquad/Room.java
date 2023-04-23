@@ -107,7 +107,17 @@ public class Room {
         roomItems.add(item);
     }
 
-    public void dropItem(String itemName) { //Cody
+    public Item getItem(String itemName) { //Cody
+        for (Item i: roomItems) {
+            if (i.getName().equalsIgnoreCase(itemName)) {
+                return i;
+            }
+        }
+        removeItem(itemName);
+        return null;
+    }
+
+    public void removeItem(String itemName) { //Cody
         for (Item i: roomItems) {
             if (i.getName().equalsIgnoreCase(itemName)) {
                 roomItems.remove(i);
