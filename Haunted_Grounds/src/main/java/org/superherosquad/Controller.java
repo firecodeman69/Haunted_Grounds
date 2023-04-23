@@ -68,7 +68,7 @@ public class Controller {
                         System.out.println("Starting a New Hard-mode Game!");
                         return 80;
 
-                    //TODO: Create the new game logic.
+                    //TODO: Create the load game logic.
                     case "load": //Load a game from a previous save file
                         System.out.println("Loading game!");
                         //load game

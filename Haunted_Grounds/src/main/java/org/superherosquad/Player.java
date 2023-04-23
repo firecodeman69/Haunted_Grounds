@@ -37,7 +37,6 @@ public class Player extends Character implements Serializable {
         playerInventory.addAll(itemAL);
     }
 
-
     public void dropItem(Item item) {
         for (Item i : playerInventory) {
             if (i.getName().equalsIgnoreCase(item.getName())) {
@@ -69,7 +68,6 @@ public class Player extends Character implements Serializable {
             return ("You don't have any items in your inventory.");
         }
     }
-
 
     public Item explore(String name) {
         for (Item i : currentRoom.getItems()) {
@@ -123,7 +121,6 @@ public class Player extends Character implements Serializable {
         return false;
     }
 
-
     public void moveRooms(String d, ArrayList<Room> rooms) { //Cobi
     	switch (d) { //Checks direction
     		/*
@@ -135,6 +132,7 @@ public class Player extends Character implements Serializable {
 	            if(this.currentRoom.getNorthRoom() != -1) {
 	            	if(this.currentRoom.getNorthRoom() >= 100) { //Locked connections have an ID of 100 or greater.
 	            		view.print("The path in that direction is locked.");
+	            		break;
 	            	}
 	            	else {
 		            	for(Room r: rooms) {
@@ -145,14 +143,19 @@ public class Player extends Character implements Serializable {
 		            			break;
 		            		}
 		            	}
+		            break;
 	            	}
 	            }
-	            else view.print("You cannot go that way.");
+	            else { 
+	            	view.print("You cannot go that way."); 
+	            	break;
+	            }
 
     		case "e":
 	            if(this.currentRoom.getEastRoom() != -1) {
 	            	if(this.currentRoom.getEastRoom() >= 100) {
 	            		view.print("The path in that direction is locked.");
+	            		break;
 	            	}
 	            	else {
 		            	for(Room r: rooms) {
@@ -163,14 +166,17 @@ public class Player extends Character implements Serializable {
 		            			break;
 		            		}
 		            	}
+		            break;
 	            	}
 	            }
 	            else view.print("You cannot go that way.");
+	            break;
 
     		case "s":
 	            if(this.currentRoom.getSouthRoom() != -1) {
 	            	if(this.currentRoom.getSouthRoom() >= 100) {
 	            		view.print("The path in that direction is locked.");
+	            		break;
 	            	}
 	            	else {
 		            	for(Room r: rooms) {
@@ -181,14 +187,17 @@ public class Player extends Character implements Serializable {
 		            			break;
 		            		}
 		            	}
+		            break;
 	            	}
 	            }
 	            else view.print("You cannot go that way.");
+	            break;
 
     		case "w":
 	            if(this.currentRoom.getWestRoom() != -1) {
 	            	if(this.currentRoom.getWestRoom() >= 100) {
 	            		view.print("The path in that direction is locked.");
+	            		break;
 	            	}
 	            	else {
 		            	for(Room r: rooms) {
@@ -199,12 +208,15 @@ public class Player extends Character implements Serializable {
 		            			break;
 		            		}
 		            	}
+		            
 	            	}
 	            }
 	            else view.print("You cannot go that way.");
+	            break;
 	         
 	        default:
 	        	view.print("This message should not be displayed during regular gameplay. Please report this bug to the developers.");
+	        	break;
     	}
     }
 

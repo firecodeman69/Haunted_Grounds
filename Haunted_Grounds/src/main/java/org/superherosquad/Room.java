@@ -114,40 +114,33 @@ public class Room {
         }
     }
     
-    //TODO: Fill in the process for initiating combat.
-    public int inspect(Player p, int currentMode) {
-        int mode;
+    public int inspect(Player p, int currentMode) {        
     	if(p.getCurrentRoom().getIsDark()) {
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
-            mode = currentMode;
     	}
-    	/*else if(p.getCurrentRoom().getMonsterId() != -1) {
-    		//Initiate combat
-    	}*/
+
     	else {
-        	view.print("Room description: " + p.getCurrentRoom().getDescription());
-        	view.print("Items in room: " + p.getCurrentRoom().getItems());
-        	view.print("Puzzles in room: " + p.getCurrentRoom().getPuzzle());
             if (p.roomHasMonster()) {
-                mode = 1;
-            }else {
-                mode = currentMode;
+                currentMode = 1;
+            } else {
+            	view.print("Room description: " + p.getCurrentRoom().getDescription());
+            	
+            	if(p.getCurrentRoom().getItems().isEmpty()) {
+            		view.print("There are no items in the current room.");
+            	}
+            	else {
+                	view.print("Items in room: " + p.getCurrentRoom().getItems());
+            	}
+            	try {
+            		p.getCurrentRoom().getPuzzle().getId();
+        			view.print("Puzzle in room: " + p.getCurrentRoom().getPuzzle());
+            	}
+            	catch (NullPointerException nre) {
+            		view.print("There is no puzzle in the current room.");
+            	}
             }
-        	if(p.getCurrentRoom().getItems().isEmpty()) {
-        		view.print("There are no items in the current room.");
-        	}
-        	else {
-            	view.print("Items in room: " + p.getCurrentRoom().getItems());
-        	}
-        	try {
-        		p.getCurrentRoom().getPuzzle().getId();
-    			view.print("Puzzle in room: " + p.getCurrentRoom().getPuzzle());
-        	}
-        	catch (NullPointerException nre) {
-        		view.print("There is no puzzle in the current room.");
-        	}
     	}
-        return mode;
+        return currentMode;
     }
     
     public void lightsOn() {

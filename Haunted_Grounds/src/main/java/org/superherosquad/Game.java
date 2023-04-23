@@ -156,6 +156,7 @@ public class Game {
     	game.gameMode = 5;
     	while (true) {
     		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.gameMode, game.prevMode, game.saveMode);
+    		
     		int setting = m / 10;
     		int newMode = m % 10;
     		game.prevMode = game.gameMode;
@@ -166,8 +167,8 @@ public class Game {
     		 * Previous mode is meant to check if this is the first run of the loop in which the menu was accessed. If it is, it prints the menu's help message.
     		 * Save mode is meant to return the user to the previous mode of the game once continue is ran.
     		 */
-    		if(game.gameMode == 6) {
-    			game.saveMode = m / 10;
+    		if(game.gameMode == 6 && game.prevMode != 6) {
+    			game.saveMode = setting;
     		}
     		
     		if(setting == 9 || setting == 8) { //Cobi - this resets the game.
