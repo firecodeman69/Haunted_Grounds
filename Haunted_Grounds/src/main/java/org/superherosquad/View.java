@@ -18,7 +18,7 @@ public class View {
 		print("You are now in the " + s + ".");
 	}
 
-	public void encounterMonster(Monster monster) {
+	public void encounterMonster(Monster monster) { //Cody
 		System.out.println(monster.getName() + "is in the room!");
 	}
 	
@@ -46,6 +46,7 @@ public class View {
                 "inspect " + item : Users can use this command to read a description of an item located in the room or inventory.
                 "inventory" : Command used to view all items currently in the player's inventory. Also, displays current items equipped.
                 "startpuzzle" : When in a room with a puzzle, the user can use this command to start attempting to solve the puzzle.
+                "talk" : When in a rooom with an NPC, the user can use this command to initiate conversation with the NPC. 
                 
                 COMBAT:
                 "attack" : When in combat, the user can use this command to attack the current enemy.
@@ -65,11 +66,10 @@ public class View {
                 "drink " + item name : Users can use this command to drink an item followed by the name of the item.
                 
                 NPCS:
-                "talk" : User can use this command to interact with the NPCs and receive riddles.
                 "shop" : User can use this command for the purchase of consumables.
-                "riddle" : User can use this command to initiate a riddle.
-                "leave" : User can use this command to leave the shop and end the conversion with the NPC.
-                "buy " + item name + quantity: The user can use this commands in the shop to but consumables.
+                "riddle" : User can use this command to initiate a riddle with the NPC.
+                "leave" : User can use this command to leave the shop or end the conversion with the NPC.
+                "buy " + item name + quantity: The user can use this commands in the shop to buy consumables.
                 =======================================================================================================================================================================================                                                                          
                 """);
     }

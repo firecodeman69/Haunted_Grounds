@@ -132,6 +132,11 @@ public class Controller {
                     	mode = p.getCurrentRoom().activatePuzzle(mode, puzzles);
                     	return mode;
                     }
+                    
+                    case "talk" -> { //Initiate conversation with the NPC in the room if there is one.
+                    	mode = p.getCurrentRoom().talk(mode);
+                    	return mode;
+                    }
 
                     case "help" -> { //Prints out the help menu.
                         view.helpMenu();
@@ -245,6 +250,10 @@ public class Controller {
 	                	}
 	                }
                 }
+            }
+            
+            case 3: { //Talking to NPCs
+            	
             }
         }
         return mode; //This is only here because the program yells at me if it isn't. The program is mean.

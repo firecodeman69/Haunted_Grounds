@@ -8,6 +8,7 @@ public class NPC
 	private String description;
 	private Puzzle puzzle;
 	private boolean shopAccess;
+	private boolean active = false;
 	
 	public NPC(int i, String n, String d, Puzzle p, boolean a)
 	{
@@ -21,6 +22,7 @@ public class NPC
 	public int getId() {
 		return id;
 	}
+	
 	public String getName()
 	{
 		return this.name;
@@ -39,6 +41,11 @@ public class NPC
 	public boolean hasShopAccess()
 	{
 		return this.shopAccess;
+	}
+	
+	public void activate()
+	{
+		active = true;
 	}
 	
 	public void talk()

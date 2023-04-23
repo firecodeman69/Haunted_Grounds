@@ -166,6 +166,17 @@ public class Room {
     	}
     	return currentMode;
     }
+    
+    public int talk(int currentMode) {
+    	if(npcId == -1) {
+    		view.print("There is no NPC in this room to talk to.");
+    	}
+    	else {
+    		currentMode = 3;
+    		roomNPC.activate();
+    	}
+    	return currentMode;
+    }
 
     public int getMonsterId() {
         return monsterId;

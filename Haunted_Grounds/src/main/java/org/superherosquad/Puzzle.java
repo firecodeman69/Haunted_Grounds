@@ -1,7 +1,5 @@
 //Cobi
-
 package org.superherosquad;
-
 import java.util.ArrayList;
 
 public class Puzzle 
