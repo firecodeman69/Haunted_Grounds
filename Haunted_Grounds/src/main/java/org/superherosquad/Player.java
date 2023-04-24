@@ -47,10 +47,12 @@ public class Player extends Character implements Serializable {
         playerInventory.addAll(itemAL);
     }
 
-    public void dropItem(Item item) {
-        for (Item i : playerInventory) {
-            if (i.getName().equalsIgnoreCase(item.getName())) {
-                playerInventory.remove(item);
+    public void dropItem(String itemName) {
+        for (int i = 0; i < playerInventory.size(); i++) {
+            if (hasItem(itemName)) {
+                currentRoom.addItem(playerInventory.get(i));
+                playerInventory.remove(playerInventory.get(i));
+                System.out.println(currentRoom.getItems().get(i).getName() + " was removed from your inventory. Use command 'inspectroom' to see it now.");
             }
         }
     }
