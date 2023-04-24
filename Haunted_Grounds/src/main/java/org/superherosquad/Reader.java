@@ -99,15 +99,15 @@ public class Reader {
 						text.concat("\n" + puzzleLines[i]);
 					}
 				}
-				puzzle = new Puzzle(Integer.parseInt(puzzleTokens[0]), 
-									puzzleTokens[1], 
-									puzzleTokens[2],
-									puzzleTokens[3], 
-									puzzleTokens[4], 
-									Integer.parseInt(puzzleTokens[5]),
-									puzzleTokens[6], 
-									puzzleTokens[7],
-									puzzleTokens[8]);
+				puzzle = new Puzzle(Integer.parseInt(puzzleTokens[0]), //Id
+									puzzleTokens[1], //Name
+									puzzleTokens[2], //Question
+									puzzleTokens[3], //Solution
+									puzzleTokens[4], //Hint
+									Integer.parseInt(puzzleTokens[5]), //Reward
+									puzzleTokens[6], //Description
+									puzzleTokens[7], //Repsonse on correct answer
+									puzzleTokens[8]); //Response on incorrect answer
 				puzzleAL.add(puzzle);
 			}
 		} catch (IOException ioe) {
@@ -180,12 +180,12 @@ public class Reader {
     					npcPuzzle = p;
     				}
     			}
-    			npc = new NPC(Integer.parseInt(npcTokens[0])
-    				  , npcTokens[1]
-    			      , npcTokens[2]
-    			      , npcPuzzle
-    			      , npcTokens[4]
-    			      , Boolean.parseBoolean(npcTokens[5]));
+    			npc = new NPC(Integer.parseInt(npcTokens[0]) //Id
+    				  , npcTokens[1] //Name
+    			      , npcTokens[2] //Description
+    			      , npcPuzzle //Puzzle
+    			      , npcTokens[4] //Greets (greeting)
+    			      , Boolean.parseBoolean(npcTokens[5])); //Shop access
     			npcs.add(npc);
     		}
 			sc.close();

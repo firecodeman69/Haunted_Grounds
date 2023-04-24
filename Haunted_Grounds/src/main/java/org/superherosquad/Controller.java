@@ -16,7 +16,7 @@ public class Controller { //Cobi && Cobi
      */
 
     //Cody and Cobi
-    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, Shop shop, int mode, int prevMode, int saveMode) {
+    public int gamePlay(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, Shop shop, int mode, int prevMode, int saveMode, boolean hard) {
         String playerInput;
         String[] tokens;
         switch (mode) {
@@ -71,7 +71,6 @@ public class Controller { //Cobi && Cobi
                         view.print("Starting a New Hard-mode Game!");
                         return 80;
 
-                    //TODO: Create the load game logic.
                     case "load": //Load a game from a previous save file
                         if(mode == 5) {
                         	return 75;
@@ -80,9 +79,8 @@ public class Controller { //Cobi && Cobi
                         	return 76;
                         }
 
-                    //TODO: Create the save game logic.
                     case "save": //Save a game from a previous save file
-                        saver.saveGame(rooms, items, puzzles, monsters, npcs, p, shop, mode, prevMode, saveMode);
+                        saver.saveGame(rooms, items, puzzles, monsters, npcs, p, shop, mode, prevMode, saveMode, hard);
                         return mode;
 
                     default: //If none of the previous cases were reached, a message telling the user that their command is invalid will be printed.
