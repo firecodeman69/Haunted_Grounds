@@ -1,3 +1,4 @@
+/***********************Cody************************/
 package org.superherosquad;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Combat {
             if (decision == 1) playerTurn = false; //ignored the monster
             while (slaying) {
                 if (playerTurn) {
-                    view.print("What would you like to do?\n(A)ttack, (D)efend, Use {item name}, (R)un\n" +
+                    view.print("What would you like to do?\n(A)ttack, (D)efend, (U)se {item name}, (R)un\n" +
                             "Use '(I)tem' to open your inventory menu.");
                     String playerInput = input.nextLine().toLowerCase();
                     String[] tokens = playerInput.split(" ");
@@ -26,6 +27,7 @@ public class Combat {
                             monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
                             view.print("You hit the monster for " + p.getAttack() + "! " +
                                     "Monster has " + monster.getHP() + "hp left.");
+                            if (monster.getHP() <= 0) slaying = false;
                             playerTurn = false;
                         }
                         case "defend", "d" -> {
@@ -33,7 +35,7 @@ public class Combat {
                             view.print("You are defending.");
                             playerTurn = false;
                         }
-                        case "use" -> {
+                        case "use", "u" -> {
                             if (tokens.length < 2) {
                                 if (p.hasItem(tokens[1])) {
                                     p.useConsumableItem(tokens[1]); //add item effect to player's health
@@ -47,8 +49,7 @@ public class Combat {
                         }
                         case "run", "r" -> {
                             p.setRunChance(monster);
-                            System.out.printf("Player run percentage is %.2f%%\nRun away successfully? %s\n"
-                                    , p.getRunChance(), p.runSuccess() ? "true":"false"); // fancy way to print a boolean in printf
+                            view.print("Player run percentage is " + p.getRunChance() + "%\nRun away successfully? " + p.runSuccess() + "\n"); // fancy way to print a boolean in printf
                             if (p.runSuccess()) {
                                 return prevMode;
                             }
@@ -56,7 +57,7 @@ public class Combat {
                                 playerTurn = false;
                             }
                         }
-                        case "item", "i" -> itemMenu(p.playerInventory, input);
+                        case "item", "i" -> itemMenu(p.getPlayerInventory(), input);
                     }
                 } else {
                     if (defending) {
@@ -81,7 +82,7 @@ public class Combat {
                         monster.getMonsterInventory());
                 p.addItemsToInventory(monster.getMonsterInventory());
                 p.addCurrency(monster.getCurrency());
-                p.currentRoom.removeMonster();
+                p.getCurrentRoom().removeMonster();
                 return prevMode;
             }
         } else {

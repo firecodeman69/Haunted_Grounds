@@ -7,12 +7,13 @@ import java.util.Scanner;
 
 public class Player extends Character implements Serializable {
 
-    ArrayList<Item> playerInventory = new ArrayList<>();
-    ArrayList<Item> equippedItems = new ArrayList<>();
-    Room currentRoom;
-    Room previousRoom;
-    View view = new View();
-    double runChance = 0;
+    private ArrayList<Item> playerInventory = new ArrayList<>();
+    private ArrayList<Item> equippedItems = new ArrayList<>();
+    private Room currentRoom;
+    private Room previousRoom;
+    private View view = new View();
+    private double runChance = 0;
+    private double runSuccess = 0;
 
     public Player() {
         super(0, "Character 1", 1000, 0, "First player of the game.", 100, 100, 100);
@@ -103,14 +104,18 @@ public class Player extends Character implements Serializable {
         return false;
     }
 
-    public void useConsumableItem(String itemName) {
+    public String useConsumableItem(String itemName) {
         for (Item item: playerInventory) {
             if(item.getName().equalsIgnoreCase(itemName)) {
-                if(item.getType().equalsIgnoreCase("use")) {
+                if(item.getType().equalsIgnoreCase("C")) {
                     hp += item.getEffect();
+                }
+                else {
+                    return "That is not a consumable item.";
                 }
             }
         }
+        return "You have used your consumable item. HP increased!.";
     }
 
     public void inspectInventoryItem(String itemName) {
@@ -124,7 +129,7 @@ public class Player extends Character implements Serializable {
     }
 
     public boolean runSuccess() {
-        return Math.ceil(Math.random() * 100) <= runChance;
+        return runSuccess <= runChance;
     }
 
     public double getRunChance() {
@@ -132,6 +137,7 @@ public class Player extends Character implements Serializable {
     }
 
     public void setRunChance(Monster monster) {
+        runSuccess = Math.ceil(Math.random() * 100);
         runChance =  (((double) speed / (speed + monster.getSpeed())) * 100);
     }
 
