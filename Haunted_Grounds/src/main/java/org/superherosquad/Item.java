@@ -2,6 +2,7 @@
 package org.superherosquad;
 public class Item {
 
+	View view = new View();
     protected int Id;
 
     public int getId() {
