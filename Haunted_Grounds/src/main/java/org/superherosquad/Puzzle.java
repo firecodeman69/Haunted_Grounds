@@ -26,7 +26,7 @@ public class Puzzle
 		this.reward = i;
 		this.description = d;
 		this.correctResp = c;
-		this.wrongResp = c;
+		this.wrongResp = w;
 	}
 	
 	public int getId()
@@ -88,10 +88,10 @@ public class Puzzle
 				}
 			}
 		} else if(reward == -1){ //This indicates that the puzzle is a door unlock puzzle, so we unlock all locked connections in the room.
-			if (r.getNorthRoom() > 100) {r.setNorthRoom(r.getNorthRoom() - 100);};
-			if (r.getSouthRoom() > 100) {r.setSouthRoom(r.getSouthRoom() - 100);};
-			if (r.getEastRoom() > 100) {r.setEastRoom(r.getEastRoom() - 100);};
-			if (r.getWestRoom() > 100) {r.setWestRoom(r.getWestRoom() - 100);};
+			if (r.getNorthRoom() > 100) {r.setNorthRoom(r.getNorthRoom() - 100);}
+			if (r.getSouthRoom() > 100) {r.setSouthRoom(r.getSouthRoom() - 100);}
+			if (r.getEastRoom() > 100) {r.setEastRoom(r.getEastRoom() - 100);}
+			if (r.getWestRoom() > 100) {r.setWestRoom(r.getWestRoom() - 100);}
 		} //If the reward is -2, that just unlocks the friend which has no discernable affect on the program except for marking the puzzle as solved.
 		
 		r.removePuzzle();
