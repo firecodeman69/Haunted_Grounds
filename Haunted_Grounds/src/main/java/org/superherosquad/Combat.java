@@ -1,5 +1,6 @@
 package org.superherosquad;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Combat {
@@ -10,12 +11,14 @@ public class Combat {
         boolean defending = false;
         Monster monster = p.getCurrentRoom().getRoomMonster();
         int decision = p.initialCombat(monster, input); // if 0, player turn first. if 1, monster turn first, if -1, escape combat, change mode to prevMode
+        boolean slaying = true;
 
         if (decision == 0 || decision == 1) { //didn't run from monster
             if (decision == 1) playerTurn = false; //ignored the monster
-            while (monster.isAlive() && p.isAlive()) {
+            while (slaying) {
                 if (playerTurn) {
-                    view.print("What would you like to do?\n(A)ttack, (D)efend, Use {item name}, (R)un");
+                    view.print("What would you like to do?\n(A)ttack, (D)efend, Use {item name}, (R)un\n" +
+                            "Use '(I)tem' to open your inventory menu.");
                     String playerInput = input.nextLine().toLowerCase();
                     String[] tokens = playerInput.split(" ");
                     switch (tokens[0]) {
@@ -44,9 +47,16 @@ public class Combat {
                         }
                         case "run", "r" -> {
                             p.setRunChance(monster);
-                            view.print("Player run percentage is " + p.getRunChance() + "\nRun away successfully? " + p.runSuccess(monster));
-                            playerTurn = false;
+                            System.out.printf("Player run percentage is %.2f%%\nRun away successfully? %s\n"
+                                    , p.getRunChance(), p.runSuccess() ? "true":"false"); // fancy way to print a boolean in printf
+                            if (p.runSuccess()) {
+                                return prevMode;
+                            }
+                            else {
+                                playerTurn = false;
+                            }
                         }
+                        case "item", "i" -> itemMenu(p.playerInventory, input);
                     }
                 } else {
                     if (defending) {
@@ -77,5 +87,18 @@ public class Combat {
         } else {
             return prevMode;
         }
+    }
+
+    public void itemMenu(ArrayList<Item> playerInventory, Scanner input) {
+            boolean itemMenuOpen = true;
+            view.print("Inventory Menu\nUse 'Exit' to leave this menu any time.");
+            while (itemMenuOpen) {
+                view.print(playerInventory.toString());
+                String playerInput = input.nextLine().toLowerCase();
+                String[] tokens = playerInput.split(" ");
+                if (tokens[0].equalsIgnoreCase("exit")) {
+                    itemMenuOpen = false;
+                }
+            }
     }
 }

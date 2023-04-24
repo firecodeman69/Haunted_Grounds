@@ -127,13 +127,13 @@ public class Room {
     }
 
     public void removeItem(String itemName) { //Cody
-        for (Item i: roomItems) {
-            if (i.getName().equalsIgnoreCase(itemName)) {
-                roomItems.remove(i);
+        for (int i = 0; i < roomItems.size(); i++) {
+            if (roomItems.get(i).getName().equalsIgnoreCase(itemName)) {
+                roomItems.remove(roomItems.get(i));
             }
         }
     }
-    
+
     public int inspect(Player p, int currentMode) { //Cobi & Cody
     	if(p.getCurrentRoom().getIsDark()) {
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
@@ -163,6 +163,15 @@ public class Room {
             }
     	}
         return currentMode;
+    }
+
+    public boolean hasItem(String itemName) {
+        for (Item i: roomItems) {
+            if (i.getName().equalsIgnoreCase(itemName)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public void lightsOn() { //Cobi
