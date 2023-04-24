@@ -157,7 +157,7 @@ public class Room {
             		p.getCurrentRoom().getPuzzle().getId();
         			view.print("Puzzle in room: " + p.getCurrentRoom().getPuzzle());
             	}
-            	catch (NullPointerException nre) {
+            	catch (NullPointerException npe) {
             		view.print("There is no puzzle in the current room.");
             	}
             }

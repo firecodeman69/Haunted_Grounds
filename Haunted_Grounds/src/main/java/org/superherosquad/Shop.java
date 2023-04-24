@@ -6,7 +6,9 @@ import java.util.ArrayList;
 public class Shop 
 {
 	View view = new View();
-	private ArrayList<Item> items;
+	private ArrayList<Item> items = new ArrayList<Item>();
+	
+	public Shop() {}
 	
 	public Shop(ArrayList<Item> i)
 	{
