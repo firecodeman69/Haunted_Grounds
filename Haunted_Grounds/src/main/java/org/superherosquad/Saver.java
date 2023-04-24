@@ -6,10 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.Character;
 
-public class SaverAndLoader {
+public class Saver {
 	View view = new View();
 	private Scanner input = new Scanner(System.in);
 	
@@ -25,7 +26,7 @@ public class SaverAndLoader {
 		  return true;
 		}
 	
-    public void saveGame() {
+    public void saveGame(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, Shop shop, int mode, int prevMode, int saveMode) {
     	boolean valid = false;
     	String fileName = null;
     	while(!valid) {
@@ -42,7 +43,17 @@ public class SaverAndLoader {
         ObjectOutputStream oos = null;
         try { //Try block in case the oos doesn't create.
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName));
-            
+            output.writeObject(rooms);
+            output.writeObject(items);
+            output.writeObject(puzzles);
+            output.writeObject(monsters);
+            output.writeObject(npcs);
+            output.writeObject(p);
+            output.writeObject(shop);
+            output.writeInt(mode);
+            output.writeInt(prevMode);
+            output.writeInt(saveMode);
+            view.print("Game saved as " + fileName);
         } catch (IOException ioe) {
             view.print("IOException!");
         } finally { //close the stream even if there is an exception thrown
@@ -55,28 +66,4 @@ public class SaverAndLoader {
             }
         }
     }
-
-    /*public Player loadGame(String fileName) { //Cody
-        ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
-        FileInputStream fis;
-        try {
-            fis = new FileInputStream(fileName);
-            ois = new ObjectInputStream(fis);
-            p = (Player) ois.readObject(); //set current player = the contents of the save file
-            //loadedGame = (Game) ois.readObject();
-        } catch (IOException | ClassNotFoundException ioe) { //multi catch statement instead of using 2 catch statements
-            view.print(fileName);
-            view.print("Either an IOException happened or the class couldn't be found! Youch!");
-        } finally { //close the stream even if there is an exception thrown
-            try {
-                if (ois != null) {
-                    ois.close();
-                }
-            } catch (IOException ioe) {
-                view.print("Closing the input Stream failed buckoo");
-            }
-        }
-        //return loadedGame;
-        return p;
-    }*/
 }

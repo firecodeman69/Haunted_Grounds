@@ -36,8 +36,8 @@ public class View {
                 "menuhelp" : When in the main menu, the user can use this command to see information about the load and save features.
                 "newgame" : When in the main menu, this command allows the user to create a new game and save file.
                 "newhard" : When in the main menu, this command is the same as the new game command, but if the player dies during the game, the game is over and cannot be returned to.
-                "load " + save name : When in the main menu, use this command to load a save by inputting the previously determined save name.
-                "save " + save name : When in the main menu, use this command with a save name to save all progress. This command saves all information about the player and the map.
+                "load" : When in the main menu, use this command to load a save.
+                "save" : When in the main menu, use this command to save all progress.
                 "continue" : When in the main menu, this command returns the user back into the current game(only displayed if the user is already in a game).
                 "exit" : When in the main menu, the user can use this command to leave the game.
 

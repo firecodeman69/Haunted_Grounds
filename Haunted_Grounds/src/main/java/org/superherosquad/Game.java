@@ -1,8 +1,12 @@
 package org.superherosquad;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.lang.Character;
 
 public class Game {
     Player p = new Player();
@@ -16,7 +20,7 @@ public class Game {
     private ArrayList<Puzzle> gamePuzzles; //Cobi
     private ArrayList<Monster> gameMonsters; //Cody
     private ArrayList<NPC> gameNPCs; //Cobi
-    Shop shop; //Cobi
+    private Shop shop = new Shop(); //Cobi
     private boolean hard = false; //Cobi
     //private static final long serialVersionUID = 1L; //For the save game method
     
@@ -35,6 +39,18 @@ public class Game {
      * 6 = pause menu
      */
 
+	//Credit: https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
+	public static boolean onlyLettersSpaces(String s){
+		  for(int i = 0; i < s.length(); i++){
+		    char ch = s.charAt(i);
+		    if (Character.isLetter(ch) || ch == ' ') {
+		      continue;
+		    }
+		    return false;
+		  }
+		  return true;
+		}
+    
     public void newGame() {
         gameRooms = reader.newRoom(); //Cody
         gameItems = reader.newItem(); //ReAnn
@@ -57,9 +73,53 @@ public class Game {
         }
 
         p.setCurrentRoom(gameRooms.get(14)); //initialize the spawning room
-        //System.out.println(p);
-        //System.out.println(p.getCurrentRoom());
         /****END***/
+    }
+    
+	@SuppressWarnings({"unchecked"})
+	public void loadGame() { //Cobi
+    	boolean valid = false;
+    	String fileName = null;
+    	while(!valid) {
+	        view.print("What is the name of the save file that you would like to load? Do not include the .dat extension.");
+	        fileName = input.nextLine().trim();
+	        if(!onlyLettersSpaces(fileName) || fileName.isEmpty()) {
+	        	view.print("That is not a valid file name.");
+	        	continue;
+	        }
+	        valid = true;
+    	}
+    	fileName.concat(".dat");
+    	
+        ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
+        try {
+            ois = new ObjectInputStream(new FileInputStream(fileName));
+            gameRooms = (ArrayList<Room>) ois.readObject();
+            gameItems = (ArrayList<Item>) ois.readObject();
+            gamePuzzles = (ArrayList<Puzzle>) ois.readObject();
+            gameMonsters = (ArrayList<Monster>) ois.readObject();
+            gameNPCs = (ArrayList<NPC>) ois.readObject();
+            p = (Player) ois.readObject();
+            shop = (Shop) ois.readObject();
+            gameMode = ois.readInt();
+            prevMode = ois.readInt();
+            saveMode = ois.readInt();
+        } catch (ClassNotFoundException cnf) {
+        	view.print("ClassNotFoundException. Looks like we get to learn what this is.");
+        	cnf.printStackTrace();
+        } catch (FileNotFoundException fnf) {
+        	view.print("There is no save file with that name.");
+        } catch (IOException ioe) {
+            view.print("IOException!");
+        } finally { //close the stream even if there is an exception thrown
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+            } catch (IOException ioe) {
+                view.print("The input stream couldn't be closed. How.");
+            }
+        }
     }
     
     public static void main(String[] args) { //Cobi - this is run to start the game.
@@ -95,6 +155,10 @@ public class Game {
     			
     			view.print("What shall be the name of your character?");
     			game.p.setName(input.nextLine());
+    		}
+    		
+    		if(setting == 7) { //Cobi - this loads the save file.
+    			game.loadGame();
     		}
     	}
     }
