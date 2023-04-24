@@ -151,6 +151,11 @@ public class Controller { //Cobi && Cobi
                         else p.addItemToInventory(tokens[1] + " " + tokens[2]);
                         return mode;
                     }
+                    case "drop" -> {
+                        if (tokens.length < 2) p.dropItem(tokens[1]);
+                        else p.dropItem(tokens[1] + " " + tokens[2]);
+                        return mode;
+                    }
                     case "inspect" -> {
                         if (tokens.length < 2) {
                             if (p.hasItem (tokens[1])) {
