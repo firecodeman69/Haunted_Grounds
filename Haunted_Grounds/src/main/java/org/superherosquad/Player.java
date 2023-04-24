@@ -30,13 +30,14 @@ public class Player extends Character implements Serializable {
     }
 
     public void addItemToInventory(String itemName) {
-        for (Item i: getCurrentRoom().getItems()) {
-            if (i.getName().equalsIgnoreCase(itemName)) {
-                playerInventory.add(i);
-                System.out.println(i.getName() + " was added to your inventory. Use command Inventory to see it now.");
+            for (int i = 0; i < getCurrentRoom().getItems().size(); i++) {
+                if (currentRoom.hasItem(itemName)) {
+                    playerInventory.add(currentRoom.getItems().get(i));
+                    System.out.println(currentRoom.getItems().get(i).getName() + " was added to your inventory. Use command Inventory to see it now.");
+                    currentRoom.removeItem(itemName);
+                }
             }
         }
-    }
     
     public void silentAdder(Item item) {
     	playerInventory.add(item);
@@ -120,7 +121,7 @@ public class Player extends Character implements Serializable {
         }
     }
 
-    public boolean runSuccess(Monster monster) {
+    public boolean runSuccess() {
         return Math.ceil(Math.random() * 100) <= runChance;
     }
 
@@ -129,7 +130,7 @@ public class Player extends Character implements Serializable {
     }
 
     public void setRunChance(Monster monster) {
-        this.runChance = (double) ((speed / (speed + monster.getSpeed())) * 100);
+        runChance =  (((double) speed / (speed + monster.getSpeed())) * 100);
     }
 
     public boolean roomHasMonster() {

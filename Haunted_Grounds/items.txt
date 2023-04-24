@@ -3,13 +3,13 @@
 3#Starbucks Drink#This double shot espresso drink is filled to the brim with sugar. Use this item to increase speed +20.#C#drink#20#6#8
 4#Energy Drink#This high caffeinated drink will give you plenty of energy. Use this item to increase speed +30.#C#drink#30#3#15
 5#Protein Shake#Protein, protein, and more protein. Use this item to increase attack +50.#C#drink#50#7#13
-6#Pedialyte#An optimal balance of sugar and electrolytes. Pedialyte is designed to hydrate better than water and is the number 1 doctor recommended brand. Use this item to increase defense +20.#C#drink#20#2#20
-7#Rusty Sword#A thin, pitted, and somewhat dull sword covered in rust spots. Use this item to increase attack +80.#W#equip attack#80#0#16
-8#Knife#The lunch lady’s favorite meat cleaver, freshly sharpened. Use this item to increase attack +150.#W#equip attack#150#0#9
-9#Baseball Bat#A solid wood bat with the words Louisville Slugger engraved. Use this item to increase attack +50.#W#equip attack#50#0#0
-10#Gym Weights#A pair of 25 pound weights made of iron. Use this item to increase attack +20.#W#equip attack#20#0#6
-11#Hunting Rifle#A sturdy and precise weapon with a metal finish, a wooden stock, and a quality scope. Use this item to increase attack +500.#W#equip attack#500#0#3
-12#GGC T-Shirt#A 100% cotton t-shirt with the Grizzly logo on it. Use this item to increase health +100.#A#equip#100#0#12
-13#GGC Cap#A stylish baseball style hat with the Grizzly logo embroidered on the front. Use this item to increase health +50.#A#equip#50#0#18
-14#GGC Hoodie#A soft high quality hoodie with “GGC” printed on the front. Use this item to increase health +100.#A#equip#100#0#4
-15#GGC Sweatpants#Comfy bottoms made of a cotton blend. Use this item to increase health +100.#A#equip#100#0#1
+6#Pedialyte#An optimal balance of sugar and electrolytes. Pedialyte is designed to hydrate better than water and is the number 1 doctor recommended brand. Use this item to increase +20 defense.#C#drink#20#2#20
+7#Rusty Sword#A thin, pitted, and somewhat dull sword covered in rust spots. Use this item to increase attack +80.#E#equip attack#80#0#16
+8#Knife#The lunch lady’s favorite meat cleaver, freshly sharpened. Use this item to increase attack +150.#E#equip attack#150#0#9
+9#Baseball Bat#A solid wood bat with the words Louisville Slugger engraved. Use this item to increase attack +50.#E#equip attack#50#0#0
+10#Gym Weights#A pair of 25 pound weights made of iron. Use this item to increase attack +20.#E#equip attack#20#0#6
+11#Hunting Rifle#A sturdy and precise weapon with a metal finish, a wooden stock, and a quality scope. Use this item to increase attack +500.#E#equip attack#500#0#3
+12#GGC T-Shirt#A 100% cotton t-shirt with the Grizzly logo on it. Use this item to increase health +100.#E#equip#100#0#12
+13#GGC Cap#A stylish baseball style hat with the Grizzly logo embroidered on the front. Use this item to increase health +50.#E#equip#50#0#18
+14#GGC Hoodie#A soft high quality hoodie with "GGC" printed on the front. Use this item to increase health +100.#E#equip#100#0#4
+15#GGC Sweatpants#Comfy bottoms made of a cotton blend. Use this item to increase health +100.#E#equip#100#0#1
