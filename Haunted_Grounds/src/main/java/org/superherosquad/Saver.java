@@ -26,7 +26,7 @@ public class Saver {
 		  return true;
 		}
 	
-    public void saveGame(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, Shop shop, int mode, int prevMode, int saveMode) {
+    public void saveGame(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monsters, ArrayList<NPC> npcs, Player p, Shop shop, int mode, int prevMode, int saveMode, boolean hard) {
     	boolean valid = false;
     	String fileName = null;
     	while(!valid) {
@@ -53,6 +53,7 @@ public class Saver {
             output.writeInt(mode);
             output.writeInt(prevMode);
             output.writeInt(saveMode);
+            output.writeBoolean(hard);
             view.print("Game saved as " + fileName);
         } catch (IOException ioe) {
             view.print("IOException!");

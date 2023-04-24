@@ -22,7 +22,6 @@ public class Game {
     private ArrayList<NPC> gameNPCs; //Cobi
     private Shop shop = new Shop(); //Cobi
     private boolean hard = false; //Cobi
-    //private static final long serialVersionUID = 1L; //For the save game method
     
     //Game modes - Cobi
     private int gameMode = -1; 
@@ -127,7 +126,7 @@ public class Game {
     	game.newGame();
     	game.gameMode = 5;
     	while (true) { //Cobi
-    		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.shop, game.gameMode, game.prevMode, game.saveMode);
+    		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.shop, game.gameMode, game.prevMode, game.saveMode, game.hard);
     		
     		int setting = m / 10;
     		int newMode = m % 10;

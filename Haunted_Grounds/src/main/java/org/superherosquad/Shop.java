@@ -1,9 +1,10 @@
 // Cobi
 package org.superherosquad;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Shop 
+public class Shop implements Serializable
 {
 	View view = new View();
 	private ArrayList<Item> items = new ArrayList<Item>();
