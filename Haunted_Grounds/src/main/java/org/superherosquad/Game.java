@@ -153,6 +153,7 @@ public class Game {
     			}
     			
     			view.print("What shall be the name of your character?");
+                view.userInput();
     			game.p.setName(input.nextLine());
     		}
     		

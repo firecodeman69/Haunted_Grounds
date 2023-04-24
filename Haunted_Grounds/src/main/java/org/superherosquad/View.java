@@ -7,20 +7,32 @@ public class View {
 	{
 		System.out.println(s);
 	}
-	
+
+	public void userInput() {System.out.print("\n> ");} // ReAnn
+
 	public void invalid()
 	{
-		print("That is an invalid command.");
+		print("\n\u001B[31mThat is an invalid command.\u001B[0m");
 	}
 	
 	public void room(String s)
 	{
-		print("You are now in the " + s + ".");
+		print("You are currently in the \033[1m" + "\033[93m" + s + "\033[0m" + ".");
 	}
 
 	public void encounterMonster(Monster monster) { //Cody
 		print(monster.getName() + "is in the room!");
 	}
+
+	// ReAnn
+	public void mainMenu() {print("" +
+							    "\033[1m\033[93m  - Main Menu -\033[0m\n" +
+			                    "\033[1m    New Game\n" +
+			                    "New Hard Mode Game\n" +
+								"    Load Game\n" +
+								"    Menu Help\n" +
+								"      Exit\033[0m\n");}
+	// End of Work
 	
     public void shopPrint(Item i) {
     	print(i.getName() + ": $" + i.getPrice());
