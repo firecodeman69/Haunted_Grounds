@@ -27,11 +27,21 @@ public class Controller { //Cobi && Cobi
 
             case 5, 6: //Initial menu
                 if (mode == 5 && prevMode != 5) { //Welcoming messages for the main menu.
-                    view.print("Welcome to the Haunted Grounds game!\n\nMAIN MENU\n");
-                    view.mainMenuHelp();
+                    view.print("\n=======================================================================================================================================================================================\n");
+                    view.print("\033[1m--- HAUNTED GROUNDS ---\033[0m\n");
+                    view.print("Welcome to the haunting adventure that takes place in GGC's now deserted campus.\n" +
+                                "Your main mission is to find your missing friend Jack.  \n" +
+                                "As you explore the dilapidated grounds, the looming presence of the campus spirit sends shivers down your spine. \n" +
+                                "With each step, you never know what spine-chilling encounter awaits you.\n" +
+                                "Though no student has attended this campus in ages, you must tread with caution because the campus spirit is still strong. \n" +
+                                "\033[1mBeware, you're in for a scare...\033[0m\n");
+                    view.mainMenu();
+                    view.print("Input Options: \"newgame\" | \"newhard\" | \"load\" | \"menuhelp\" | \"exit\"");
+                    view.userInput();
                 }
 
                 if (mode == 6 && prevMode != 6) { //Welcoming messages for the pause menu.
+                    view.print("\n=======================================================================================================================================================================================");
                     view.print("PAUSE MENU\n");
                     view.pauseMenuHelp();
                 }
@@ -63,8 +73,8 @@ public class Controller { //Cobi && Cobi
                         }
                         return mode;
 
-                    case "newgame": //Create a new game by effectively resetting to the start state.
-                        view.print("Starting a New Game!");
+                    case "newgame":  //Create a new game by effectively resetting to the start state.
+                        view.print("\nStarting a New Game...\n");
                         return 90;
 
                     case "newhard": //Create a new hard mode game.
@@ -90,8 +100,11 @@ public class Controller { //Cobi && Cobi
 
                 //Cody
             case 0: //Navigating between rooms
+                view.print("");
                 view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
-                view.print("Please input a command."); //Prompt the player for what they need to input.
+                view.print(p.getCurrentRoom().getDescription());
+                view.print("Type \"help\" for the list of game commands.");
+                view.userInput(); // places user input.
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
                 tokens = playerInput.split(" ");
 
@@ -145,7 +158,11 @@ public class Controller { //Cobi && Cobi
                     }
 
                     case "help" -> { //Prints out the help menu.
+                        String yellow = "\u001B[33m"; // ANSI escape code for yellow color
+                        String reset = "\u001B[0m"; // ANSI escape code to reset color
+                        System.out.println(yellow);
                         view.helpMenu();
+                        System.out.println(reset);
                         return mode;
                     }
                     case "pickup" -> {
