@@ -8,6 +8,7 @@ public class Controller { //Cobi && Cobi
     private Scanner input = new Scanner(System.in);
     private View view = new View();
     private Combat combat = new Combat();
+    private SaverAndLoader sal = new SaverAndLoader();
 
     /*
      * Main gameplay loop.
@@ -73,12 +74,12 @@ public class Controller { //Cobi && Cobi
                     //TODO: Create the load game logic.
                     case "load": //Load a game from a previous save file
                         view.print("Loading game!");
-                        //load game
+                        //sal.loadGame();
                         return mode;
 
                     //TODO: Create the save game logic.
                     case "save": //Save a game from a previous save file
-                        //save game
+                        sal.saveGame();
                         return mode;
 
                     default: //If none of the previous cases were reached, a message telling the user that their command is invalid will be printed.

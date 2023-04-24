@@ -61,50 +61,6 @@ public class Game {
         //System.out.println(p.getCurrentRoom());
         /****END***/
     }
-
-    public void saveGame(Player p) { //Cody
-        ObjectOutputStream oos = null;
-        FileOutputStream fos;
-        try {
-            fos = new FileOutputStream("playerSave.bin");
-            oos = new ObjectOutputStream(fos); //Instantiate the ObjectOutputStream
-            oos.writeObject(p); //Write the object to the file
-        } catch (IOException ioe) {
-            view.print("IOException!");
-        } finally { //close the stream even if there is an exception thrown
-            try {
-                if (oos != null) {
-                    oos.close();
-                }
-            } catch (IOException ioe) {
-                view.print("Closing the outputstream failed.");
-            }
-        }
-    }
-
-    public Player loadGame(String fileName) { //Cody
-        ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
-        FileInputStream fis;
-        try {
-            fis = new FileInputStream(fileName);
-            ois = new ObjectInputStream(fis);
-            p = (Player) ois.readObject(); //set current player = the contents of the save file
-            //loadedGame = (Game) ois.readObject();
-        } catch (IOException | ClassNotFoundException ioe) { //multi catch statement instead of using 2 catch statements
-            view.print(fileName);
-            view.print("Either an IOException happened or the class couldn't be found! Youch!");
-        } finally { //close the stream even if there is an exception thrown
-            try {
-                if (ois != null) {
-                    ois.close();
-                }
-            } catch (IOException ioe) {
-                view.print("Closing the input Stream failed buckoo");
-            }
-        }
-        //return loadedGame;
-        return p;
-    }
     
     public static void main(String[] args) { //Cobi - this is run to start the game.
     	Game game = new Game();

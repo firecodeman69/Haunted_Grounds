@@ -14,7 +14,6 @@ public class Puzzle
 	private String description;
 	private String correctResp;
 	private String wrongResp;
-	private boolean isSolved = false;
 	private boolean active = false;
 	
 	public Puzzle(int i, String n, String q, String s, String h, int r, String d, String c, String w)
@@ -60,11 +59,6 @@ public class Puzzle
 		return this.description;
 	}
 	
-	public boolean getIsSolved()
-	{
-		return this.isSolved;
-	}
-	
 	public boolean getActive()
 	{
 		return this.active;
@@ -86,22 +80,23 @@ public class Puzzle
 	{
 		view.print(correctResp);
 		
-		if (reward != -1 && reward != -2) { //This indicates the reward is an item ID, so we drop the item with the corresponding ID in the player's current rooom.
+		if (reward > -1) { //This indicates the reward is an item ID, so we drop the item with the corresponding ID in the player's current rooom.
 			for (Item i : items) {
 				if (i.getId() == this.reward) {
 					r.addItem(i);
 					break;
 				}
 			}
-		} else if(reward == -1){ //This implies that the puzzle is a door unlock puzzle, so we unlock all locked connections in the room.
+		} else if(reward == -1){ //This indicates that the puzzle is a door unlock puzzle, so we unlock all locked connections in the room.
 			if (r.getNorthRoom() > 100) {r.setNorthRoom(r.getNorthRoom() - 100);};
 			if (r.getSouthRoom() > 100) {r.setSouthRoom(r.getSouthRoom() - 100);};
 			if (r.getEastRoom() > 100) {r.setEastRoom(r.getEastRoom() - 100);};
 			if (r.getWestRoom() > 100) {r.setWestRoom(r.getWestRoom() - 100);};
 		} //If the reward is -2, that just unlocks the friend which has no discernable affect on the program except for marking the puzzle as solved.
-		isSolved = true;
 		
-		return 0;
+		r.removePuzzle();
+		
+		return 0; //Once a puzzle is solved, the player will return to free roam mode.
 	}
 
 	@Override
