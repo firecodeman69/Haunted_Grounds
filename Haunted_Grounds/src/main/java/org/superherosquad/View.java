@@ -95,7 +95,7 @@ public class View implements Serializable {
 	}
 
 	public void printExpelled() {
-		print("How dare you try and attack Queen B?! You have been EXPELLED!!!\n Go back to the main menu and think about your actions.");
+		print("How dare you try and attack " + blue + "Queen B" + reset + "?! You have been " + red + "EXPELLED!!!\n" + reset + orange + "Go back to the main menu and think about your actions." + reset);
 	}
 	// ReAnn
 	public void mainMenu() {print("" +
