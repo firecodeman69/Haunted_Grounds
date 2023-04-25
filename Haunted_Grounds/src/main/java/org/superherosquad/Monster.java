@@ -35,7 +35,7 @@ public class Monster extends Character implements Serializable {
         return monsterInventory;
     }
 
-    public Item dropRandomItem() {
+    public Item dropRandomItem() { //Drops a random item from the monster inventory - Cody
         Random random = new Random();
         int index = random.nextInt(monsterInventory.size());
         setRandomItem(monsterInventory.get(index));
@@ -50,7 +50,7 @@ public class Monster extends Character implements Serializable {
         this.randomItem = item;
     }
 
-    public int dropRandomCurrency() {
+    public int dropRandomCurrency() { //Drops random amount from 2-7
         Random random = new Random();
         randomCurrency = random.nextInt(5) + 2;
         return randomCurrency;

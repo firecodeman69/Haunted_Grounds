@@ -40,7 +40,7 @@ public class Game {
      */
 
 	//Credit: https://stackoverflow.com/questions/24191040/checking-to-see-if-a-string-is-letters-spaces-only
-	public static boolean onlyLettersSpaces(String s){
+	public static boolean onlyLettersSpaces(String s){ //Cobi
 		  for(int i = 0; i < s.length(); i++){
 		    char ch = s.charAt(i);
 		    if (Character.isLetter(ch) || ch == ' ') {
