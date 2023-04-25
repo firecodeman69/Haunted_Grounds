@@ -1,6 +1,7 @@
 //Cobi
 package org.superherosquad;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -38,9 +39,15 @@ public class Saver {
     	}
     	fileName += ".dat";
     	
+    	File file = new File(fileName);
+    	if(file.exists()) {
+    		file.delete();
+    	}
+    	
         ObjectOutputStream output = null;
         try { //Try block in case the oos doesn't create.
             output = new ObjectOutputStream(new FileOutputStream(fileName));
+            
             output.writeObject(rooms);
             output.writeObject(items);
             output.writeObject(puzzles);
