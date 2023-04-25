@@ -59,8 +59,8 @@ public class View implements Serializable {
 
 	public void monsterDefeat(Monster monster, Player p) { //Cody - displays when a monster is defeated
 		print("You successfully defeated " + monster.getName() + "! " +
-				green + "You have earned " + monster.getCurrency() + reset + " claw bucks and gained items: " + blue
-				+ monster.getMonsterInventory() + reset);
+				green + "You have earned " + monster.getCurrency() + reset + " claw bucks and monster dropped item: " + blue
+				+ monster.getRandomItem().getName() + reset + "\nIt has been added to your inventory\n");
 	}
 
 	public void monsterAttacked(Monster monster, Player p) { //Cody - displays when monster attacks

@@ -80,7 +80,7 @@ public class Combat {
                 return p.playerDeath();
             } else { //when monster is defeated
                 view.monsterDefeat(monster, p);
-                p.addItemsToInventory(monster.getMonsterInventory());
+                p.addMonsterItemToInventory(monster.dropRandomItem());
                 p.addCurrency(monster.getCurrency());
                 p.getCurrentRoom().removeMonster();
                 
