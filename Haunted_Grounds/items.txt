@@ -8,7 +8,7 @@
 8#Knife#The lunch lady’s favorite meat cleaver, freshly sharpened. 'Equip' this item to increase attack +150.#EW#equip attack#150#0#9
 9#Baseball Bat#A solid wood bat with the words Louisville Slugger engraved. 'Equip' this item to increase attack +50.#EW#equip attack#50#0#0
 10#Gym Weights#A pair of 25 pound weights made of iron. 'Equip' this item to increase attack +20.#EW#equip attack#20#0#6
-11#Hunting Rifle#A sturdy and precise weapon with a metal finish, a wooden stock, and a quality scope. 'Equip' this item to increase attack +500.#E#equip attack#500#0#3
+11#Hunting Rifle#A sturdy and precise weapon with a metal finish, a wooden stock, and a quality scope. 'Equip' this item to increase attack +500.#EW#equip attack#500#0#3
 12#GGC T-Shirt#A 100% cotton t-shirt with the Grizzly logo on it. 'Equip' this item to increase health +100.#E#equip#100#0#12
 13#GGC Cap#A stylish baseball style hat with the Grizzly logo embroidered on the front. 'Equip' this item to increase health +50.#E#equip#50#0#18
 14#GGC Hoodie#A soft high quality hoodie with "GGC" printed on the front. 'Equip' this item to increase health +100.#E#equip#100#0#4
