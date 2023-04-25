@@ -41,9 +41,9 @@ public class Controller { //Cobi && Cobi
                 }
 
                 if (mode == 6 && prevMode != 6) { //Welcoming messages for the pause menu.
-                    view.print("\n=======================================================================================================================================================================================");
-                    view.print("PAUSE MENU\n");
-                    view.pauseMenuHelp();
+                    view.print("");
+                    view.pauseMenu();
+                    view.userInput();
                 }
 
                 playerInput = input.nextLine().toLowerCase(); //Parse user input
@@ -53,10 +53,12 @@ public class Controller { //Cobi && Cobi
                     case "menuhelp": //Prints out the help message for the menu that the user is on.
                         if (mode == 5) {
                             view.mainMenuHelp();
+                            view.userInput();;
                         }
 
                         if (mode == 6) {
                             view.pauseMenuHelp();
+                            view.userInput();
                         }
                         return mode;
 
