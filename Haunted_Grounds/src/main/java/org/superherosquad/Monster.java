@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Monster extends Character implements Serializable {
-    private int[] monsterItemAssociations;
+
+	private static final long serialVersionUID = -4442287009122303530L;
+	private int[] monsterItemAssociations;
     private ArrayList<Item> monsterInventory = new ArrayList<>();
 
     public Monster(int Id, String name, int hp, int currency, String description,
