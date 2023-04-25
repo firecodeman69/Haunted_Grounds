@@ -1,9 +1,10 @@
 /***********************************Cody************************************/
 package org.superherosquad;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Room {
+public class Room implements Serializable {
 	private View view = new View();
 	
     private int id;

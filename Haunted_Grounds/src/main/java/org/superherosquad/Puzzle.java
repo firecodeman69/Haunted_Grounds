@@ -1,8 +1,9 @@
 //Cobi
 package org.superherosquad;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Puzzle 
+public class Puzzle implements Serializable
 {
 	View view = new View();
 	private int id;

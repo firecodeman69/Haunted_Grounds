@@ -87,7 +87,7 @@ public class Game {
 	        }
 	        valid = true;
     	}
-    	fileName.concat(".dat");
+    	fileName += ".dat";
     	
         ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
         try {
@@ -102,6 +102,7 @@ public class Game {
             gameMode = ois.readInt();
             prevMode = ois.readInt();
             saveMode = ois.readInt();
+            hard = ois.readBoolean();
         } catch (ClassNotFoundException cnf) {
         	view.print("ClassNotFoundException. Looks like we get to learn what this is.");
         	cnf.printStackTrace();
@@ -109,6 +110,7 @@ public class Game {
         	view.print("There is no save file with that name.");
         } catch (IOException ioe) {
             view.print("IOException!");
+            ioe.printStackTrace();
         } finally { //close the stream even if there is an exception thrown
             try {
                 if (ois != null) {

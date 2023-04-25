@@ -1,6 +1,9 @@
 /**************** ReAnn ********************/
 package org.superherosquad;
-public class Item {
+
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
 	View view = new View();
     protected int Id;

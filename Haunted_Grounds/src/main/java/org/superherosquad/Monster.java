@@ -1,9 +1,10 @@
 /**************** Cody ********************/
 package org.superherosquad;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Monster extends Character {
+public class Monster extends Character implements Serializable {
     private int[] monsterItemAssociations;
     private ArrayList<Item> monsterInventory = new ArrayList<>();
 
