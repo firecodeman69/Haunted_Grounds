@@ -59,7 +59,7 @@ public class View implements Serializable {
 
 	public void monsterDefeat(Monster monster, Player p) { //Cody - displays when a monster is defeated
 		print("You successfully defeated " + monster.getName() + "! " +
-				green + "You have earned " + monster.getCurrency() + reset + " claw bucks and monster dropped item: " + blue
+				green + "You have earned " + monster.getRandomCurrency() + reset + " claw bucks and monster dropped item: " + blue
 				+ monster.getRandomItem().getName() + reset + "\nIt has been added to your inventory\n");
 	}
 
@@ -94,6 +94,9 @@ public class View implements Serializable {
 		print(orange + playerInventory.toString() + reset);
 	}
 
+	public void printExpelled() {
+		print("How dare you try and attack Queen B?! You have been EXPELLED!!!\n Go back to the main menu and think about your actions.");
+	}
 	// ReAnn
 	public void mainMenu() {print("" +
 							    "\033[1m\033[93m  - Main Menu -\033[0m\n" +

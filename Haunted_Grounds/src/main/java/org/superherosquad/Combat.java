@@ -80,8 +80,8 @@ public class Combat {
                 return p.playerDeath();
             } else { //when monster is defeated
                 p.addMonsterItemToInventory(monster.dropRandomItem());
+                p.addCurrency(monster.dropRandomCurrency());
                 view.monsterDefeat(monster, p);
-                p.addCurrency(monster.getCurrency());
                 p.getCurrentRoom().removeMonster();
                 
                 if(monster.getId() == 5) { //if monster was the boss monster, end the game.

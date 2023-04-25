@@ -330,7 +330,8 @@ public class Controller { //Cobi && Cobi
             		
             		case "attack" -> {
             			if(active.getId() == 0) {
-            				//TODO: Implement easter egg behavior here.
+                            view.printExpelled();
+                            return 5;
             			}
             		}
             		

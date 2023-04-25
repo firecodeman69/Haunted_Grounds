@@ -13,6 +13,8 @@ public class Monster extends Character implements Serializable {
 
     private Item randomItem = new Item();
 
+    private int randomCurrency = 0;
+
     //Cody
     public Monster(int Id, String name, int hp, int currency, String description,
                    int speed, int defense, int attack,
@@ -46,6 +48,16 @@ public class Monster extends Character implements Serializable {
 
     public void setRandomItem(Item item) {
         this.randomItem = item;
+    }
+
+    public int dropRandomCurrency() {
+        Random random = new Random();
+        randomCurrency = random.nextInt(5) + 2;
+        return randomCurrency;
+    }
+
+    public int getRandomCurrency() {
+        return randomCurrency;
     }
 
     public String toString() {
