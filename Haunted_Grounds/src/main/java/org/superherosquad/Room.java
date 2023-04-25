@@ -142,7 +142,7 @@ public class Room {
     	else {
             if (p.roomHasMonster()) {
             	if(id == 14) {
-            		finalBossCheck();
+            		currentMode = 10;
             	}
             	else {
             		currentMode = 1;
@@ -222,10 +222,6 @@ public class Room {
     		view.print(roomNPC.getGreets());
     	}
     	return currentMode;
-    }
-    
-    public void finalBossCheck() {
-    	
     }
 
     public int getMonsterId() {

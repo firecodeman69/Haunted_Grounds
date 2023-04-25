@@ -133,7 +133,12 @@ public class Controller { //Cobi && Cobi
                     }
 
                     case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
-                        mode = p.getCurrentRoom().inspect(p, mode);
+                        int n = p.getCurrentRoom().inspect(p, mode);
+                        if(n / 10 == 1) {
+                        	if(p.finalBossCheck(monsters, puzzles)) {
+                        		return 51;
+                        	}
+                        }
                         return mode;
                     }
 

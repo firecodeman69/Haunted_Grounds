@@ -128,6 +128,7 @@ public class Puzzle
 			}
 		} //If the reward is -2, that just unlocks the friend which has no discernable affect on the program except for marking the puzzle as solved.
 		
+		id = -1;
 		r.removePuzzle();
 		
 		return 0; //Once a puzzle is solved, the player will return to free roam mode.

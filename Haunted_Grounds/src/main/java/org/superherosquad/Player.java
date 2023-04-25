@@ -269,6 +269,20 @@ public class Player extends Character implements Serializable {
         this.previousRoom = temp;
         view.print("You have the exited the room that you were in.");
     }
+    
+    public boolean finalBossCheck(ArrayList<Monster> monsters, ArrayList<Puzzle> puzzles) {
+    	for(Monster m: monsters) {
+    		if(m.getHP() > 0) {
+    			return false;
+    		}
+    	}
+    	for(Puzzle p: puzzles) {
+    		if(!(p.getId() == -1)) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 
     public Room getCurrentRoom() {
         return currentRoom;
