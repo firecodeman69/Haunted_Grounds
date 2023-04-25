@@ -133,8 +133,16 @@ public class Controller { //Cobi && Cobi
                     }
 
                     case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
-                        mode = p.getCurrentRoom().inspect(p, mode);
-                        return mode;
+                        int n = p.getCurrentRoom().inspect(p, mode, false);
+                        if(n == 10) {
+                        	if(p.finalBossCheck(monsters, puzzles)) {
+                        		return 1;
+                        	}
+                        	else {
+                        		n = p.getCurrentRoom().inspect(p, mode, true);
+                        	}
+                        }
+                        return n % 10; 
                     }
 
                     case "lights" -> { //Turns the lights on in a dark room, or lets the user know the lights are already on.
@@ -241,7 +249,7 @@ public class Controller { //Cobi && Cobi
 
                     default -> { //All other commands are treated as guesses to the solution of the puzzle.
                         if(playerInput.equalsIgnoreCase(active.getSolution())) {
-                            mode = active.onSolve(p.getCurrentRoom(), items);
+                            mode = active.onSolve(p.getCurrentRoom(), rooms, items);
                             return mode;
                         }
                         else {

@@ -244,7 +244,7 @@ public class Reader {
     public void addNPCToRoom(ArrayList<Room> gameRooms, ArrayList<NPC> gameNPCs) { //Cody - adds puzzles to rooms
         for (Room r : gameRooms) {
             for (NPC npc : gameNPCs) {
-                if (r.getPuzzleId() == npc.getId()) {
+                if (r.getNpcId() == npc.getId()) {
                     r.setNPC(npc);
                 }
             }

@@ -134,14 +134,19 @@ public class Room {
         }
     }
 
-    public int inspect(Player p, int currentMode) { //Cobi & Cody
+    public int inspect(Player p, int currentMode, boolean proceed) { //Cobi & Cody
     	if(p.getCurrentRoom().getIsDark()) {
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
     	}
 
     	else {
-            if (p.roomHasMonster()) {
-                currentMode = 1;
+            if (p.roomHasMonster() && proceed == false) { //Only enter this if statement if the room has a monster and the proceed parameter is false. If the proceed parameter is true, that means that the final boss conditions have not been met, so we're going to inspect the room with the final boss.
+            	if(id == 14) {
+            		currentMode = 10; //Activate the final boss check because we are in the rooom with the final boss.
+            	}
+            	else {
+            		currentMode = 1;
+            	}
             } else {
             	inspected = true;
             	
@@ -159,6 +164,9 @@ public class Room {
             	}
             	catch (NullPointerException npe) {
             		view.print("There is no puzzle in the current room.");
+            	}
+            	if(npcId != -1) {
+            		view.print("There is an NPC in the room! Use 'talk' to talk to them.");
             	}
             }
     	}
@@ -189,20 +197,25 @@ public class Room {
     		view.print("There is no puzzle in this room.");
     	}
     	else {
-    		currentMode = 2;
-    		roomPuzzle.activate();
-    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
-    		view.print(roomPuzzle.getQuestion());
+    		try {
+	    		roomPuzzle.activate();
+	    		currentMode = 2;
+	    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
+	    		view.print(roomPuzzle.getQuestion());
+    		}
+    		catch (NullPointerException npe) {
+    			view.print("You have already solved the puzzle in this room.");
+    		}
     	}
     	return currentMode;
     }
     
     public int talk(int currentMode) {
-    	if(npcId == -1) {
-    		view.print("There is no NPC in this room to talk to.");
-    	}
     	if(inspected == false) {
     		view.print("You can't tell if there's anyone in the room. Try inspecting first.");
+    	} 
+    	else if(npcId == -1) {
+    		view.print("There is no NPC in this room to talk to.");
     	}
     	else {
     		currentMode = 3;

@@ -56,7 +56,6 @@ public class Game {
         gamePuzzles = reader.newPuzzle(); //Cobi
         gameMonsters = reader.newMonster(); //Cody
         gameNPCs = reader.newNPC(gamePuzzles); //Cobi
-        //shop = reader.newShop(); //Cobi
         
         /***Cody***/
         reader.addItemToMonster(gameMonsters, gameItems);
