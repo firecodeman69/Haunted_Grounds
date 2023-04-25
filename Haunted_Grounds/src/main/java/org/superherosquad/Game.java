@@ -54,6 +54,7 @@ public class Game {
 		}
     
     public void newGame(int mode) {
+    	p = new Player();
         gameRooms = reader.newRoom(); //Cody
         gameItems = reader.newItem(); //ReAnn
         gamePuzzles = reader.newPuzzle(); //Cobi

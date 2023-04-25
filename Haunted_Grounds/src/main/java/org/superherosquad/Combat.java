@@ -12,11 +12,10 @@ public class Combat {
         boolean defending = false;
         Monster monster = p.getCurrentRoom().getRoomMonster();
         int decision = this.initialCombat(monster, input, p); // if 0, player turn first. if 1, monster turn first, if -1, escape combat, change mode to prevMode
-        boolean slaying = true;
 
         if (decision == 0 || decision == 1) { //didn't run from monster
             if (decision == 1) playerTurn = false; //ignored the monster
-            while (slaying && p.isAlive() && monster.isAlive()) {
+            while (p.isAlive() && monster.isAlive()) {
                 if (playerTurn) {
                     view.combatWithMonster(); //print the prompt for when a user is in combat
                     String playerInput = input.nextLine().toLowerCase();

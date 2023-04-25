@@ -11,6 +11,7 @@ public class View implements Serializable {
 	private String orange = "\u001B[38;2;255;165;0m";
 	private String green =  "\u001B[32m";
 	private String darkGreen = "\u001B[32";
+	private String lightYellow  = "\033[93m";
 	private static final long serialVersionUID = 673824491807579304L;
 
 	public void print(String s)
@@ -163,6 +164,10 @@ public class View implements Serializable {
 
 	public void shopQuantityError() {
 		print("You must send a quantity to use this command.");
+	}
+	
+	public void cobiEasterEgg() {
+		print(lightYellow + "You " + red + "can't " + blue + "run " + orange + "and " + lightYellow + "you " + red + "can't " + blue + "hide!" + reset);
 	}
 
 	public void shopPrint(Item i) {

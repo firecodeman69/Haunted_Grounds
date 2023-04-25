@@ -306,7 +306,7 @@ public class Player extends Character implements Serializable {
     public void exitRoom() { //Cobi
     	try {this.previousRoom.getId();}
     	catch (NullPointerException npe) {
-    		view.print("You can't run and you can't hide!");
+    		view.cobiEasterEgg();
     		System.exit(0);
     	}
     	
@@ -344,7 +344,7 @@ public class Player extends Character implements Serializable {
         	return 105;
         }
         else {
-        	return 5;
+        	return 115;
         }
     }
 
