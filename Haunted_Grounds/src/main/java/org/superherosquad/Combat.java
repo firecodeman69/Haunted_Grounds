@@ -60,6 +60,7 @@ public class Combat {
                             }
                         }
                         case "item", "i" -> itemMenu(p.getPlayerInventory(), input);
+                        default -> view.print("Please enter a valid command.");
                     }
                 } else {
                     if (defending) { //if player defends, deal half of monster attack

@@ -168,43 +168,55 @@ public class Controller { //Cobi && Cobi
                         System.out.println(reset);
                         return mode;
                     }
-                    case "pickup" -> {
+                    case "pickup" -> { //pickup an item
                         if (tokens.length == 2) p.addItemToInventory(tokens[1]);
                         else if (tokens.length == 3) p.addItemToInventory(tokens[1] + " " + tokens[2]);
                         else if (tokens.length == 4) p.addItemToInventory(tokens[1] + " " + tokens[2] + " " + tokens[3]);
                         return mode;
                     }
-                    case "use", "u" -> {
+                    case "use", "u" -> { //use an item
                         if (tokens.length == 2) {
                             if (p.getItem(tokens[1]) != null) {
-                                p.useConsumableItem(p.getItem(tokens[1])); //add item effect to player's health
+                                p.useConsumableItem(p.getItem(tokens[1])); //add item effect to player's stats
                             }
                         } else if (tokens.length == 3){
                             if (p.getItem(tokens[1] + " " + tokens[2]) != null) {
-                                p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2])); //add item effect to player's health
+                                p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2])); //add item effect to player's stats
                             }
                         } else if (tokens.length == 4){
                             if (p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]) != null) {
-                                p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3])); //add item effect to player's health
+                                p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3])); //add item effect to player's stats
                             }
                         }
                         return mode;
                     }
-                    case "drop" -> {
-                        if (tokens.length == 2) p.dropItem(tokens[1]);
-                        else if (tokens.length == 3) p.dropItem(tokens[1] + " " + tokens[2]);
-                        else if (tokens.length == 4) p.dropItem(tokens[1] + " " + tokens[2] + " " + tokens[3]);
+                    case "drop" -> { //drop specified item
+                        if (tokens.length == 2) p.dropItem(p.getItem(tokens[1]));
+                        else if (tokens.length == 3) p.dropItem(p.getItem(tokens[1] + " " + tokens[2]));
+                        else if (tokens.length == 4) p.dropItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]));
                         return mode;
                     }
-                    case "equip" -> {
-                        if (tokens.length == 2) p.equipItem(tokens[1]);
-                        else if (tokens.length == 3) p.equipItem(tokens[1] + " " + tokens[2]);
-                        else if (tokens.length == 4) p.equipItem(tokens[1] + " " + tokens[2] + " " + tokens[3]);
+                    case "equip" -> { //equip specified item
+                        if (tokens.length == 2) p.equipItem(p.getItem(tokens[1]));
+                        else if (tokens.length == 3) p.equipItem(p.getItem(tokens[1] + " " + tokens[2]));
+                        else if (tokens.length == 4) p.equipItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]));
                         return mode;
                     }case "unequip" -> {
-                        if (tokens.length == 2) p.unEquipItem(tokens[1]);
-                        else if (tokens.length == 3) p.unEquipItem(tokens[1] + " " + tokens[2]);
-                        else if (tokens.length == 4) p.unEquipItem(tokens[1] + " " + tokens[2] + " " + tokens[3]);
+                        if (tokens.length == 2) {
+                            if (p.hasItemEquiped(p.getEquippedItem(tokens[1]))) {
+                                p.unEquipItem(p.getEquippedItem(tokens[1]));
+                            }
+                        }
+                        else if (tokens.length == 3) {
+                            if (p.hasItemEquiped(p.getEquippedItem(tokens[1] + " " + tokens[2]))) {
+                                p.unEquipItem(p.getEquippedItem(tokens[1] + " " + tokens[2]));
+                            }
+                        }
+                            else if (tokens.length == 4) {
+                                if (p.hasItemEquiped(p.getEquippedItem(tokens[1] + " " + tokens[2] + " " + tokens[3]))) {
+                                    p.unEquipItem(p.getEquippedItem(tokens[1] + " " + tokens[2] + " " + tokens[3]));
+                                }
+                            }
                         return mode;
                     }case "equipped" -> {
                         p.showEquipped();

@@ -1,4 +1,4 @@
-/**************** Cody ********************/
+/****************Cody********************/
 package org.superherosquad;
 
 public abstract class Character {
@@ -12,8 +12,6 @@ public abstract class Character {
     protected int speed;
     protected int defense;
     protected int attack;
-
-    public Character() {}; //no arg constructor
 
     public Character(int Id, String name, int hp, int currency, String description, int speed, int defense, int attack) { //Main constructor for new character type objects
         this.Id = Id;
@@ -57,27 +55,20 @@ public abstract class Character {
     public void setHP(int hp) { //Used for combat and item effects
         this.hp = hp;
     }
-    public void addAttack(int attack) {
+    public void addAttack(int attack) { //Adds consumable buff to character
         this.attack += attack;
     }
 
-    public void loseAttack(int attack) {
-        this.attack -= attack;
-    }
-    public void addHP(int hp) { //Used for combat and item effects
+    public void addHP(int hp) { //Used for consumable item effects - hp
         this.hp += hp;
     }
 
-    public void loseHP(int hp) { //Used for combat and item effects
+    public void loseHP(int hp) { //Used for combat
         this.hp -= hp;
     }
 
     public int getCurrency() { //Show money player has currently
         return currency;
-    }
-
-    public void setCurrency(int currency) { //Set money for new players
-        this.currency = currency;
     }
 
     public void addCurrency(int currency) { //Used when gaining currency
@@ -88,47 +79,24 @@ public abstract class Character {
         return speed;
     }
 
-    public void addSpeed(int speed) {
+    public void addSpeed(int speed) { //Used for consumable item effects - speed
         this.speed += speed;
     }
 
-    public void addDefense(int defense) {
+    public void addDefense(int defense) { //Used for consumable item effects - defense
         this.defense += defense;
-    }
-
-    public void setSpeed(int speed) { //updated by item effects
-        this.speed = speed;
     }
 
     public int getDefense() { //Used for combat
         return defense;
     }
 
-    public void setDefense(int defense) { //updated by item effects
-        this.defense = defense;
-    }
-
     public int getAttack() { //Used for combat
         return attack;
     }
 
-    public void setAttack(int attack) { //updated by item effects
-        this.attack = attack;
-    }
-
-    public boolean isAlive() {
+    public boolean isAlive() { //Check if the player is alive
         return hp > 0;
-    }
-
-    public void takeDamage(int damage) {
-        int totalDamage = damage - defense;
-        if (totalDamage < 0) { //if defense is higher than the damage taken
-            totalDamage = 0;
-        }
-        hp -= totalDamage;
-        if (hp <= 0) { //if total hp is below 0
-            hp = 0;
-        }
     }
 
     public String toString() {

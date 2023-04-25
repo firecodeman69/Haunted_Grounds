@@ -24,15 +24,8 @@ public class Player extends Character implements Serializable {
 
 
     public Player() {
-        super(0, "Character 1", 1000, 0, "First player of the game.", 100, 100, 100);
+        super(0, "Character 1", 1000, 0, "Bravest student of them all! Can handle any classes. Earned a 5.0 GPA from taking Health class", 100, 100, 100);
     } //create a default player
-
-    public Player(int Id, String name, int hp, int currency, String description, //to be used for loading??
-                  int speed, int defense, int attack,
-                  Room currentRoom) {
-        super(Id, name, hp, currency, description, speed, defense, attack);
-        this.currentRoom = currentRoom;
-    }
 
     public ArrayList<Item> getPlayerInventory() {
         return playerInventory;
@@ -58,44 +51,40 @@ public class Player extends Character implements Serializable {
         playerInventory.addAll(itemAL);
     }
 
-    public void dropItem(String itemName) {
-        for (int i = 0; i < playerInventory.size(); i++) {
-            if (hasItem(itemName)) {
-                currentRoom.addItem(playerInventory.get(i));
-                playerInventory.remove(playerInventory.get(i));
-                System.out.println(currentRoom.getItems().get(i).getName() + " was removed from your inventory. Use command 'inspectroom' to see it now.");
-            }
-        }
-    }
-
-    public void equipItem(String itemName) {
-        for (Item i: playerInventory) {
-            if(i.getName().equalsIgnoreCase(itemName)) {
-                if (i.getType().equals("E")) {
-                    equippedItems.add(i);
-                    playerInventory.remove(i);
-                    addHP(i.getEffect());
-                    view.print(i.getName() + " has been equipped.\n" + i.getEffect() + " added to your hp. It is now " + getHP());
-                }else if (i.getType().equals("EW")) {
-                    equippedItems.add(i);
-                    playerInventory.remove(i);
-                    addAttack(i.getEffect());
-                    view.print(i.getName() + " has been equipped.\n" + i.getEffect() + " added to your attack. It is now " + getAttack());
+    public void dropItem(Item item) {
+                if(hasItem(item)) {
+                    currentRoom.addItem(item);
+                    playerInventory.remove(item);
+                    view.print(item.getName() + " was removed from your inventory. Use command 'inspectroom' to see it now.");
+                }else {
+                    view.print("You do not have that item in your inventory. Use 'inventory' to display the list of items you have.");
                 }
-            }
-        }
     }
 
-    public void unEquipItem(String itemName) {
-        for (Item i: equippedItems) {
-            if(i.getName().equalsIgnoreCase(itemName)) {
-                    equippedItems.remove(i);
-                    playerInventory.add(i);
-                    loseHP(i.getEffect());
-                    view.print(i.getName() + " has been une-equipped.\n" + i.getEffect() + " removed from your hp. It is now " + getHP());
+    public void equipItem(Item item) {
+        if (hasItem(item))
+                if (item.getType().equals("E")) {
+                    equippedItems.add(item);
+                    playerInventory.remove(item);
+                    addHP(item.getEffect());
+                    view.print(item.getName() + " has been equipped.\n" + item.getEffect() + " added to your hp. It is now " + getHP());
+                }else if (item.getType().equals("EW")) {
+                    equippedItems.add(item);
+                    playerInventory.remove(item);
+                    addAttack(item.getEffect());
+                    view.print(item.getName() + " has been equipped.\n" + item.getEffect() + " added to your attack. It is now " + getAttack());
+                } else view.print("You either don't have that item, or it's not an equip-able item. Please try again.");
             }
+
+    public void unEquipItem(Item item) {
+        if (hasItemEquiped(item)) {
+                    equippedItems.remove(item);
+                    playerInventory.add(item);
+                    loseHP(item.getEffect());
+                    view.print(item.getName() + " has been un-equipped.\n" + item.getEffect() + " removed from your hp. It is now " + getHP()
+                            + "\nUse 'inventory' to see it in your inventory");
+            } else view.print("You don't have that item equipped. Use command 'equipped' to see currently equipped items.");
         }
-    }
 
     public String showInventory() {
         if (playerInventory.size() < 1) {
@@ -120,13 +109,29 @@ public class Player extends Character implements Serializable {
         return null;
     }
 
+    public Item getEquippedItem(String itemName) {
+        for (Item i: equippedItems) {
+            if (i.getName().equalsIgnoreCase(itemName)) return i;
+        }
+        return null;
+    }
+
     public void spendCurrency(int c) { //Used for the shop
         currency -= c;
     }
 
-    public boolean hasItem(String itemName) {
-        for (Item item: playerInventory) {
-            if(item.getName().equalsIgnoreCase(itemName)) {
+    public boolean hasItem(Item item) {
+        for (Item i: playerInventory) {
+            if(i.getName().equalsIgnoreCase(item.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasItemEquiped(Item item) {
+        for (Item i: equippedItems) {
+            if(i.getName().equalsIgnoreCase(item.getName())) {
                 return true;
             }
         }
