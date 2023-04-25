@@ -68,7 +68,7 @@ public class Controller { //Cobi && Cobi
                         }
                         return mode;
 
-                    case "newgame":  //Create a new game by effectively resetting to the start state.
+                    case "newgame":  //Create a new game.
                         view.startingNew();
                         return 90;
 

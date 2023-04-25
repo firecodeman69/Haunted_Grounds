@@ -1,6 +1,7 @@
 /********************Collaboration*******************/
 package org.superherosquad;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Game {
     private ArrayList<NPC> gameNPCs; //Cobi
     private Shop shop = new Shop(); //Cobi
     private boolean hard = false; //Cobi
+    private File saveFile = null; //Cobi - this is only tracked so it can be deleted if you die in hard mode.
     
     //Game modes - Cobi
     private int gameMode = -1; 
@@ -51,7 +53,7 @@ public class Game {
 		  return true;
 		}
     
-    public void newGame() {
+    public void newGame(int mode) {
         gameRooms = reader.newRoom(); //Cody
         gameItems = reader.newItem(); //ReAnn
         gamePuzzles = reader.newPuzzle(); //Cobi
@@ -65,6 +67,7 @@ public class Game {
         reader.addPuzzleToRoom(gameRooms, gamePuzzles);
         reader.addNPCToRoom(gameRooms, gameNPCs);
 
+        gameMode = mode;
         p.setCurrentRoom(gameRooms.get(14)); //initialize the spawning room
         /****END***/
         
@@ -73,10 +76,12 @@ public class Game {
         		shop.getItems().add(i);
         	}
         }
+        
+        
     }
     
 	@SuppressWarnings({"unchecked"})
-	public void loadGame() { //Cobi
+	public File loadGame() { //Cobi
     	boolean valid = false;
     	String fileName = null;
     	while(!valid) {
@@ -89,10 +94,11 @@ public class Game {
 	        valid = true;
     	}
     	fileName += ".dat";
+    	File file = new File(fileName);
     	
         ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
         try {
-            ois = new ObjectInputStream(new FileInputStream(fileName));
+            ois = new ObjectInputStream(new FileInputStream(file));
             gameRooms = (ArrayList<Room>) ois.readObject();
             gameItems = (ArrayList<Item>) ois.readObject();
             gamePuzzles = (ArrayList<Puzzle>) ois.readObject();
@@ -121,12 +127,12 @@ public class Game {
                 view.print("The input stream couldn't be closed. How.");
             }
         }
+        return file;
     }
     
     public static void main(String[] args) { //Cobi - this is run to start the game.
     	Game game = new Game();
-    	game.newGame();
-    	game.gameMode = 5;
+    	game.newGame(5);
     	while (true) { //Cobi
     		
     		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.shop, game.gameMode, game.prevMode, game.saveMode, game.hard);
@@ -145,13 +151,16 @@ public class Game {
     			game.saveMode = setting;
     		}
     		
+    		if(setting == 10) {
+    			game.saveFile.delete();
+    		}
+    		
     		if(setting == 9 || setting == 8) { //Cobi - this resets the game.
-    			game.gameMode = 0;
-    			game.prevMode = -1;
-    			if(setting == 8) { //80 is returned by the new hard mode game activator.
+    			game.newGame(0);
+    			
+    			if(setting == 8) {
     				game.hard = true;
-    			}
-    			else { //90 is returned by the new game activator - this is here in case a regular game is started after a hard game.
+    			} else {
     				game.hard = false;
     			}
     			
@@ -161,7 +170,7 @@ public class Game {
     		}
     		
     		if(setting == 7) { //Cobi - this loads the save file.
-    			game.loadGame();
+    			game.saveFile = game.loadGame();
     		}
     	}
     }
