@@ -29,12 +29,14 @@ public class Shop implements Serializable
 		boolean broke = false;
 		String name = null;
 		if(quantity > 0) {
+			view.print("Attempting to purchase " + quantity + " " + desire + "(s).");
 			for(Item i: items) {
-				if(i.getName().equalsIgnoreCase(desire)); {
+				if(i.getName().equalsIgnoreCase(desire)) {
 					found = true;
 					if(quantity * i.getPrice() > p.getCurrency()) {
 						view.print("You do not have enough money for this transaction.");
 						broke = true;
+						break;
 					} else {
 						name = i.getName();
 						while(quantity > 0) {
@@ -42,9 +44,9 @@ public class Shop implements Serializable
 							p.spendCurrency(i.getPrice());
 							quantity -= 1;
 						}
+						break;
 					}
 				}
-				break;
 			}
 			if(found && !broke) {
 				if(q > 1) {
@@ -52,7 +54,7 @@ public class Shop implements Serializable
 				} else {
 					view.print("Added " + q + " " + name + " to your inventory.");
 				}
-			} else {
+			} else if(!found) {
 				view.print("The item you have attempted to purchase is not in the shop.");
 			}
 		} else {

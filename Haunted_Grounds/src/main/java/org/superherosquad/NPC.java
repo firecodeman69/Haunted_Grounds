@@ -13,16 +13,16 @@ public class NPC implements Serializable
 	private String name;
 	private String description;
 	private Puzzle puzzle;
-	private String greets;
+	private String options;
 	private boolean shopAccess;
 	
-	public NPC(int i, String n, String d, Puzzle p, String g, boolean a)
+	public NPC(int i, String n, String d, Puzzle p, String o, boolean a)
 	{
 		this.id = i;
 		this.name = n;
 		this.description = d;
 		this.puzzle = p;
-		this.greets = g;
+		this.options = o;
 		this.shopAccess = a;
 	}
 
@@ -45,9 +45,9 @@ public class NPC implements Serializable
 		return this.puzzle;
 	}
 	
-	public String getGreets()
+	public String getOptions()
 	{
-		return this.greets;
+		return this.options;
 	}
 	
 	public boolean hasShopAccess()

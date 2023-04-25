@@ -1,4 +1,4 @@
-/***********************************Cobi && Cody - ReAnn (Created initial class)************************************/
+/***********************************ReAnn, Cobi, & Cody************************************/
 package org.superherosquad;
 
 import java.io.Serializable;

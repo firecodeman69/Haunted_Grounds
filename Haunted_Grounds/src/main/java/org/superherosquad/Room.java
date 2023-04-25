@@ -221,7 +221,8 @@ public class Room implements Serializable {
     	}
     	else {
     		currentMode = 3;
-    		view.print(roomNPC.getGreets());
+    		view.print("You are talking with " + roomNPC.getName() + ".");
+    		view.print(roomNPC.getDescription());
     	}
     	return currentMode;
     }
