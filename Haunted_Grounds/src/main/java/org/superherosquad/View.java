@@ -121,7 +121,7 @@ public class View implements Serializable {
 					"    Menu Help\n" +
 					"    Continue \n" +
 					"      Exit\033[0m\n\n" +
-					"Input Options: \"newgame\" | \"newhard\" | \"load\" | \"save\" | \"menuhelp\" | \"exit\"");}
+					"Input Options: \"newgame\" | \"newhard\" | \"load\" | \"save\" | \"menuhelp\" | \"continue\" \"exit\"");}
 	// End of Work
 
 	public void mainMenuInputOptions() { //Displays main menu input options

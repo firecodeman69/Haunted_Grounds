@@ -3,6 +3,7 @@ package org.superherosquad;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Room implements Serializable {
 	private static final long serialVersionUID = -5994528410192811169L;
@@ -196,18 +197,23 @@ public class Room implements Serializable {
     }
     
     public int activatePuzzle(int currentMode) { //Cobi
-    	if(roomPuzzle.getId() == -1) {
+    	try {
+    		Objects.requireNonNull(roomPuzzle);
+	    	if(roomPuzzle.getId() == -1) {
+	    		view.print("There is no puzzle in this room.");
+	    	}
+	    	else {
+	    		try {
+		    		roomPuzzle.activate();
+		    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
+		    		currentMode = 2;
+	    		}
+	    		catch (NullPointerException npe) {
+	    			view.print("You have already solved the puzzle in this room.");
+	    		}
+	    	}
+    	} catch (NullPointerException npe) {
     		view.print("There is no puzzle in this room.");
-    	}
-    	else {
-    		try {
-	    		roomPuzzle.activate();
-	    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
-	    		currentMode = 2;
-    		}
-    		catch (NullPointerException npe) {
-    			view.print("You have already solved the puzzle in this room.");
-    		}
     	}
     	return currentMode;
     }

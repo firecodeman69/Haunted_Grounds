@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.lang.Character;
 
@@ -76,26 +77,33 @@ public class Game {
         	if(i.getType().charAt(0) == 'C') {
         		shop.getItems().add(i);
         	}
-        }
-        
-        
+        } 
     }
     
 	@SuppressWarnings({"unchecked"})
 	public File loadGame() { //Cobi
+		File file = null;
     	boolean valid = false;
     	String fileName = null;
+    	
     	while(!valid) {
-	        view.print("What is the name of the save file that you would like to load? Do not include the .dat extension.");
+	        view.print("What is the name of the save file that you would like to load? Do not include the .dat extension. Enter 'back' to go back to the menu.");
+	        view.userInput();
 	        fileName = input.nextLine().trim();
-	        if(!onlyLettersSpaces(fileName) || fileName.isEmpty()) {
-	        	view.print("That is not a valid file name.");
-	        	continue;
+	        
+	        if(onlyLettersSpaces(fileName) && !fileName.isEmpty() && !fileName.equalsIgnoreCase("back")) { //Valid file name was entered.
+		        valid = true; 
 	        }
-	        valid = true;
+	        else if(fileName.equalsIgnoreCase("back")) { //User expresses the want to return to the menu that they were in.
+	        	view.print("Returning to the menu.");
+	        	return null;
+	        }
+	        else { //User has inputted an invalid command.
+	        	view.print("That is not a valid file name");
+	        }
     	}
     	fileName += ".dat";
-    	File file = new File(fileName);
+    	file = new File(fileName);
     	
         ObjectInputStream ois = null; //initialize a 'value' for ObejectInputStream
         try {
@@ -111,11 +119,19 @@ public class Game {
             prevMode = ois.readInt();
             saveMode = ois.readInt();
             hard = ois.readBoolean();
+            
+            if(gameMode == 6 && prevMode == 6) {
+                view.print("");
+                view.pauseMenu();
+                view.userInput();
+            }
+            
         } catch (ClassNotFoundException cnf) {
         	view.print("ClassNotFoundException. Looks like we get to learn what this is.");
         	cnf.printStackTrace();
         } catch (FileNotFoundException fnf) {
-        	view.print("There is no save file with that name.");
+        	view.print("There is no save file with that name. Returning to the menu.");
+        	return null;
         } catch (IOException ioe) {
             view.print("IOException!");
             ioe.printStackTrace();
@@ -138,7 +154,7 @@ public class Game {
     		
     		int m = game.controller.gamePlay(game.gameRooms, game.gameItems, game.gamePuzzles, game.gameMonsters, game.gameNPCs, game.p, game.shop, game.gameMode, game.prevMode, game.saveMode, game.hard);
     		
-    		int setting = m / 10;
+    		int setting = m / 10; //If this is a certain value, something special will happen after the gameplay loop.
     		int newMode = m % 10;
     		game.prevMode = game.gameMode;
     		game.gameMode = newMode;
@@ -148,20 +164,38 @@ public class Game {
     		 * Previous mode is meant to check if this is the first run of the loop in which the menu was accessed. If it is, it prints the menu's help message.
     		 * Save mode is meant to return the user to the previous mode of the game once continue is ran.
     		 */
-    		if(game.gameMode == 6 && game.prevMode != 6) {
+    		
+    		if(game.gameMode == 6 && game.prevMode != 6) { //If the pause menu was brought up, this stores the mode the game was in before the pause menu was brought up so it can return to that mode when the pause meneu is closed.
     			game.saveMode = setting;
+    		}
+    		
+    		if(setting == 11) { //Dying in non-hard mode
+    			view.print("Would you like to load from a save file? (Y/N)");
+    			String choice = input.nextLine();
+    			switch (choice) {
+    				case "y", "Y" -> {
+    					File temp = game.loadGame();
+    					try {
+    						Objects.requireNonNull(temp);
+    					} catch (NullPointerException npe) {}
+    				}
+    				
+    				case "n", "N" -> {
+    					view.print("Returning to main menu.");
+    				}
+    			}
     		}
     		
     		if(setting == 10) { //Getting a 10 for setting means that the player died in hard mode, so say goodbye to your save file!
     			game.saveFile.delete();
     		}
     		
-    		if(setting == 9 || setting == 8) { //this resets the game.
+    		if(setting == 9 || setting == 8) { //This resets the game.
     			game.newGame(0);
     			
-    			if(setting == 8) {
+    			if(setting == 8) { //8 is passed in the hard mode activator.
     				game.hard = true;
-    			} else {
+    			} else { //9 is passed in the new game activator.
     				game.hard = false;
     			}
     			
@@ -170,8 +204,25 @@ public class Game {
     			game.p.setName(input.nextLine());
     		}
     		
-    		if(setting == 7) { //this loads the save file.
-    			game.saveFile = game.loadGame();
+    		if(setting == 7) { //This attempts to load a save file.
+    			File temp = game.loadGame();
+    			try {
+    				Objects.requireNonNull(temp);
+    				game.saveFile = temp; //Store the file that the current game was loaded from.
+    			} catch (NullPointerException npe) { //npe is thrown if the user did not want to load a save file/tried to load a nonexistent save file. The previous mode is set to be a menu, so it won't print the welcoming menu messages, so we have to do it manually here.
+                    if (game.gameMode == 5) {
+                        view.gameIntro();
+                        view.mainMenu();
+                        view.mainMenuInputOptions();
+                        view.userInput();
+                    }
+
+                    if (game.gameMode == 6) {
+                        view.print("");
+                        view.pauseMenu();
+                        view.userInput();
+                    }
+    			} 
     		}
     	}
     }
