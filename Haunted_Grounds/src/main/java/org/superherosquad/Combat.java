@@ -24,7 +24,7 @@ public class Combat {
             if (decision == 1) playerTurn = false; //ignored the monster
             while (slaying) {
                 if (playerTurn) {
-                    view.print("What would you like to do?\n(A)ttack, (D)efend, (U)se {item name}, (R)un\n" +
+                    view.print(blue + "What would you like to do?" + reset + "\n(A)ttack, (D)efend, (U)se {item name}, (R)un\n" +
                             "Use '(I)tem' to open your inventory menu.");
                     String playerInput = input.nextLine().toLowerCase();
                     String[] tokens = playerInput.split(" ");
