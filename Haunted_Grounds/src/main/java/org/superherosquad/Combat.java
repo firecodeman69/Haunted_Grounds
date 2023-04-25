@@ -81,7 +81,7 @@ public class Combat {
             }
             if (!p.isAlive()) {
                 view.print(red + "You have been defeated in battle. Regroup and try again!" + reset);
-                return prevMode;
+                return p.playerDeath();
             } else {
                 view.print(blue + "You successfully defeated " + monster.getName() + "! " +
                         "You have earned " + monster.getCurrency() + " claw bucks and gained items: " +

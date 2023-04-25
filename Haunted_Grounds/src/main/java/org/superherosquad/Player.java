@@ -281,6 +281,10 @@ public class Player extends Character implements Serializable {
         currentRoom = newRoom;
     }
 
+    public int playerDeath() {
+        return 5;
+    }
+
     public Room getPreviousRoom() {
         return previousRoom;
     }
