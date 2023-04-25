@@ -1,6 +1,7 @@
 /**************** Cody ********************/
 package org.superherosquad;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -40,6 +41,8 @@ public class Player extends Character implements Serializable {
                     playerInventory.add(currentRoom.getItems().get(i));
                     System.out.println(currentRoom.getItems().get(i).getName() + " was added to your inventory. Use command Inventory to see it now.");
                     currentRoom.removeItem(itemName);
+                }else {
+                    view.print("That item is not in the room. Did you enter the correct thing?");
                 }
             }
         }
@@ -120,26 +123,49 @@ public class Player extends Character implements Serializable {
         return false;
     }
 
-    public String useConsumableItem(String itemName) {
+    public void useConsumableItem(String itemName) {
         for (Item item: playerInventory) {
             if(item.getName().equalsIgnoreCase(itemName)) {
-                if(item.getType().equalsIgnoreCase("C")) {
-                    hp += item.getEffect();
-                }
-                else {
-                    return (red + "That is not a consumable item." + reset);
+                switch (item.getType()) {
+                    case "CHP" -> {
+                        hp += item.getEffect();
+                        view.print("Successfully used " + item.getName() + "! HP Gained: " + item.getEffect()
+                                + "\nHP is now: " + getHP());
+                        playerInventory.remove(item);
+                    }
+                    case "CDF" -> {
+                        defense += item.getEffect();
+                        view.print("Successfully used " + item.getName() + "! Defense Gained: " + item.getEffect()
+                                + "\nDefense is now: " + getDefense());
+                        playerInventory.remove(item);
+                    }
+                    case "CSP" -> {
+                        speed += item.getEffect();
+                        view.print("Successfully used " + item.getName() + "! HP Gained: " + item.getEffect()
+                                + "\nHP is now: " + getSpeed());
+                        playerInventory.remove(item);
+                    }
+                    case "CAT" -> {
+                        addAttack(item.getEffect());
+                        view.print("Successfully used " + item.getName() + "! HP Gained: " + item.getEffect()
+                                + "\nHP is now: " + getHP());
+                        playerInventory.remove(item);
+                    }
+                    default -> {
+                        view.print(red + "That is not a consumable item." + reset);
+                    }
                 }
             }
         }
-        return "You have used your consumable item. HP increased!.";
+        view.print("You have used your consumable item. HP increased!.");
     }
 
     public void inspectInventoryItem(String itemName) {
         for (Item item: playerInventory) {
             if(item.getName().equalsIgnoreCase(itemName)) {
-                System.out.println(item.getDescription());
+                view.print(item.getDescription());
             } else {
-                System.out.println("You don't have that item in your inventory.");
+                view.print("You don't have that item in your inventory.");
             }
         }
     }
@@ -302,6 +328,10 @@ public class Player extends Character implements Serializable {
     }
 
     public int playerDeath() {
+        return 5;
+    }
+
+    public int playerHardDeath(String fileName) {
         return 5;
     }
 

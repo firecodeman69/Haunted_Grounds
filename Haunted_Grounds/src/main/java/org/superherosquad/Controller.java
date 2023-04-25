@@ -179,6 +179,22 @@ public class Controller { //Cobi && Cobi
                         else if (tokens.length == 4) p.addItemToInventory(tokens[1] + " " + tokens[2] + " " + tokens[3]);
                         return mode;
                     }
+                    case "use", "u" -> {
+                        if (tokens.length == 2) {
+                            if (p.hasItem(tokens[1])) {
+                                p.useConsumableItem(tokens[1]); //add item effect to player's health
+                            }
+                        } else if (tokens.length == 3){
+                            if (p.hasItem(tokens[1] + " " + tokens[2])) {
+                                p.useConsumableItem(tokens[1] + " " + tokens[2]); //add item effect to player's health
+                            }
+                        } else if (tokens.length == 4){
+                            if (p.hasItem(tokens[1] + " " + tokens[2] + " " + tokens[3])) {
+                                p.useConsumableItem(tokens[1] + " " + tokens[2] + " " + tokens[3]); //add item effect to player's health
+                            }
+                        }
+                        return mode;
+                    }
                     case "drop" -> {
                         if (tokens.length == 2) p.dropItem(tokens[1]);
                         else if (tokens.length == 3) p.dropItem(tokens[1] + " " + tokens[2]);
@@ -202,15 +218,10 @@ public class Controller { //Cobi && Cobi
                     case "inspect" -> {
                     	if (tokens.length == 1) {
                     		view.print("You must enter the name of an item to use the inspect command.");
-                    	} else if (tokens.length < 2) {
-                            if (p.hasItem (tokens[1])) {
-                                p.inspectInventoryItem(tokens[1]);
-                            }
-                        }
-                        else if (p.hasItem (tokens[1] + " " + tokens[2])) {
-                            p.inspectInventoryItem(tokens[1] + " " + tokens[2]);
-                        }
-                        return mode;
+                    	} if (tokens.length == 2) p.inspectInventoryItem(tokens[1]);
+                          else if (tokens.length == 3) p.inspectInventoryItem(tokens[1] + " " + tokens[2]);
+                          else if (tokens.length == 4) p.inspectInventoryItem(tokens[1] + " " + tokens[2] + " " + tokens[3]);
+                          return mode;
                     }
                     
                     case "menu" -> { //Pauses the game.
