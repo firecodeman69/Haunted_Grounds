@@ -268,7 +268,7 @@ public class Controller { //Cobi && Cobi
                 view.print(active.getQuestion()); //Print the question at the start of each loop where puzzle mode is active.
                 
                 if(prevMode == 3) {
-                	if(p.getCurrentRoom().getNpcId() == 0) {
+                	if(p.getCurrentRoom().getNpcId() == 0 && hard) {
                 		view.youReallyDie();
                 	}
                 }

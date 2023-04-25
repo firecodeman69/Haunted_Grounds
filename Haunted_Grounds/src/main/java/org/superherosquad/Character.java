@@ -1,8 +1,12 @@
 /****************Cody********************/
 package org.superherosquad;
 
-public abstract class Character {
-    protected int Id;
+import java.io.Serializable;
+
+public abstract class Character implements Serializable {
+	private static final long serialVersionUID = 913398673281797944L;
+
+	protected int Id;
 
     protected String name;
     protected int hp;
@@ -13,6 +17,8 @@ public abstract class Character {
     protected int defense;
     protected int attack;
 
+    public Character() {} //no arg constructor is apparently necessary to make characters serializable.
+    
     public Character(int Id, String name, int hp, int currency, String description, int speed, int defense, int attack) { //Main constructor for new character type objects
         this.Id = Id;
         this.name = name;
