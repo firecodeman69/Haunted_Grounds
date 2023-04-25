@@ -268,12 +268,12 @@ public class Controller { //Cobi && Cobi
             	
             	switch(playerInput) {
             		case "riddle" -> { //Activate the NPC's riddle.
-            			mode = active.activatePuzzle();
+            			mode = active.activatePuzzle(hard);
             			return mode;
             		}
             		
             		case "shop" -> { //Attempt to enter the shop.
-            			mode = active.enterShop();
+            			mode = active.enterShop(shop);
             			return mode;
             		}
             		

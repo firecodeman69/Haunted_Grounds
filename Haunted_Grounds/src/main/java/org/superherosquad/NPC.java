@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 public class NPC implements Serializable
 {
+	private static final long serialVersionUID = 2424396446293707167L;
+
 	private View view = new View();
 	
 	private int id;
@@ -53,21 +55,22 @@ public class NPC implements Serializable
 		return this.shopAccess;
 	}
 	
-	public int activatePuzzle()
+	public int activatePuzzle(boolean hard)
 	{
 		view.print("The NPC has given you the " + puzzle + ". Here is the prompt:");
 		view.print(puzzle.getQuestion());
-		if(id == 0) {
+		if(hard) {
 			view.print("Also... You're different from us. If you die, you'll die.");
 		}
 		puzzle.activate();
 		return 2;
 	}
 	
-	public int enterShop()
+	public int enterShop(Shop shop)
 	{
 		if(shopAccess) {
-			view.print("Welcome to the shop!");
+			view.print("Welcome to the shop! What would you like to buy?");
+			shop.list();
 			return 4;
 		}
 		else {

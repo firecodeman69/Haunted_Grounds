@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Shop implements Serializable
 {
+	private static final long serialVersionUID = -3998555878027033615L;
 	View view = new View();
 	private ArrayList<Item> items = new ArrayList<Item>();
 	

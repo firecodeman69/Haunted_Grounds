@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Room implements Serializable {
+	private static final long serialVersionUID = -5994528410192811169L;
+
 	private View view = new View();
 	
     private int id;

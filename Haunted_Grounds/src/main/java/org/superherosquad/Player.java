@@ -3,10 +3,10 @@ package org.superherosquad;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Player extends Character implements Serializable {
-    private String blue = "\u001B[34m";
+	private static final long serialVersionUID = -7574146038049098335L;
+	//private String blue = "\u001B[34m";
     private String red = "\u001B[31m";
     private String reset = "\u001B[0m";
     String orange = "\u001B[38;2;255;165;0m";

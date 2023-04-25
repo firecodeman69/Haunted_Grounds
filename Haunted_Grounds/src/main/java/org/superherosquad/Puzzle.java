@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Puzzle implements Serializable
 {
+	private static final long serialVersionUID = 2129591718668308805L;
 	View view = new View();
 	private int id;
 	private String name;

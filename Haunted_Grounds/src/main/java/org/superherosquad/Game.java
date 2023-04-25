@@ -65,7 +65,7 @@ public class Game {
         reader.addNPCToRoom(gameRooms, gameNPCs);
         
         for(Item i: gameItems) { //Cobi - adding all consumable items to the shop.
-        	if(i.getType().equalsIgnoreCase("c")); {
+        	if(i.getType().equalsIgnoreCase("c")) {
         		shop.getItems().add(i);
         	}
         }
