@@ -4,7 +4,8 @@ package org.superherosquad;
 import java.io.Serializable;
 
 public class View implements Serializable {
-	
+	private static final long serialVersionUID = 673824491807579304L;
+
 	public void print(String s)
 	{
 		System.out.println(s);
@@ -38,6 +39,10 @@ public class View implements Serializable {
 	
     public void shopPrint(Item i) {
     	print(i.getName() + ": $" + i.getPrice());
+    }
+    
+    public void endGame() {
+    	print("And so, the campus spirit has been vanquished. You have saved your friend from the perilous paws of the campus spirit, vanquished many foes, solved many challenging puzzles, and even met a ghost teacher on the way. You and your friend return to where you came. The end.");
     }
 	
     public void helpMenu() { //ReAnn & Cobi

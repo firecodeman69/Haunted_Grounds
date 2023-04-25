@@ -67,7 +67,7 @@ public class Controller { //Cobi && Cobi
 
                     case "continue": //Return the user from the pause menu to their currently-active game.
                         if (mode == 6) {
-                            return 0;
+                            return saveMode;
                         } else {
                             view.invalid();
                         }
@@ -156,7 +156,7 @@ public class Controller { //Cobi && Cobi
                     }
                         
                     case "startpuzzle" -> { //Initiates the puzzle if there is a puzzle in the room.
-                    	mode = p.getCurrentRoom().activatePuzzle(mode, puzzles);
+                    	mode = p.getCurrentRoom().activatePuzzle(mode);
                     	return mode;
                     }
                     
@@ -247,6 +247,14 @@ public class Controller { //Cobi && Cobi
                         break;
                     }
                 }
+                
+                view.print(active.getQuestion()); //Print the question at the start of each loop where puzzle mode is active.
+                if(prevMode == 3) {
+                	if(p.getCurrentRoom().getNpcId() == 0) {
+                		//TODO: Mark "you really die" in red.
+                		view.print("Also, you're not like us. If you die... you really die.");
+                	}
+                }
 
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
 
@@ -278,13 +286,13 @@ public class Controller { //Cobi && Cobi
             	playerInput = input.nextLine().toLowerCase(); //Interpret player input.
             	
             	switch(playerInput) {
-            		case "riddle" -> { //Activate the NPC's riddle.
-            			mode = active.activatePuzzle();
+            		case "riddle" -> { //Activate the NPC's riddle if it isn't already solved.
+            			mode = active.activatePuzzle(mode);
             			return mode;
             		}
             		
             		case "shop" -> { //Attempt to enter the shop.
-            			mode = active.enterShop();
+            			mode = active.enterShop(shop);
             			return mode;
             		}
             		
