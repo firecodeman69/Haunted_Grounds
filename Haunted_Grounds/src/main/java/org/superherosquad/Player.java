@@ -144,33 +144,27 @@ public class Player extends Character implements Serializable {
                     case "CDF" -> {
                         addDefense(item.getEffect());
                         view.print("Successfully used " + item.getName() + "! " + green + "Defense Gained: " + item.getEffect()
-                                + "\nDefense is now: " + getDefense());
+                                + "\nDefense is now: " + getDefense() + reset);
                         playerInventory.remove(item);
                     }
                     case "CSP" -> {
                         addSpeed(item.getEffect());
                         view.print("Successfully used " + item.getName() + "! " + green + "Speed Gained: " + item.getEffect()
-                                + "\nSpeed is now: " + getSpeed());
+                                + "\nSpeed is now: " + getSpeed() + reset);
                         playerInventory.remove(item);
                     }
                     case "CAT" -> {
                         addAttack(item.getEffect());
                         view.print("Successfully used " + item.getName() + "! " + green + "Attack Gained: " + item.getEffect()
-                                + "\nAttack is now: " + getAttack());
+                                + "\nAttack is now: " + getAttack() + reset);
                         playerInventory.remove(item);
                     }
                     default -> view.print(red + "That is not a consumable item or you do not have this item." + reset);
                 }
     }
 
-    public void inspectInventoryItem(String itemName) {
-        for (Item item: playerInventory) {
-            if(item.getName().equalsIgnoreCase(itemName)) {
-                view.print(item.getDescription());
-            } else {
-                view.print("You don't have that item in your inventory.");
-            }
-        }
+    public void inspectInventoryItem(Item item) {
+        view.print(item.getDescription());
     }
 
     public boolean runSuccess() {

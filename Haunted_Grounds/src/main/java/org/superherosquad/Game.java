@@ -1,3 +1,4 @@
+/********************Collaboration*******************/
 package org.superherosquad;
 
 import java.io.FileInputStream;
@@ -9,11 +10,11 @@ import java.util.Scanner;
 import java.lang.Character;
 
 public class Game {
-    Player p = new Player();
-    Reader reader = new Reader();
-    private Controller controller = new Controller();
-    private static View view = new View();
-    private static Scanner input = new Scanner(System.in);
+    Player p = new Player(); //Cody
+    Reader reader = new Reader(); //Cody
+    private Controller controller = new Controller(); //Cody
+    private static View view = new View(); //Cody
+    private static Scanner input = new Scanner(System.in); //Cody
     
     private ArrayList<Room> gameRooms; //Cody
     private ArrayList<Item> gameItems; //ReAnn

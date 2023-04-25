@@ -218,9 +218,9 @@ public class Controller { //Cobi && Cobi
                     case "inspect" -> {
                     	if (tokens.length == 1) {
                     		view.print("You must enter the name of an item to use the inspect command.");
-                    	} if (tokens.length == 2) p.inspectInventoryItem(tokens[1]);
-                          else if (tokens.length == 3) p.inspectInventoryItem(tokens[1] + " " + tokens[2]);
-                          else if (tokens.length == 4) p.inspectInventoryItem(tokens[1] + " " + tokens[2] + " " + tokens[3]);
+                    	} if (tokens.length == 2) p.inspectInventoryItem(p.getItem(tokens[1]));
+                          else if (tokens.length == 3) p.inspectInventoryItem(p.getItem(tokens[1] + " " + tokens[2]));
+                          else if (tokens.length == 4) p.inspectInventoryItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]));
                           return mode;
                     }
                     
