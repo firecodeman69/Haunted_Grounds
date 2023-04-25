@@ -136,7 +136,7 @@ public class Controller { //Cobi && Cobi
                         return mode;
                     }
 
-                    case "inspectroom" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
+                    case "inspectroom", "ir" -> { //Inspect the room. This will start combat if there is a monster, tell the user that the room is dark if it is, or list the room's description, items, and puzzle.
                         int n = p.getCurrentRoom().inspect(p, mode, false);
                         if(n == 10) {
                         	if(p.finalBossCheck(monsters, puzzles)) {
@@ -154,22 +154,22 @@ public class Controller { //Cobi && Cobi
                         return mode;
                     }
 
-                    case "inventory" -> { //Shows the user all items in their inventory.
+                    case "inventory", "inv" -> { //Shows the user all items in their inventory.
                         view.print(p.showInventory());
                         return mode;
                     }
                         
-                    case "startpuzzle" -> { //Initiates the puzzle if there is a puzzle in the room.
+                    case "startpuzzle", "sp" -> { //Initiates the puzzle if there is a puzzle in the room.
                     	mode = p.getCurrentRoom().activatePuzzle(mode);
                     	return mode;
                     }
                     
-                    case "talk" -> { //Initiate conversation with the NPC in the room if there is one.
+                    case "talk", "t" -> { //Initiate conversation with the NPC in the room if there is one.
                     	mode = p.getCurrentRoom().talk(mode);
                     	return mode;
                     }
 
-                    case "help" -> { //Prints out the help menu.
+                    case "help", "h" -> { //Prints out the help menu.
                         String yellow = "\u001B[33m"; // ANSI escape code for yellow color
                         String reset = "\u001B[0m"; // ANSI escape code to reset color
                         System.out.println(yellow);
@@ -178,7 +178,7 @@ public class Controller { //Cobi && Cobi
                         return mode;
                     }
                     
-                    case "pickup" -> { //pickup an item
+                    case "pickup", "pu" -> { //pickup an item
                         if (tokens.length == 2) p.addItemToInventory(tokens[1]);
                         else if (tokens.length == 3) p.addItemToInventory(tokens[1] + " " + tokens[2]);
                         else if (tokens.length == 4) p.addItemToInventory(tokens[1] + " " + tokens[2] + " " + tokens[3]);
@@ -200,18 +200,18 @@ public class Controller { //Cobi && Cobi
                         }
                         return mode;
                     }
-                    case "drop" -> { //drop specified item
+                    case "drop", "d" -> { //drop specified item
                         if (tokens.length == 2) p.dropItem(p.getItem(tokens[1]));
                         else if (tokens.length == 3) p.dropItem(p.getItem(tokens[1] + " " + tokens[2]));
                         else if (tokens.length == 4) p.dropItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]));
                         return mode;
                     }
-                    case "equip" -> { //equip specified item
+                    case "equip" , "eq" -> { //equip specified item
                         if (tokens.length == 2) p.equipItem(p.getItem(tokens[1]));
                         else if (tokens.length == 3) p.equipItem(p.getItem(tokens[1] + " " + tokens[2]));
                         else if (tokens.length == 4) p.equipItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]));
                         return mode;
-                    }case "unequip" -> {
+                    } case "unequip", "ueq" -> {
                         if (tokens.length == 2) {
                             if (p.hasItemEquiped(p.getEquippedItem(tokens[1]))) {
                                 p.unEquipItem(p.getEquippedItem(tokens[1]));
@@ -228,11 +228,11 @@ public class Controller { //Cobi && Cobi
                                 }
                             }
                         return mode;
-                    }case "equipped" -> {
+                    } case "equipped" -> {
                         p.showEquipped();
                         return mode;
                     }
-                    case "inspect" -> {
+                    case "inspect", "i" -> {
                     	if (tokens.length == 1) {
                     		view.inspectError();
                     	} if (tokens.length == 2) p.inspectInventoryItem(p.getItem(tokens[1]));

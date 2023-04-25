@@ -60,13 +60,14 @@ public class Combat {
                             }
                         }
                         case "item", "i" -> itemMenu(p.getPlayerInventory(), input);
-                        default -> view.print("Please enter a valid command.");
+                        default -> view.print("That command, or item cannot be used in combat. Please enter a valid command.");
                     }
                 } else {
                     if (defending) { //if player defends, deal half of monster attack
                         p.loseHP(monster.getAttack() / 2);
                         view.monsterAttackedDefending(monster, p);
                         playerTurn = true;
+                        defending = false;
                     } else { //monster attacks
                         p.loseHP(monster.getAttack());
                         view.monsterAttacked(monster, p);

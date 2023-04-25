@@ -176,7 +176,7 @@ public class Room implements Serializable {
         return currentMode;
     }
 
-    public boolean hasItem(String itemName) {
+    public boolean hasItem(String itemName) { //Cody
         for (Item i: roomItems) {
             if (i.getName().equalsIgnoreCase(itemName)) {
                 return true;
@@ -195,7 +195,7 @@ public class Room implements Serializable {
     	}
     }
     
-    public int activatePuzzle(int currentMode) {
+    public int activatePuzzle(int currentMode) { //Cobi
     	if(roomPuzzle.getId() == -1) {
     		view.print("There is no puzzle in this room.");
     	}
@@ -212,8 +212,8 @@ public class Room implements Serializable {
     	return currentMode;
     }
     
-    public int talk(int currentMode) {
-    	if(inspected == false) {
+    public int talk(int currentMode) { //Cobi
+        if(inspected == false) {
     		view.print("You can't tell if there's anyone in the room. Try inspecting first.");
     	} 
     	else if(npcId == -1) {
@@ -227,51 +227,51 @@ public class Room implements Serializable {
     	return currentMode;
     }
 
-    public int getMonsterId() {
+    public int getMonsterId() { //Cody
         return monsterId;
     }
 
-    public int getPuzzleId() {
+    public int getPuzzleId() { //Cody
         return puzzleId;
     }
 
-    public int getItemId() {
+    public int getItemId() { //Cody
         return itemId;
     }
 
-    public int getNpcId() {
+    public int getNpcId() { //Cody
         return npcId;
     }
 
-    public int getNorthRoom() {
+    public int getNorthRoom() { //Cody
         return northRoom;
     }
 
-    public void setNorthRoom(int i) {
+    public void setNorthRoom(int i) { //Cody
     	northRoom = i;
     }
 
-    public int getSouthRoom() {
+    public int getSouthRoom() { //Cody
         return southRoom;
     }
 
-    public void setSouthRoom(int i) {
+    public void setSouthRoom(int i) { //Cody
     	southRoom = i;
     }
 
-    public int getEastRoom() {
+    public int getEastRoom() { //Cody
         return eastRoom;
     }
 
-    public void setEastRoom(int i) {
+    public void setEastRoom(int i) { //Cody
     	eastRoom = i;
     }
 
-    public int getWestRoom() {
+    public int getWestRoom() { //Cody
         return westRoom;
     }
 
-    public void setWestRoom(int i) {
+    public void setWestRoom(int i) { //Cody
     	westRoom = i;
     }
 
