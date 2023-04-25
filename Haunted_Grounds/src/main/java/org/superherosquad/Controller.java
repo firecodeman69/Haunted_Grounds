@@ -200,7 +200,9 @@ public class Controller { //Cobi && Cobi
                         return mode;
                     }
                     case "inspect" -> {
-                        if (tokens.length < 2) {
+                    	if (tokens.length == 1) {
+                    		view.print("You must enter the name of an item to use the inspect command.");
+                    	} else if (tokens.length < 2) {
                             if (p.hasItem (tokens[1])) {
                                 p.inspectInventoryItem(tokens[1]);
                             }

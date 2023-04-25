@@ -1,7 +1,9 @@
 //Cobi
 package org.superherosquad;
 
-public class NPC 
+import java.io.Serializable;
+
+public class NPC implements Serializable
 {
 	private View view = new View();
 	

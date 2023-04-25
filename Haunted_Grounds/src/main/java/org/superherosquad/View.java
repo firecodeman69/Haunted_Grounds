@@ -1,7 +1,9 @@
 /***********************************Cobi && Cody - ReAnn (Created initial class)************************************/
 package org.superherosquad;
 
-public class View {
+import java.io.Serializable;
+
+public class View implements Serializable {
 	
 	public void print(String s)
 	{

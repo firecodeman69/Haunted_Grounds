@@ -1,10 +1,8 @@
 //Cobi
 package org.superherosquad;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,11 +36,11 @@ public class Saver {
 	        }
 	        valid = true;
     	}
-    	fileName.concat(".dat");
+    	fileName += ".dat";
     	
-        ObjectOutputStream oos = null;
+        ObjectOutputStream output = null;
         try { //Try block in case the oos doesn't create.
-            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName));
+            output = new ObjectOutputStream(new FileOutputStream(fileName));
             output.writeObject(rooms);
             output.writeObject(items);
             output.writeObject(puzzles);
@@ -55,12 +53,15 @@ public class Saver {
             output.writeInt(saveMode);
             output.writeBoolean(hard);
             view.print("Game saved as " + fileName);
-        } catch (IOException ioe) {
+        } 
+        catch (IOException ioe) {
             view.print("IOException!");
-        } finally { //close the stream even if there is an exception thrown
+            ioe.printStackTrace();
+        } 
+        finally { //close the stream even if there is an exception thrown
             try {
-                if (oos != null) {
-                    oos.close();
+                if (output != null) {
+                    output.close();
                 }
             } catch (IOException ioe) {
                 view.print("Closing the outputstream failed.");
