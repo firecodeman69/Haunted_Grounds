@@ -51,6 +51,10 @@ public class Player extends Character implements Serializable {
         playerInventory.addAll(itemAL);
     }
 
+    public void addMonsterItemToInventory(Item item) {
+        playerInventory.add(item);
+    }
+
     public void dropItem(Item item) {
                 if(hasItem(item)) {
                     currentRoom.addItem(item);

@@ -93,6 +93,8 @@ public class Item implements Serializable {
         this.roomAssociations = roomAssociations;
     }
 
+    public Item() {};
+
 
 
     /*/

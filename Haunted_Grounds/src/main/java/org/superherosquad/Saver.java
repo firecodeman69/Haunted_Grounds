@@ -60,6 +60,7 @@ public class Saver {
             output.writeInt(saveMode);
             output.writeBoolean(hard);
             view.print("Game saved as " + fileName);
+            view.pauseMenu();
         } 
         catch (IOException ioe) {
             view.print("IOException!");
