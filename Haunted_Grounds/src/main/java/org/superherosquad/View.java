@@ -146,7 +146,8 @@ public class View implements Serializable {
 	}
 
 	public void inspectError() { //error message thrown on inspect command
-		print("You must enter the name of an item to use the inspect command.");
+		print("" +
+				"\033[31mYou must enter the name of an item to use the inspect command.\033[0m");
 	}
 
 	public void youReallyDie() {
@@ -154,11 +155,13 @@ public class View implements Serializable {
 	}
 
 	public void shopQuantityNotNumberError() {
-		print("You must send an integer for the quantity in this command.");
+		print("");
+		print("\033[31mYou must send an integer for the quantity in this command.\033[0m");
 	}
 
 	public void shopQuantityError() {
-		print("You must send a quantity to use this command.");
+		print("");
+		print("\033[31mYou must send a quantity to use this command.\033[0m");
 	}
 
 	public void shopPrint(Item i) {
