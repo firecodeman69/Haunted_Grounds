@@ -1,2 +1,2 @@
-0#Dr. B#A highly experienced software engineer and professor of computer science at the college. Her passion for software development was evident in the way she taught and interacted with her students when alive.#7#You are talking to a ghost NPC. Do you want to shop, riddle, or leave?#true
-1#Jack#Your good friend that has mysteriously gone missing for a few days.#8#You are talking with your friend Jack, but he is locked in a cage. Do you want to riddle or leave?#false
+0#The Ghost of Dr. B#A highly experienced software engineer and professor of computer science at the college. Her passion for software development was evident in the way she taught and interacted with her students when alive.#7#Do you want to shop, riddle, or leave?#true
+1#Jack#Your good friend that has mysteriously gone missing for a few days. Unfortunately, he is currently locked in a cage which can only be unlocked by answering a riddle.#8#Do you want to riddle or leave?#false

@@ -87,6 +87,15 @@ public class Controller { //Cobi && Cobi
                     case "save": //Save a game from a previous save file
                         saver.saveGame(rooms, items, puzzles, monsters, npcs, p, shop, mode, prevMode, saveMode, hard);
                         return mode;
+                        
+                    case "help": { //Prints out the help menu.
+                        String yellow = "\u001B[33m"; // ANSI escape code for yellow color
+                        String reset = "\u001B[0m"; // ANSI escape code to reset color
+                        System.out.println(yellow);
+                        view.helpMenu();
+                        System.out.println(reset);
+                        return mode;
+                    }
 
                     default: //If none of the previous cases were reached, a message telling the user that their command is invalid will be printed.
                         view.invalid();
@@ -123,7 +132,7 @@ public class Controller { //Cobi && Cobi
                     }
 
                     case "exitroom" -> { //Move to the room that the player was previously in.
-                        p.exitRoom();
+                    	p.exitRoom();
                         return mode;
                     }
 
@@ -168,6 +177,7 @@ public class Controller { //Cobi && Cobi
                         System.out.println(reset);
                         return mode;
                     }
+                    
                     case "pickup" -> { //pickup an item
                         if (tokens.length == 2) p.addItemToInventory(tokens[1]);
                         else if (tokens.length == 3) p.addItemToInventory(tokens[1] + " " + tokens[2]);
@@ -246,7 +256,6 @@ public class Controller { //Cobi && Cobi
                 mode = combat.combatLoop(p, input, prevMode);
                 return mode;
 
-
             case 2: { //Puzzle - Cobi
                 Puzzle active = null;
                 for(Puzzle pz: puzzles) { //Find the active puzzle.
@@ -257,6 +266,7 @@ public class Controller { //Cobi && Cobi
                 }
                 
                 view.print(active.getQuestion()); //Print the question at the start of each loop where puzzle mode is active.
+                
                 if(prevMode == 3) {
                 	if(p.getCurrentRoom().getNpcId() == 0) {
                 		view.youReallyDie();
@@ -274,6 +284,15 @@ public class Controller { //Cobi && Cobi
                     case "menu" -> { //Pauses the game.
                     	return 26;
                     }
+                    
+                    case "help" -> { //Prints out the help menu.
+                        String yellow = "\u001B[33m"; // ANSI escape code for yellow color
+                        String reset = "\u001B[0m"; // ANSI escape code to reset color
+                        System.out.println(yellow);
+                        view.helpMenu();
+                        System.out.println(reset);
+                        return mode;
+                    }
 
                     default -> { //All other commands are treated as guesses to the solution of the puzzle.
                         if(playerInput.equalsIgnoreCase(active.getSolution())) {
@@ -290,6 +309,7 @@ public class Controller { //Cobi && Cobi
             
             case 3: { //Talking to NPCs - Cobi
             	NPC active = p.getCurrentRoom().getNPC(); //The active NPC is the one in the room with the player.
+            	view.print(active.getOptions());
             	playerInput = input.nextLine().toLowerCase(); //Interpret player input.
             	
             	switch(playerInput) {
@@ -308,9 +328,24 @@ public class Controller { //Cobi && Cobi
             			return mode;
             		}
             		
+            		case "attack" -> {
+            			if(active.getId() == 0) {
+            				//TODO: Implement easter egg behavior here.
+            			}
+            		}
+            		
             		case "menu" -> { //Pauses the game.
             			return 36;
             		}
+            		
+                    case "help" -> { //Prints out the help menu.
+                        String yellow = "\u001B[33m"; // ANSI escape code for yellow color
+                        String reset = "\u001B[0m"; // ANSI escape code to reset color
+                        System.out.println(yellow);
+                        view.helpMenu();
+                        System.out.println(reset);
+                        return mode;
+                    }
             		
             		default -> {
             			view.invalid();
@@ -332,13 +367,19 @@ public class Controller { //Cobi && Cobi
 	            	case "buy" -> { //Attempts to purchase the given quantity of the given item.
 	            		try {
 		            		try {
-		            			shop.purchase(p, tokens[1], Integer.parseInt(tokens[2]));
-			            		return mode;
+		            			String iname = "";
+		            			for(int i = 1; i <= tokens.length - 2; i++) {
+		            				iname += tokens[i];
+		            				if(i != tokens.length - 2) {
+		            					iname += " ";
+		            				}
+		            			}
+		            			shop.purchase(p, iname, Integer.parseInt(tokens[tokens.length - 1]));
 		            		} catch(NumberFormatException nfe) { //This is reached if the given quantity is not an integer.
 		            			view.shopQuantityNotNumberError();
 		            			return mode;
 		            		}
-	            		} catch (IndexOutOfBoundsException ioob) {
+	            		} catch (IndexOutOfBoundsException ioob) { //This is reached if two arguments are sent to the buy command - it should be 3.
 	            			view.shopQuantityError();
 	            		}
 	            	}
@@ -350,6 +391,20 @@ public class Controller { //Cobi && Cobi
 	            	
 	            	case "menu" -> { //Pauses the game.
 	            		return 46;
+	            	}
+	            	
+                    case "help" -> { //Prints out the help menu.
+                        String yellow = "\u001B[33m"; // ANSI escape code for yellow color
+                        String reset = "\u001B[0m"; // ANSI escape code to reset color
+                        System.out.println(yellow);
+                        view.helpMenu();
+                        System.out.println(reset);
+                        return mode;
+                    }
+	            	
+	            	default -> {
+	            		view.invalid();
+	            		return mode;
 	            	}
             	}
             }
