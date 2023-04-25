@@ -24,7 +24,7 @@ public class Combat {
             if (decision == 1) playerTurn = false; //ignored the monster
             while (slaying) {
                 if (playerTurn) {
-                    view.print("What would you like to do?\n(A)ttack, (D)efend, (U)se {item name}, (R)un\n" +
+                    view.print(blue + "What would you like to do?" + reset + "\n(A)ttack, (D)efend, (U)se {item name}, (R)un\n" +
                             "Use '(I)tem' to open your inventory menu.");
                     String playerInput = input.nextLine().toLowerCase();
                     String[] tokens = playerInput.split(" ");
@@ -81,7 +81,7 @@ public class Combat {
             }
             if (!p.isAlive()) {
                 view.print(red + "You have been defeated in battle. Regroup and try again!" + reset);
-                return prevMode;
+                return p.playerDeath();
             } else {
                 view.print(blue + "You successfully defeated " + monster.getName() + "! " +
                         "You have earned " + monster.getCurrency() + " claw bucks and gained items: " +
@@ -111,13 +111,13 @@ public class Combat {
 
     public int initialCombat(Monster monster, Scanner input, Player p) {
         int playerTurn = -1;
-        view.print("You see " + orange + monster.getName() + reset + " in the room with you.\n" +
-                "What would you like to do?\n(A)ttack, (I)gnore, (R)un");
+        view.print("You see " + orange + monster.getName() + reset + " in the room with you.\n"
+                + blue + "What would you like to do?" + reset + "\n(A)ttack, (I)gnore, (R)un");
         String playerInput = input.nextLine().toLowerCase();
         String[] tokens = playerInput.split(" ");
         switch (tokens[0]) {
             case "attack", "a" -> {
-                view.print("Good luck brave one - may you be successful in your combat.");
+                view.print("Good luck " + orange + p.getName() + reset + " may you be successful in your combat.");
                 playerTurn = 0;
             }
             case "ignore", "i" -> {
