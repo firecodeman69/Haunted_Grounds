@@ -254,7 +254,8 @@ public class Controller { //Cobi && Cobi
                 if(prevMode == 3) {
                 	if(p.getCurrentRoom().getNpcId() == 0) {
                 		//TODO: Mark "you really die" in red.
-                		view.print("Also, you're not like us. If you die... you really die.");
+                        view.print("Also, you're not like us. If you die... \u001B[31m you really die \u001B[0m.");
+
                 	}
                 }
 
