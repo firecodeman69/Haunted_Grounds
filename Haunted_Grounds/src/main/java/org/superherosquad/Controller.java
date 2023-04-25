@@ -106,7 +106,10 @@ public class Controller { //Cobi && Cobi
             case 0: //Navigating between rooms
                 view.print("");
                 view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
-                view.print(p.getCurrentRoom().getDescription());
+                String[] sections = p.getCurrentRoom().getDescription().split("\\. "); // ReAnn
+                for (String section : sections) {
+                    view.print(section);
+                }
                 view.helpPrompt();
                 view.userInput(); // places user input.
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
