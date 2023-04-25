@@ -24,19 +24,12 @@ public class Controller { //Cobi && Cobi
              * First switch case checks the game mode.
              * The way the game interprets commands is based on this switch statement.
              */
-
+            //Cobi (Mostly), Cody, ReAnn
             case 5, 6: //Initial menu
                 if (mode == 5 && prevMode != 5) { //Welcoming messages for the main menu.
-                    view.print("\n=======================================================================================================================================================================================\n");
-                    view.print("\033[1m--- HAUNTED GROUNDS ---\033[0m\n");
-                    view.print("Welcome to the haunting adventure that takes place in GGC's now deserted campus.\n" +
-                                "Your main mission is to find your missing friend Jack.  \n" +
-                                "As you explore the dilapidated grounds, the looming presence of the campus spirit sends shivers down your spine. \n" +
-                                "With each step, you never know what spine-chilling encounter awaits you.\n" +
-                                "Though no student has attended this campus in ages, you must tread with caution because the campus spirit is still strong. \n" +
-                                "\033[1mBeware, you're in for a scare...\033[0m\n");
+                    view.gameIntro();
                     view.mainMenu();
-                    view.print("Input Options: \"newgame\" | \"newhard\" | \"load\" | \"menuhelp\" | \"exit\"");
+                    view.mainMenuInputOptions();
                     view.userInput();
                 }
 
@@ -76,11 +69,11 @@ public class Controller { //Cobi && Cobi
                         return mode;
 
                     case "newgame":  //Create a new game by effectively resetting to the start state.
-                        view.print("\nStarting a New Game...\n");
+                        view.startingNew();
                         return 90;
 
                     case "newhard": //Create a new hard mode game.
-                        view.print("Starting a New Hard-mode Game!");
+                        view.startingNewHard();
                         return 80;
 
                     case "load": //Load a game from a previous save file
@@ -100,12 +93,12 @@ public class Controller { //Cobi && Cobi
                         return mode;
                 }
 
-                //Cody
+                /**********************************************Cody**********************************************/
             case 0: //Navigating between rooms
                 view.print("");
                 view.room(p.getCurrentRoom().getName()); //Tells the player what room they are in.
                 view.print(p.getCurrentRoom().getDescription());
-                view.print("Type \"help\" for the list of game commands.");
+                view.helpPrompt();
                 view.userInput(); // places user input.
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
                 tokens = playerInput.split(" ");
@@ -219,7 +212,7 @@ public class Controller { //Cobi && Cobi
                     }
                     case "inspect" -> {
                     	if (tokens.length == 1) {
-                    		view.print("You must enter the name of an item to use the inspect command.");
+                    		view.inspectError();
                     	} if (tokens.length == 2) p.inspectInventoryItem(p.getItem(tokens[1]));
                           else if (tokens.length == 3) p.inspectInventoryItem(p.getItem(tokens[1] + " " + tokens[2]));
                           else if (tokens.length == 4) p.inspectInventoryItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]));
@@ -235,6 +228,7 @@ public class Controller { //Cobi && Cobi
                         return mode;
                     }
                 }
+                /*****************************************************************END**************************************************************/
 
             case 1: //Combat - Cody
                 mode = combat.combatLoop(p, input, prevMode);
@@ -253,9 +247,7 @@ public class Controller { //Cobi && Cobi
                 view.print(active.getQuestion()); //Print the question at the start of each loop where puzzle mode is active.
                 if(prevMode == 3) {
                 	if(p.getCurrentRoom().getNpcId() == 0) {
-                		//TODO: Mark "you really die" in red.
-                        view.print("Also, you're not like us. If you die... \u001B[31m you really die \u001B[0m.");
-
+                		view.youReallyDie();
                 	}
                 }
 
@@ -331,11 +323,11 @@ public class Controller { //Cobi && Cobi
 		            			shop.purchase(p, tokens[1], Integer.parseInt(tokens[2]));
 			            		return mode;
 		            		} catch(NumberFormatException nfe) { //This is reached if the given quantity is not an integer.
-		            			view.print("You must send an integer for the quantity in this command.");
+		            			view.shopQuantityNotNumberError();
 		            			return mode;
 		            		}
 	            		} catch (IndexOutOfBoundsException ioob) {
-	            			view.print("You must send a quantity to use this command.");
+	            			view.shopQuantityError();
 	            		}
 	            	}
 	            	

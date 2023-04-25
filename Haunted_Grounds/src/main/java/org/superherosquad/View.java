@@ -2,8 +2,15 @@
 package org.superherosquad;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class View implements Serializable {
+	private String blue = "\u001B[34m";
+	private String red = "\u001B[31m";
+	private String reset = "\u001B[0m";
+	private String orange = "\u001B[38;2;255;165;0m";
+	private String green =  "\u001B[32m";
+	private String darkGreen = "\u001B[32";
 	private static final long serialVersionUID = 673824491807579304L;
 
 	public void print(String s)
@@ -24,8 +31,67 @@ public class View implements Serializable {
 		print("You are currently in the \033[1m" + "\033[93m" + s + "\033[0m" + ".");
 	}
 
-	public void encounterMonster(Monster monster) { //Cody
-		print(monster.getName() + "is in the room!");
+	public void encounterMonster(Monster monster) { //Cody - Displays when a player inspects room and encounters a monster
+		print("You see " + orange + monster.getName() + reset + " in the room with you.\n"
+				+ blue + "What would you like to do?" + reset + "\n(A)ttack, (I)gnore, (R)un");
+	}
+
+	public void combatWithMonster() { //Cody - Displays during the combat loop with a monster
+		print(blue + "What would you like to do?" + reset + "\n(A)ttack, (D)efend, (U)se {item name}, (R)un\n" +
+				"Use '(I)tem' to open your inventory menu.");
+	}
+
+	public void initAttackOption(Player p) { //Cody - initalCombat attack option. This is before combat starts
+		print("Good luck " + orange + p.getName() + reset + " may you be successful in your combat.");
+	}
+
+	public void initIgnoreOption(Monster monster) { //Cody - initalCombat ignore option. This is before combat starts
+		print(orange + monster.getName() + reset + " Attacked you! Can't leave them on read so easily.\nStarting combat!");
+	}
+
+	public void initRunOption() { //Cody - initalCombat run option. This is before combat starts
+		print("Run to the previous room! Whew, that was close!");
+	}
+
+	public void combatInventoryMenuPrompt() { //Cody - shows the inventory menu is open during combat
+		print("Inventory Menu\nUse 'Exit' to leave this menu any time.");
+	}
+
+	public void monsterDefeat(Monster monster, Player p) { //Cody - displays when a monster is defeated
+		print("You successfully defeated " + monster.getName() + "! " +
+				green + "You have earned " + monster.getCurrency() + reset + " claw bucks and gained items: " + blue
+				+ monster.getMonsterInventory() + reset);
+	}
+
+	public void monsterAttacked(Monster monster, Player p) { //Cody - displays when monster attacks
+		print("Monster attacked and hit you for " + (monster.getAttack()) + ". "
+				+ green + "Remaining HP: " + p.getHP() + reset);
+	}
+
+	public void monsterAttackedDefending(Monster monster, Player p) { //Cody - displays when monster attacks and player is defending
+		print("Monster attacked and hit you for " + (monster.getAttack() / 2) + ". "
+				+ green + "Remaining HP: " + p.getHP() + reset);
+	}
+
+	public void printRunSuccess(Player p) { //Cody - displays upon run command during combat
+		print("Player run percentage is " + p.getRunChance() + "%\nRun away successfully? " + p.runSuccess() + "\n");
+	}
+
+	public void playerDefeat() { //Cody - displays upon player death in combat
+		print(red + "You have been defeated in battle. Regroup and try again!" + reset);
+	}
+
+	public void playerDefending() { //Cody - displays when the player is defending during combat
+		print("You are defending. Damage dealt will be half");
+	}
+
+	public void playerAttacked(Monster monster, Player p) { //Cody - displays when the player has attacked during combat
+		print("You hit the monster for " + p.getAttack() + "! "
+				+ "Monster has " + red + monster.getHP() + "hp left." + reset);
+	}
+
+	public void combatInventory(ArrayList<Item> playerInventory) { //Cody - shows the inventory while in combat
+		print(orange + playerInventory.toString() + reset);
 	}
 
 	// ReAnn
@@ -39,16 +105,58 @@ public class View implements Serializable {
 
 	// ReAnn
 	public void pauseMenu() {print(
-			"\033[1m\033[93m  - Main Menu -\033[0m\n" +
+			"\033[1m\033[93m  - Pause Menu -\033[0m\n" +
 					"\033[1m    New Game\n" +
 					"New Hard Mode Game\n" +
 					"    Load Game\n" +
 					"    Save Game\n" +
 					"    Menu Help\n" +
+					"    Continue \n" +
 					"      Exit\033[0m\n\n" +
 					"Input Options: \"newgame\" | \"newhard\" | \"load\" | \"save\" | \"menuhelp\" | \"exit\"");}
 	// End of Work
 
+	public void mainMenuInputOptions() { //Displays main menu input options
+		print("Input Options: \"newgame\" | \"newhard\" | \"load\" | \"menuhelp\" | \"exit\"");
+	}
+
+	public void gameIntro() { //Prints out the game intro
+		print("\n=======================================================================================================================================================================================\n");
+		print("\033[1m--- HAUNTED GROUNDS ---\033[0m\n");
+		print("Welcome to the haunting adventure that takes place in GGC's now deserted campus.\n" +
+				"Your main mission is to find your missing friend Jack.  \n" +
+				"As you explore the dilapidated grounds, the looming presence of the campus spirit sends shivers down your spine. \n" +
+				"With each step, you never know what spine-chilling encounter awaits you.\n" +
+				"Though no student has attended this campus in ages, you must tread with caution because the campus spirit is still strong. \n" +
+				"\033[1mBeware, you're in for a scare...\033[0m\n");
+	}
+
+	public void startingNew() { //When starting new game
+		print("\nStarting a New Game...\n");
+	}
+	public void startingNewHard() { //When starting new hard game
+		print("Starting a New Hard-mode Game!");
+	}
+
+	public void helpPrompt() { //printed after room description
+		print("Type \"help\" for the list of game commands.");
+	}
+
+	public void inspectError() { //error message thrown on inspect command
+		print("You must enter the name of an item to use the inspect command.");
+	}
+
+	public void youReallyDie() {
+		print("Also, you're not like us. If you die... " + red + "you really die." + reset);
+	}
+
+	public void shopQuantityNotNumberError() {
+		print("You must send an integer for the quantity in this command.");
+	}
+
+	public void shopQuantityError() {
+		print("You must send a quantity to use this command.");
+	}
 
 	public void shopPrint(Item i) {
     	print(i.getName() + ": $" + i.getPrice());
