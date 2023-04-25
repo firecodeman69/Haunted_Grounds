@@ -67,6 +67,7 @@ public class Player extends Character implements Serializable {
             if(i.getName().equalsIgnoreCase(itemName)) {
                 if (i.getType().equals("E")) {
                     equippedItems.add(i);
+                    playerInventory.remove(i);
                     addHP(i.getEffect());
                     view.print(i.getName() + " has been equipped.\n" + i.getEffect() + " added to your hp. It is now " + getHP());
                 }
@@ -74,12 +75,15 @@ public class Player extends Character implements Serializable {
         }
     }
 
-    public void unEquipItem(Item item) {
+    public void unEquipItem(String itemName) {
         for (Item i: equippedItems) {
-          if(i.getName().equalsIgnoreCase(item.getName())) {
-              equippedItems.remove(item);
-         }
-       }
+            if(i.getName().equalsIgnoreCase(itemName)) {
+                    equippedItems.remove(i);
+                    playerInventory.add(i);
+                    loseHP(i.getEffect());
+                    view.print(i.getName() + " has been une-equipped.\n" + i.getEffect() + " removed from your hp. It is now " + getHP());
+            }
+        }
     }
 
     public String showInventory() {
@@ -90,13 +94,12 @@ public class Player extends Character implements Serializable {
         }
     }
 
-    public Item explore(String name) {
-        for (Item i : currentRoom.getItems()) {
-            if (i.getName().equalsIgnoreCase(name)) {
-                return i;
-            }
+    public void showEquipped() {
+        if (equippedItems.size() < 1) {
+            view.print(red + "You don't have any items equipped." + reset);
+        } else {
+            view.print(orange + equippedItems + reset);
         }
-        return null;
     }
 
     public void spendCurrency(int c) { //Used for the shop
