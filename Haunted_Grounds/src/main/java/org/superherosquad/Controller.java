@@ -181,16 +181,16 @@ public class Controller { //Cobi && Cobi
                     }
                     case "use", "u" -> {
                         if (tokens.length == 2) {
-                            if (p.hasItem(tokens[1])) {
-                                p.useConsumableItem(tokens[1]); //add item effect to player's health
+                            if (p.getItem(tokens[1]) != null) {
+                                p.useConsumableItem(p.getItem(tokens[1])); //add item effect to player's health
                             }
                         } else if (tokens.length == 3){
-                            if (p.hasItem(tokens[1] + " " + tokens[2])) {
-                                p.useConsumableItem(tokens[1] + " " + tokens[2]); //add item effect to player's health
+                            if (p.getItem(tokens[1] + " " + tokens[2]) != null) {
+                                p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2])); //add item effect to player's health
                             }
                         } else if (tokens.length == 4){
-                            if (p.hasItem(tokens[1] + " " + tokens[2] + " " + tokens[3])) {
-                                p.useConsumableItem(tokens[1] + " " + tokens[2] + " " + tokens[3]); //add item effect to player's health
+                            if (p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]) != null) {
+                                p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3])); //add item effect to player's health
                             }
                         }
                         return mode;
