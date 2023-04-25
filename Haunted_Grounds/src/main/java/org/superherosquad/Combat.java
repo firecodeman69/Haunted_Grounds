@@ -16,7 +16,7 @@ public class Combat {
 
         if (decision == 0 || decision == 1) { //didn't run from monster
             if (decision == 1) playerTurn = false; //ignored the monster
-            while (slaying) {
+            while (slaying && p.isAlive()) {
                 if (playerTurn) {
                     view.combatWithMonster(); //print the prompt for when a user is in combat
                     String playerInput = input.nextLine().toLowerCase();
