@@ -55,15 +55,21 @@ public class NPC implements Serializable
 		return this.shopAccess;
 	}
 	
-	public int activatePuzzle(boolean hard)
+	public int activatePuzzle(int currentMode)
 	{
-		view.print("The NPC has given you the " + puzzle + ". Here is the prompt:");
-		view.print(puzzle.getQuestion());
-		if(hard) {
-			view.print("Also... You're different from us. If you die, you'll die.");
+		if(puzzle.getId() == -1) {
+			view.print("You've already answered my riddle.");
 		}
-		puzzle.activate();
-		return 2;
+		else {
+			view.print("The NPC has given you the " + puzzle + ". Here is the prompt:");
+			puzzle.activate();
+			currentMode = 2;
+		}
+		return currentMode;
+	}
+	
+	public void removePuzzle() {
+		puzzle.setId(-1);
 	}
 	
 	public int enterShop(Shop shop)

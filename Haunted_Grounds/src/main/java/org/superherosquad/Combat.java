@@ -93,6 +93,11 @@ public class Combat {
                 p.addItemsToInventory(monster.getMonsterInventory());
                 p.addCurrency(monster.getCurrency());
                 p.getCurrentRoom().removeMonster();
+                
+                if(monster.getId() == 5) {
+                	view.endGame();
+                	System.exit(0);
+                }
                 return prevMode;
             }
         } else {

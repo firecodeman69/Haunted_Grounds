@@ -75,8 +75,8 @@ public class Room implements Serializable {
     	return roomPuzzle;
     }
 
-    public void removePuzzle() { //Cody
-        roomPuzzle = null;
+    public void removePuzzle() { //Cobi
+        roomPuzzle.setId(-1);
     }
 
     public Monster getRoomMonster() { //Cody
@@ -195,16 +195,15 @@ public class Room implements Serializable {
     	}
     }
     
-    public int activatePuzzle(int currentMode, ArrayList<Puzzle> puzzles) {
-    	if(puzzleId == -1) {
+    public int activatePuzzle(int currentMode) {
+    	if(roomPuzzle.getId() == -1) {
     		view.print("There is no puzzle in this room.");
     	}
     	else {
     		try {
 	    		roomPuzzle.activate();
-	    		currentMode = 2;
 	    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
-	    		view.print(roomPuzzle.getQuestion());
+	    		currentMode = 2;
     		}
     		catch (NullPointerException npe) {
     			view.print("You have already solved the puzzle in this room.");
