@@ -160,6 +160,9 @@ public class Room {
             	catch (NullPointerException npe) {
             		view.print("There is no puzzle in the current room.");
             	}
+            	if(npcId != -1) {
+            		view.print("There is an NPC in the room! Use 'talk' to talk to them.");
+            	}
             }
     	}
         return currentMode;
@@ -189,20 +192,25 @@ public class Room {
     		view.print("There is no puzzle in this room.");
     	}
     	else {
-    		currentMode = 2;
-    		roomPuzzle.activate();
-    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
-    		view.print(roomPuzzle.getQuestion());
+    		try {
+	    		roomPuzzle.activate();
+	    		currentMode = 2;
+	    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
+	    		view.print(roomPuzzle.getQuestion());
+    		}
+    		catch (NullPointerException npe) {
+    			view.print("You have already solved the puzzle in this room.");
+    		}
     	}
     	return currentMode;
     }
     
     public int talk(int currentMode) {
-    	if(npcId == -1) {
-    		view.print("There is no NPC in this room to talk to.");
-    	}
     	if(inspected == false) {
     		view.print("You can't tell if there's anyone in the room. Try inspecting first.");
+    	} 
+    	else if(npcId == -1) {
+    		view.print("There is no NPC in this room to talk to.");
     	}
     	else {
     		currentMode = 3;

@@ -225,7 +225,7 @@ public class Controller { //Cobi && Cobi
 
                     default -> { //All other commands are treated as guesses to the solution of the puzzle.
                         if(playerInput.equalsIgnoreCase(active.getSolution())) {
-                            mode = active.onSolve(p.getCurrentRoom(), items);
+                            mode = active.onSolve(p.getCurrentRoom(), rooms, items);
                             return mode;
                         }
                         else {
