@@ -5,13 +5,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Combat {
-    View view = new View();
+    private View view = new View();
+    private String blue = "\u001B[34m";
+    private String red = "\u001B[31m";
+    private String reset = "\u001B[0m";
+    private String orange = "\u001B[38;2;255;165;0m";
+    private String green =  "\u001B[32m";
+    private String darkGreen = "\\u001B[32";
 
     public int combatLoop(Player p, Scanner input, int prevMode) {
         boolean playerTurn = true;
         boolean defending = false;
         Monster monster = p.getCurrentRoom().getRoomMonster();
-        int decision = p.initialCombat(monster, input); // if 0, player turn first. if 1, monster turn first, if -1, escape combat, change mode to prevMode
+        int decision = this.initialCombat(monster, input, p); // if 0, player turn first. if 1, monster turn first, if -1, escape combat, change mode to prevMode
         boolean slaying = true;
 
         if (decision == 0 || decision == 1) { //didn't run from monster
@@ -25,8 +31,8 @@ public class Combat {
                     switch (tokens[0]) {
                         case "attack", "a" -> {
                             monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
-                            view.print("You hit the monster for " + p.getAttack() + "! " +
-                                    "Monster has " + monster.getHP() + "hp left.");
+                            view.print(darkGreen + "You hit the monster for " + p.getAttack() + "! " + reset
+                                    + red + "Monster has " + monster.getHP() + "hp left." + reset);
                             if (monster.getHP() <= 0) slaying = false;
                             playerTurn = false;
                         }
@@ -62,24 +68,24 @@ public class Combat {
                 } else {
                     if (defending) {
                         p.loseHP(monster.getAttack() / 2); //if player defends, deal half of monster attack
-                        view.print("Monster attacked and hit you for " + (monster.getAttack() / 2) + ". " +
-                                "Remaining HP: " + p.getHP());
+                        view.print(red + "Monster attacked and hit you for " + (monster.getAttack() / 2) + ". " + reset
+                                + green + "Remaining HP: " + p.getHP() + reset);
                         playerTurn = true;
                     } else {
                         p.loseHP(monster.getAttack());
-                        view.print("Monster attacked and hit you for " + (monster.getAttack()) + ". " +
-                                "Remaining HP: " + p.getHP());
+                        view.print(red + "Monster attacked and hit you for " + (monster.getAttack()) + ". " + reset
+                                + green + "Remaining HP: " + p.getHP() + reset);
                         playerTurn = true;
                     }
                 }
             }
             if (!p.isAlive()) {
-                view.print("You have been defeated in battle. Regroup and try again!");
+                view.print(red + "You have been defeated in battle. Regroup and try again!" + reset);
                 return prevMode;
             } else {
-                view.print("You successfully defeated " + monster.getName() + "! " +
-                        "You have earned " + monster.getCurrency() + " and gained items: " +
-                        monster.getMonsterInventory());
+                view.print(blue + "You successfully defeated " + monster.getName() + "! " +
+                        "You have earned " + monster.getCurrency() + " claw bucks and gained items: " +
+                        monster.getMonsterInventory() + reset);
                 p.addItemsToInventory(monster.getMonsterInventory());
                 p.addCurrency(monster.getCurrency());
                 p.getCurrentRoom().removeMonster();
@@ -101,5 +107,28 @@ public class Combat {
                     itemMenuOpen = false;
                 }
             }
+    }
+
+    public int initialCombat(Monster monster, Scanner input, Player p) {
+        int playerTurn = -1;
+        view.print("You see " + orange + monster.getName() + reset + " in the room with you.\n" +
+                "What would you like to do?\n(A)ttack, (I)gnore, (R)un");
+        String playerInput = input.nextLine().toLowerCase();
+        String[] tokens = playerInput.split(" ");
+        switch (tokens[0]) {
+            case "attack", "a" -> {
+                view.print("Good luck brave one - may you be successful in your combat.");
+                playerTurn = 0;
+            }
+            case "ignore", "i" -> {
+                view.print(orange + monster.getName() + reset + " Attacked you! Can't leave them on read so easily.\nStarting combat!");
+                playerTurn = 1;
+            }
+            case "run", "r" -> {
+                p.exitRoom();
+                view.print("Run to the previous room! Whew, that was close!");
+            }
+        }
+        return playerTurn;
     }
 }

@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player extends Character implements Serializable {
+    private String blue = "\u001B[34m";
+    private String red = "\u001B[31m";
+    private String reset = "\u001B[0m";
+    String orange = "\u001B[38;2;255;165;0m";
 
     private ArrayList<Item> playerInventory = new ArrayList<>();
     private ArrayList<Item> equippedItems = new ArrayList<>();
@@ -75,10 +79,10 @@ public class Player extends Character implements Serializable {
     }
 
     public String showInventory() {
-        if (playerInventory.size() < 0) {
-            return ("You don't have any items in your inventory.");
+        if (playerInventory.size() < 1) {
+            return (red + "You don't have any items in your inventory." + reset);
         } else {
-            return playerInventory.toString();
+            return (orange + playerInventory + reset);
         }
     }
 
@@ -278,25 +282,4 @@ public class Player extends Character implements Serializable {
         previousRoom = oldRoom;
     }
 
-    public int initialCombat(Monster monster, Scanner input) {
-        int playerTurn = -1;
-        view.print("You see " + monster.getName() + " in the room with you.\n" +
-                "What would you like to do?\n(A)ttack, (I)gnore, (R)un");
-        String playerInput = input.nextLine().toLowerCase();
-        String[] tokens = playerInput.split(" ");
-        switch (tokens[0]) {
-            case "attack", "a" -> {
-                view.print("Good luck brave one - may you be successful in your combat.");
-                playerTurn = 0;
-            }
-            case "ignore", "i" -> {
-                view.print(monster.getName() + " Attacked you! Can't leave them on read so easily.\nStarting combat!");
-                playerTurn = 1;
-            }
-            case "run", "r" -> {
-                exitRoom();
-            }
-        }
-        return playerTurn;
-    }
 }
