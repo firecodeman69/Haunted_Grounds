@@ -65,7 +65,11 @@ public class Player extends Character implements Serializable {
     public void equipItem(String itemName) {
         for (Item i: playerInventory) {
             if(i.getName().equalsIgnoreCase(itemName)) {
-                equippedItems.add(i);
+                if (i.getType().equals("E")) {
+                    equippedItems.add(i);
+                    addHP(i.getEffect());
+                    view.print(i.getName() + " has been equipped.\n" + i.getEffect() + " added to your hp. It is now " + getHP());
+                }
             }
         }
     }
@@ -115,7 +119,7 @@ public class Player extends Character implements Serializable {
                     hp += item.getEffect();
                 }
                 else {
-                    return "That is not a consumable item.";
+                    return (red + "That is not a consumable item." + reset);
                 }
             }
         }

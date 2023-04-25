@@ -177,6 +177,12 @@ public class Controller { //Cobi && Cobi
                         else if (tokens.length == 4) p.dropItem(tokens[1] + " " + tokens[2] + " " + tokens[3]);
                         return mode;
                     }
+                    case "equip" -> {
+                        if (tokens.length == 2) p.equipItem(tokens[1]);
+                        else if (tokens.length == 3) p.equipItem(tokens[1] + " " + tokens[2]);
+                        else if (tokens.length == 4) p.equipItem(tokens[1] + " " + tokens[2] + " " + tokens[3]);
+                        return mode;
+                    }
                     case "inspect" -> {
                         if (tokens.length < 2) {
                             if (p.hasItem (tokens[1])) {

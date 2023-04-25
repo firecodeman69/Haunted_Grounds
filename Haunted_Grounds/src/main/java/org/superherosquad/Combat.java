@@ -11,7 +11,7 @@ public class Combat {
     private String reset = "\u001B[0m";
     private String orange = "\u001B[38;2;255;165;0m";
     private String green =  "\u001B[32m";
-    private String darkGreen = "\\u001B[32";
+    private String darkGreen = "\u001B[32";
 
     public int combatLoop(Player p, Scanner input, int prevMode) {
         boolean playerTurn = true;
@@ -31,8 +31,8 @@ public class Combat {
                     switch (tokens[0]) {
                         case "attack", "a" -> {
                             monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
-                            view.print(darkGreen + "You hit the monster for " + p.getAttack() + "! " + reset
-                                    + red + "Monster has " + monster.getHP() + "hp left." + reset);
+                            view.print("You hit the monster for " + p.getAttack() + "! "
+                                    + "Monster has " + red + monster.getHP() + "hp left." + reset);
                             if (monster.getHP() <= 0) slaying = false;
                             playerTurn = false;
                         }
@@ -68,12 +68,12 @@ public class Combat {
                 } else {
                     if (defending) {
                         p.loseHP(monster.getAttack() / 2); //if player defends, deal half of monster attack
-                        view.print(red + "Monster attacked and hit you for " + (monster.getAttack() / 2) + ". " + reset
+                        view.print("Monster attacked and hit you for " + (monster.getAttack() / 2) + ". "
                                 + green + "Remaining HP: " + p.getHP() + reset);
                         playerTurn = true;
                     } else {
                         p.loseHP(monster.getAttack());
-                        view.print(red + "Monster attacked and hit you for " + (monster.getAttack()) + ". " + reset
+                        view.print("Monster attacked and hit you for " + (monster.getAttack()) + ". "
                                 + green + "Remaining HP: " + p.getHP() + reset);
                         playerTurn = true;
                     }
