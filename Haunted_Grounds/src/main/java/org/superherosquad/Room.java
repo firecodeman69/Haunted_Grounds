@@ -134,15 +134,15 @@ public class Room {
         }
     }
 
-    public int inspect(Player p, int currentMode) { //Cobi & Cody
+    public int inspect(Player p, int currentMode, boolean proceed) { //Cobi & Cody
     	if(p.getCurrentRoom().getIsDark()) {
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
     	}
 
     	else {
-            if (p.roomHasMonster()) {
+            if (p.roomHasMonster() && proceed == false) { //Only enter this if statement if the room has a monster and the proceed parameter is false. If the proceed parameter is true, that means that the final boss conditions have not been met, so we're going to inspect the room with the final boss.
             	if(id == 14) {
-            		currentMode = 10;
+            		currentMode = 10; //Activate the final boss check because we are in the rooom with the final boss.
             	}
             	else {
             		currentMode = 1;

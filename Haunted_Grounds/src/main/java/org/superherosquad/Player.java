@@ -274,17 +274,18 @@ public class Player extends Character implements Serializable {
     }
     
     public boolean finalBossCheck(ArrayList<Monster> monsters, ArrayList<Puzzle> puzzles) {
-    	for(Monster m: monsters) {
+    	for(Monster m: monsters) { //Check if all monsters are defeated.
     		if(m.getHP() > 0) {
-    			return false;
+    			return false; //If there is any monster undefeated, abort check.
     		}
     	}
-    	for(Puzzle p: puzzles) {
+    	
+    	for(Puzzle p: puzzles) { //Check if all puzzles are solved.
     		if(!(p.getId() == -1)) {
-    			return false;
+    			return false; //If there is any unsolved puzzle, abort check.
     		}
     	}
-    	return true;
+    	return true; //Getting here means that the check hasn't been aborted, so the conditions to activate the final boss battle have been met.
     }
 
     public Room getCurrentRoom() {
