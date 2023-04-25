@@ -83,9 +83,9 @@ public class Combat {
                 view.print(red + "You have been defeated in battle. Regroup and try again!" + reset);
                 return p.playerDeath();
             } else {
-                view.print(blue + "You successfully defeated " + monster.getName() + "! " +
-                        "You have earned " + monster.getCurrency() + " claw bucks and gained items: " +
-                        monster.getMonsterInventory() + reset);
+                view.print("You successfully defeated " + monster.getName() + "! " +
+                        green + "You have earned " + monster.getCurrency() + reset + " claw bucks and gained items: " + blue
+                         + monster.getMonsterInventory() + reset);
                 p.addItemsToInventory(monster.getMonsterInventory());
                 p.addCurrency(monster.getCurrency());
                 p.getCurrentRoom().removeMonster();
