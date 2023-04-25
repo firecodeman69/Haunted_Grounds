@@ -57,7 +57,13 @@ public abstract class Character {
     public void setHP(int hp) { //Used for combat and item effects
         this.hp = hp;
     }
+    public void addAttack(int attack) {
+        this.attack += attack;
+    }
 
+    public void loseAttack(int attack) {
+        this.attack -= attack;
+    }
     public void addHP(int hp) { //Used for combat and item effects
         this.hp += hp;
     }

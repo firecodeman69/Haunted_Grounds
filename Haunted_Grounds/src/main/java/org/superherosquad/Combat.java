@@ -111,13 +111,13 @@ public class Combat {
 
     public int initialCombat(Monster monster, Scanner input, Player p) {
         int playerTurn = -1;
-        view.print("You see " + orange + monster.getName() + reset + " in the room with you.\n" +
-                "What would you like to do?\n(A)ttack, (I)gnore, (R)un");
+        view.print("You see " + orange + monster.getName() + reset + " in the room with you.\n"
+                + blue + "What would you like to do?" + reset + "\n(A)ttack, (I)gnore, (R)un");
         String playerInput = input.nextLine().toLowerCase();
         String[] tokens = playerInput.split(" ");
         switch (tokens[0]) {
             case "attack", "a" -> {
-                view.print("Good luck brave one - may you be successful in your combat.");
+                view.print("Good luck " + orange + p.getName() + reset + " may you be successful in your combat.");
                 playerTurn = 0;
             }
             case "ignore", "i" -> {

@@ -70,6 +70,11 @@ public class Player extends Character implements Serializable {
                     playerInventory.remove(i);
                     addHP(i.getEffect());
                     view.print(i.getName() + " has been equipped.\n" + i.getEffect() + " added to your hp. It is now " + getHP());
+                }else if (i.getType().equals("EW")) {
+                    equippedItems.add(i);
+                    playerInventory.remove(i);
+                    addAttack(i.getEffect());
+                    view.print(i.getName() + " has been equipped.\n" + i.getEffect() + " added to your attack. It is now " + getAttack());
                 }
             }
         }
