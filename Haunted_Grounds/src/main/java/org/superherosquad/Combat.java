@@ -43,16 +43,16 @@ public class Combat {
                         }
                         case "use", "u" -> {
                             if (tokens.length == 2) {
-                                if (p.hasItem(tokens[1])) {
-                                    p.useConsumableItem(tokens[1]); //add item effect to player's health
+                                if (p.getItem(tokens[1]) != null) {
+                                    p.useConsumableItem(p.getItem(tokens[1])); //add item effect to player's health
                                 }
                             } else if (tokens.length == 3){
-                                if (p.hasItem(tokens[1] + " " + tokens[2])) {
-                                    p.useConsumableItem(tokens[1] + " " + tokens[2]); //add item effect to player's health
+                                if (p.getItem(tokens[1] + " " + tokens[2]) != null) {
+                                    p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2])); //add item effect to player's health
                                 }
                             } else if (tokens.length == 4){
-                                if (p.hasItem(tokens[1] + " " + tokens[2] + " " + tokens[3])) {
-                                    p.useConsumableItem(tokens[1] + " " + tokens[2] + " " + tokens[3]); //add item effect to player's health
+                                if (p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]) != null) {
+                                    p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3])); //add item effect to player's health
                                 }
                             }
                             playerTurn = false;
@@ -104,7 +104,7 @@ public class Combat {
             boolean itemMenuOpen = true;
             view.print("Inventory Menu\nUse 'Exit' to leave this menu any time.");
             while (itemMenuOpen) {
-                view.print(playerInventory.toString());
+                view.print(orange + playerInventory.toString() + reset);
                 String playerInput = input.nextLine().toLowerCase();
                 String[] tokens = playerInput.split(" ");
                 if (tokens[0].equalsIgnoreCase("exit")) {

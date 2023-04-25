@@ -11,6 +11,7 @@ public class Player extends Character implements Serializable {
     private String red = "\u001B[31m";
     private String reset = "\u001B[0m";
     String orange = "\u001B[38;2;255;165;0m";
+    private String green =  "\u001B[32m";
 
     private ArrayList<Item> playerInventory = new ArrayList<>();
     private ArrayList<Item> equippedItems = new ArrayList<>();
@@ -19,6 +20,8 @@ public class Player extends Character implements Serializable {
     private View view = new View();
     private double runChance = 0;
     private double runSuccess = 0;
+
+
 
     public Player() {
         super(0, "Character 1", 1000, 0, "First player of the game.", 100, 100, 100);
@@ -110,6 +113,13 @@ public class Player extends Character implements Serializable {
         }
     }
 
+    public Item getItem(String itemName) {
+        for (Item i: playerInventory) {
+            if (i.getName().equalsIgnoreCase(itemName)) return i;
+        }
+        return null;
+    }
+
     public void spendCurrency(int c) { //Used for the shop
         currency -= c;
     }
@@ -123,41 +133,34 @@ public class Player extends Character implements Serializable {
         return false;
     }
 
-    public void useConsumableItem(String itemName) {
-        for (Item item: playerInventory) {
-            if(item.getName().equalsIgnoreCase(itemName)) {
+    public void useConsumableItem(Item item) {
                 switch (item.getType()) {
                     case "CHP" -> {
-                        hp += item.getEffect();
-                        view.print("Successfully used " + item.getName() + "! HP Gained: " + item.getEffect()
-                                + "\nHP is now: " + getHP());
+                        addHP(item.getEffect());
+                        view.print("Successfully used " + item.getName() + "! " + green + "HP Gained: " + item.getEffect()
+                                + "\nHP is now: " + getHP() + reset);
                         playerInventory.remove(item);
                     }
                     case "CDF" -> {
-                        defense += item.getEffect();
-                        view.print("Successfully used " + item.getName() + "! Defense Gained: " + item.getEffect()
+                        addDefense(item.getEffect());
+                        view.print("Successfully used " + item.getName() + "! " + green + "Defense Gained: " + item.getEffect()
                                 + "\nDefense is now: " + getDefense());
                         playerInventory.remove(item);
                     }
                     case "CSP" -> {
-                        speed += item.getEffect();
-                        view.print("Successfully used " + item.getName() + "! HP Gained: " + item.getEffect()
-                                + "\nHP is now: " + getSpeed());
+                        addSpeed(item.getEffect());
+                        view.print("Successfully used " + item.getName() + "! " + green + "Speed Gained: " + item.getEffect()
+                                + "\nSpeed is now: " + getSpeed());
                         playerInventory.remove(item);
                     }
                     case "CAT" -> {
                         addAttack(item.getEffect());
-                        view.print("Successfully used " + item.getName() + "! HP Gained: " + item.getEffect()
-                                + "\nHP is now: " + getHP());
+                        view.print("Successfully used " + item.getName() + "! " + green + "Attack Gained: " + item.getEffect()
+                                + "\nAttack is now: " + getAttack());
                         playerInventory.remove(item);
                     }
-                    default -> {
-                        view.print(red + "That is not a consumable item." + reset);
-                    }
+                    default -> view.print(red + "That is not a consumable item or you do not have this item." + reset);
                 }
-            }
-        }
-        view.print("You have used your consumable item. HP increased!.");
     }
 
     public void inspectInventoryItem(String itemName) {

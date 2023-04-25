@@ -88,6 +88,14 @@ public abstract class Character {
         return speed;
     }
 
+    public void addSpeed(int speed) {
+        this.speed += speed;
+    }
+
+    public void addDefense(int defense) {
+        this.defense += defense;
+    }
+
     public void setSpeed(int speed) { //updated by item effects
         this.speed = speed;
     }
