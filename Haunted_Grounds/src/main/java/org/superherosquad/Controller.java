@@ -166,13 +166,15 @@ public class Controller { //Cobi && Cobi
                         return mode;
                     }
                     case "pickup" -> {
-                        if (tokens.length < 2) p.addItemToInventory(tokens[1]);
-                        else p.addItemToInventory(tokens[1] + " " + tokens[2]);
+                        if (tokens.length == 2) p.addItemToInventory(tokens[1]);
+                        else if (tokens.length == 3) p.addItemToInventory(tokens[1] + " " + tokens[2]);
+                        else if (tokens.length == 4) p.addItemToInventory(tokens[1] + " " + tokens[2] + " " + tokens[3]);
                         return mode;
                     }
                     case "drop" -> {
-                        if (tokens.length < 2) p.dropItem(tokens[1]);
-                        else p.dropItem(tokens[1] + " " + tokens[2]);
+                        if (tokens.length == 2) p.dropItem(tokens[1]);
+                        else if (tokens.length == 3) p.dropItem(tokens[1] + " " + tokens[2]);
+                        else if (tokens.length == 4) p.dropItem(tokens[1] + " " + tokens[2] + " " + tokens[3]);
                         return mode;
                     }
                     case "inspect" -> {
