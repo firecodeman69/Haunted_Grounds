@@ -42,13 +42,17 @@ public class Combat {
                             playerTurn = false;
                         }
                         case "use", "u" -> {
-                            if (tokens.length < 2) {
+                            if (tokens.length == 2) {
                                 if (p.hasItem(tokens[1])) {
                                     p.useConsumableItem(tokens[1]); //add item effect to player's health
                                 }
-                            } else {
+                            } else if (tokens.length == 3){
                                 if (p.hasItem(tokens[1] + " " + tokens[2])) {
-                                    p.useConsumableItem(tokens[1]); //add item effect to player's health
+                                    p.useConsumableItem(tokens[1] + " " + tokens[2]); //add item effect to player's health
+                                }
+                            } else if (tokens.length == 4){
+                                if (p.hasItem(tokens[1] + " " + tokens[2] + " " + tokens[3])) {
+                                    p.useConsumableItem(tokens[1] + " " + tokens[2] + " " + tokens[3]); //add item effect to player's health
                                 }
                             }
                             playerTurn = false;
