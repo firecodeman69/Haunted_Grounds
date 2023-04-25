@@ -151,11 +151,11 @@ public class Game {
     			game.saveMode = setting;
     		}
     		
-    		if(setting == 10) {
+    		if(setting == 10) { //Getting a 10 for setting means that the player died in hard mode, so say goodbye to your save file!
     			game.saveFile.delete();
     		}
     		
-    		if(setting == 9 || setting == 8) { //Cobi - this resets the game.
+    		if(setting == 9 || setting == 8) { //this resets the game.
     			game.newGame(0);
     			
     			if(setting == 8) {
@@ -169,7 +169,7 @@ public class Game {
     			game.p.setName(input.nextLine());
     		}
     		
-    		if(setting == 7) { //Cobi - this loads the save file.
+    		if(setting == 7) { //this loads the save file.
     			game.saveFile = game.loadGame();
     		}
     	}

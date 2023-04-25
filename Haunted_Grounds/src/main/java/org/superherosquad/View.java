@@ -80,6 +80,10 @@ public class View implements Serializable {
 	public void playerDefeat() { //Cody - displays upon player death in combat
 		print(red + "You have been defeated in battle. Regroup and try again!" + reset);
 	}
+	
+	public void playerHardDefeat() {
+		print(red + "You have been defeated in battle! You do not have the strength to go forth. You have perished." + reset);
+	}
 
 	public void playerDefending() { //Cody - displays when the player is defending during combat
 		print("You are defending. Damage dealt will be half");

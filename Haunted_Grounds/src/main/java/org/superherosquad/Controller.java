@@ -253,7 +253,7 @@ public class Controller { //Cobi && Cobi
                 /*****************************************************************END**************************************************************/
 
             case 1: //Combat - Cody
-                mode = combat.combatLoop(p, input, prevMode);
+                mode = combat.combatLoop(p, input, prevMode, hard);
                 return mode;
 
             case 2: { //Puzzle - Cobi

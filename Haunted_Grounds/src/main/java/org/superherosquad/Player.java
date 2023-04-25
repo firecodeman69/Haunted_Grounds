@@ -339,12 +339,13 @@ public class Player extends Character implements Serializable {
         currentRoom = newRoom;
     }
 
-    public int playerDeath() {
-        return 105;
-    }
-
-    public int playerHardDeath(String fileName) {
-        return 5;
+    public int playerDeath(boolean hard) {
+        if (hard) { //Cobi - hard mode functionality handled here.
+        	return 105;
+        }
+        else {
+        	return 5;
+        }
     }
 
     public Room getPreviousRoom() {

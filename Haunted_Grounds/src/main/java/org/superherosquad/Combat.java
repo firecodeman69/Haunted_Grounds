@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Combat {
     private View view = new View();
 
-    public int combatLoop(Player p, Scanner input, int prevMode) {
+    public int combatLoop(Player p, Scanner input, int prevMode, boolean hard) {
         boolean playerTurn = true;
         boolean defending = false;
         Monster monster = p.getCurrentRoom().getRoomMonster();
@@ -16,7 +16,7 @@ public class Combat {
 
         if (decision == 0 || decision == 1) { //didn't run from monster
             if (decision == 1) playerTurn = false; //ignored the monster
-            while (slaying) {
+            while (slaying && p.isAlive() && monster.isAlive()) {
                 if (playerTurn) {
                     view.combatWithMonster(); //print the prompt for when a user is in combat
                     String playerInput = input.nextLine().toLowerCase();
@@ -25,7 +25,6 @@ public class Combat {
                         case "attack", "a" -> {
                             monster.loseHP(p.getAttack()); //if player attacks, deal damage to monster
                             view.playerAttacked(monster, p);
-                            if (monster.getHP() <= 0) slaying = false;
                             playerTurn = false;
                         }
                         case "defend", "d" -> {
@@ -76,8 +75,12 @@ public class Combat {
                 }
             }
             if (!p.isAlive()) { //if player is dead
-                view.playerDefeat();
-                return p.playerDeath();
+            	if(hard) {
+            		view.playerHardDefeat();
+            	} else {
+                    view.playerDefeat();
+            	}
+                return p.playerDeath(hard);
             } else { //when monster is defeated
                 p.addMonsterItemToInventory(monster.dropRandomItem());
                 p.addCurrency(monster.dropRandomCurrency());
