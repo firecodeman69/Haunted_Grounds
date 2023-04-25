@@ -135,6 +135,6 @@ public class Puzzle
 
 	@Override
 	public String toString() {
-		return name + ", Reward = " + reward;
+		return name;
 	}
 }

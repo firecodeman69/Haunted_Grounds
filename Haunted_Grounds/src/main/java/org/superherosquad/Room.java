@@ -141,7 +141,12 @@ public class Room {
 
     	else {
             if (p.roomHasMonster()) {
-                currentMode = 1;
+            	if(id == 14) {
+            		finalBossCheck();
+            	}
+            	else {
+            		currentMode = 1;
+            	}
             } else {
             	inspected = true;
             	
@@ -217,6 +222,10 @@ public class Room {
     		view.print(roomNPC.getGreets());
     	}
     	return currentMode;
+    }
+    
+    public void finalBossCheck() {
+    	
     }
 
     public int getMonsterId() {
