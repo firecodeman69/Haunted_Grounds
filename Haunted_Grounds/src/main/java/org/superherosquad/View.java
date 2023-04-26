@@ -33,12 +33,12 @@ public class View implements Serializable {
 	}
 
 	public void encounterMonster(Monster monster) { //Cody - Displays when a player inspects room and encounters a monster
-		print("You see " + orange + monster.getName() + reset + " in the room with you.\n"
+		print("\nYou see " + orange + monster.getName() + reset + " in the room with you.\n"
 				+ blue + "What would you like to do?" + reset + "\n(A)ttack, (I)gnore, (R)un");
 	}
 
 	public void combatWithMonster() { //Cody - Displays during the combat loop with a monster
-		print(blue + "What would you like to do?" + reset + "\n(A)ttack, (D)efend, (U)se {item name}, (R)un\n" +
+		print("\n..." + blue + "\n\nWhat would you like to do?" + reset + "\n(A)ttack, (D)efend, (U)se {item name},(R)un\n" +
 				"Use '(I)tem' to open your inventory menu.");
 	}
 
@@ -47,7 +47,7 @@ public class View implements Serializable {
 	}
 
 	public void initIgnoreOption(Monster monster) { //Cody - initalCombat ignore option. This is before combat starts
-		print(orange + monster.getName() + reset + " Attacked you! Can't leave them on read so easily.\nStarting combat!");
+		print("...\n\n" + orange + monster.getName() + reset + " attacked you! Can't leave them on read so easily.\nCombat started!");
 	}
 
 	public void initRunOption() { //Cody - initalCombat run option. This is before combat starts
@@ -55,13 +55,13 @@ public class View implements Serializable {
 	}
 
 	public void combatInventoryMenuPrompt() { //Cody - shows the inventory menu is open during combat
-		print("Inventory Menu\nUse 'Exit' to leave this menu any time.");
+		print("\nInventory Menu\nUse 'Exit' to leave this menu any time.");
 	}
 
 	public void monsterDefeat(Monster monster, Player p) { //Cody - displays when a monster is defeated
 		print("You successfully defeated " + monster.getName() + "! " +
-				green + "You have earned " + monster.getRandomCurrency() + reset + " claw bucks and monster dropped item: " + blue
-				+ monster.getRandomItem().getName() + reset + "\nIt has been added to your inventory\n");
+				"\nYou have " + green + "earned " +  monster.getRandomCurrency() + " claw bucks " + reset + "and monster dropped item: " + blue
+				+ monster.getRandomItem().getName() + reset + "\nIt has been added to your inventory.\n\n...");
 	}
 
 	public void monsterAttacked(Monster monster, Player p) { //Cody - displays when monster attacks
@@ -87,12 +87,12 @@ public class View implements Serializable {
 	}
 
 	public void playerDefending() { //Cody - displays when the player is defending during combat
-		print("You are defending. Damage dealt will be half");
+		print("\nYou are defending. Damage dealt will be half.");
 	}
 
 	public void playerAttacked(Monster monster, Player p) { //Cody - displays when the player has attacked during combat
-		print("You hit the monster for " + p.getAttack() + "! "
-				+ "Monster has " + red + monster.getHP() + "hp left." + reset);
+		print("\nYou hit the monster for " + p.getAttack() + "! "
+				+ "Monster has " + red + monster.getHP() + reset + " HP left.");
 	}
 
 	public void combatInventory(ArrayList<Item> playerInventory) { //Cody - shows the inventory while in combat
@@ -126,8 +126,7 @@ public class View implements Serializable {
 					"    Menu Help\n" +
 					"    Continue \n" +
 					"      Exit\033[0m\n\n" +
-					"Input Options: \"newgame\" | \"newhard\" | \"load\" | \"save\" | \"menuhelp\" | \"continue\" \"exit\"");}
-	// End of Work
+					"Input Options: \"newgame\" | \"newhard\" | \"load\" | \"save\" | \"menuhelp\" | \"continue\" | \"exit\"");}
 
 	public void mainMenuInputOptions() { //Displays main menu input options
 		print("Input Options: \"newgame\" | \"newhard\" | \"load\" | \"menuhelp\" | \"exit\"");
@@ -152,7 +151,7 @@ public class View implements Serializable {
 	}
 
 	public void helpPrompt() { //printed after room description
-		print("Type \"help\" for the list of game commands.");
+		print("\033[1mType \"help\" for the list of game commands.\033[0m");
 	}
 
 	public void inspectError() { //error message thrown on inspect command
@@ -261,11 +260,11 @@ public class View implements Serializable {
     =======================================================================================================================================================================================\n
 				 PAUSE MENU COMMANDS ->
 				 
+				\u001B[31m"continue"\u001B[0m :Use this command to return to the current game.
 				\u001B[31m"newgame"\u001B[0m : Use this command to create a new game and save file.
 				\u001B[31m"newhard"\u001B[0m : This command is the same as the new game command, but if the player dies during the game, the game is over and cannot be returned to.          			  
 				\u001B[31m"load "\u001B[0m + save name : Use this command to load a save by inputting the previously determined save name.      	              
 				\u001B[31m"menuhelp"\u001B[0m : Use this command to see a list of commands that can be used in the menu.
-				"continue" : Use this command to return to the current game.
 				\u001B[31m"exit"\u001B[0m : Use this command to leave the game.
 				\n=======================================================================================================================================================================================
 				 """);

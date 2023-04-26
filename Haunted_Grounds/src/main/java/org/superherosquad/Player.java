@@ -35,7 +35,7 @@ public class Player extends Character implements Serializable {
             for (int i = 0; i < getCurrentRoom().getItems().size(); i++) {
                 if (currentRoom.hasItem(itemName)) {
                     playerInventory.add(currentRoom.getItems().get(i));
-                    System.out.println(currentRoom.getItems().get(i).getName() + " was added to your inventory. Use command Inventory to see it now.");
+                    System.out.println("\n" + currentRoom.getItems().get(i).getName() + " was added to your inventory. Use command \"inventory\" to see it now.");
                     currentRoom.removeItem(itemName);
                 }else {
                     view.print("That item is not in the room. Did you enter the correct thing?");
@@ -91,12 +91,13 @@ public class Player extends Character implements Serializable {
                     loseHP(item.getEffect());
                     view.print(item.getName() + " has been un-equipped.\n" + item.getEffect() + " removed from your hp. It is now " + getHP()
                             + "\nUse 'inventory' to see it in your inventory");
-            } else view.print("You don't have that item equipped. Use command 'equipped' to see currently equipped items.");
+            } else view.print(red + "\nYou don't have that item equipped. Use command 'equipped' to see currently equipped items." + reset);
         }
 
     public String showInventory() {
         if (playerInventory.size() < 1) {
-            return (red + "You don't have any items in your inventory." + reset);
+            return (
+                    red + "\nYou don't have any items in your inventory." + reset);
         } else {
             return (orange + playerInventory + reset);
         }
@@ -104,7 +105,8 @@ public class Player extends Character implements Serializable {
 
     public void showEquipped() {
         if (equippedItems.size() < 1) {
-            view.print(red + "You don't have any items equipped." + reset);
+            view.print(red + "\nYou don't have any items equipped." + reset);
+
         } else {
             view.print(orange + equippedItems + reset);
         }
@@ -112,6 +114,9 @@ public class Player extends Character implements Serializable {
 
     public Item getItem(String itemName) {
         for (Item i: playerInventory) {
+            if (i.getName().equalsIgnoreCase(itemName)) return i;
+        }
+        for (Item i: equippedItems) {
             if (i.getName().equalsIgnoreCase(itemName)) return i;
         }
         return null;
@@ -237,7 +242,7 @@ public class Player extends Character implements Serializable {
     		case "n":
 	            if(this.currentRoom.getNorthRoom() != -1) {
 	            	if(this.currentRoom.getNorthRoom() >= 100) { //Locked connections have an ID of 100 or greater.
-	            		view.print("The path in that direction is locked.");
+	            		view.print(red + "\nThe path in that direction is locked." + reset);
 	            		break;
 	            	}
 	            	else {
@@ -253,14 +258,14 @@ public class Player extends Character implements Serializable {
 	            	}
 	            }
 	            else { 
-	            	view.print("You cannot go that way."); 
+	            	view.print(red + "\nYou cannot go that way." + reset);
 	            	break;
 	            }
 
     		case "e":
 	            if(this.currentRoom.getEastRoom() != -1) {
 	            	if(this.currentRoom.getEastRoom() >= 100) {
-	            		view.print("The path in that direction is locked.");
+	            		view.print(red + "\nThe path in that direction is locked." + reset);
 	            		break;
 	            	}
 	            	else {
@@ -276,14 +281,14 @@ public class Player extends Character implements Serializable {
 	            	}
 	            }
 	            else {
-	            	view.print("You cannot go that way.");
+	            	view.print(red + "\nYou cannot go that way." + reset);
 		            break;
 	            }
 
     		case "s":
 	            if(this.currentRoom.getSouthRoom() != -1) {
 	            	if(this.currentRoom.getSouthRoom() >= 100) {
-	            		view.print("The path in that direction is locked.");
+	            		view.print(red + "\nThe path in that direction is locked." + reset);
 	            		break;
 	            	}
 	            	else {
@@ -299,7 +304,7 @@ public class Player extends Character implements Serializable {
 	            	}
 	            }
 	            else {
-	            	view.print("You cannot go that way.");
+	            	view.print(red + "\nYou cannot go that way." + reset);
 	            	break;
 	            }
 
@@ -307,7 +312,7 @@ public class Player extends Character implements Serializable {
     		case "w":
 	            if(this.currentRoom.getWestRoom() != -1) {
 	            	if(this.currentRoom.getWestRoom() >= 100) {
-	            		view.print("The path in that direction is locked.");
+	            		view.print(red + "\nThe path in that direction is locked." + reset);
 	            		break;
 	            	}
 	            	else {
@@ -323,7 +328,7 @@ public class Player extends Character implements Serializable {
 	            	}
 	            }
 	            else {
-	            	view.print("You cannot go that way.");
+	            	view.print(red + "\nYou cannot go that way." + reset);
 	            	break;
 	            }
 
@@ -344,7 +349,8 @@ public class Player extends Character implements Serializable {
         Room temp = this.currentRoom;
         this.currentRoom = this.previousRoom;
         this.previousRoom = temp;
-        view.print("You have the exited the room that you were in.");
+        view.print("\n...");
+        view.print("\nYou have the exited the room that you were in.");
     }
     
     public boolean finalBossCheck(ArrayList<Monster> monsters, ArrayList<Puzzle> puzzles) { //Cobi

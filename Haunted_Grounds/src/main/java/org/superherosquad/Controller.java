@@ -56,6 +56,8 @@ public class Controller { //Cobi && Cobi
                         return mode;
 
                     case "exit": //Exit the program.
+                        view.print("\n=======================================================================================================================================================================================");
+                        view.print("");
                         view.print("Thanks for playing!");
                         System.exit(0);
                         return mode;
@@ -94,6 +96,7 @@ public class Controller { //Cobi && Cobi
 
                     default: //If none of the previous cases were reached, a message telling the user that their command is invalid will be printed.
                         view.invalid();
+                        view.userInput();
                         return mode;
                 }
 
@@ -106,6 +109,7 @@ public class Controller { //Cobi && Cobi
                     view.print(section);
                 }
                 view.helpPrompt();
+                view.print("\n...");
                 view.userInput(); // places user input.
                 
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
@@ -154,7 +158,7 @@ public class Controller { //Cobi && Cobi
                     }
 
                     case "inventory", "inv" -> { //Shows the user all items in their inventory.
-                        view.print(p.showInventory());
+                        view.print("\nInventory: " + p.showInventory());
                         return mode;
                     }
                         
@@ -288,11 +292,7 @@ public class Controller { //Cobi && Cobi
                     }
                     
                     case "help" -> { //Prints out the help menu.
-                        String yellow = "\u001B[33m"; // ANSI escape code for yellow color
-                        String reset = "\u001B[0m"; // ANSI escape code to reset color
-                        System.out.println(yellow);
                         view.helpMenu();
-                        System.out.println(reset);
                         return mode;
                     }
 

@@ -18,6 +18,7 @@ public class Combat {
             while (p.isAlive() && monster.isAlive()) {
                 if (playerTurn) {
                     view.combatWithMonster(); //print the prompt for when a user is in combat
+                    view.userInput();
                     String playerInput = input.nextLine().toLowerCase();
                     String[] tokens = playerInput.split(" ");
                     switch (tokens[0]) {
@@ -108,6 +109,7 @@ public class Combat {
             }
             while (itemMenuOpen) {
                 view.combatInventory(combatInventory);
+                view.userInput();
                 String playerInput = input.nextLine().toLowerCase();
                 String[] tokens = playerInput.split(" ");
                 if (tokens[0].equalsIgnoreCase("exit")) {
@@ -119,14 +121,17 @@ public class Combat {
     public int initialCombat(Monster monster, Scanner input, Player p) { //Handle the initial combat logic
         int playerTurn = -1;
         view.encounterMonster(monster);
+        view.userInput();
         String playerInput = input.nextLine().toLowerCase();
         String[] tokens = playerInput.split(" ");
         switch (tokens[0]) {
             case "attack", "a" -> {
+                view.print("");
                 view.initAttackOption(p);
                 playerTurn = 0;
             }
             case "ignore", "i" -> {
+                view.print("");
                 view.initIgnoreOption(monster);
                 playerTurn = 1;
             }
