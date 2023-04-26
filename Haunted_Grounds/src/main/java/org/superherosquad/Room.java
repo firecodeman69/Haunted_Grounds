@@ -31,6 +31,9 @@ public class Room implements Serializable {
     private boolean isDark; //Cobi
     private boolean inspected = false;
 
+    private String yellow = "\u001B[33m";
+
+    private String reset = "\u001B[0m";
     //Cody
     public Room(int id, String name, String description, int northRoom, int southRoom, int eastRoom, int westRoom, boolean isVisited, int monsterId, int puzzleId, int itemId, int npcId, boolean isDark) {
         this.id = id;
@@ -140,6 +143,7 @@ public class Room implements Serializable {
 
     public int inspect(Player p, int currentMode, boolean proceed) { //Cobi & Cody
     	if(p.getCurrentRoom().getIsDark()) {
+            view.print("");
     		view.print("It is too dark for you to see in this room. You need to turn on the lights.");
     	}
 
@@ -153,14 +157,14 @@ public class Room implements Serializable {
             	}
             } else {
             	inspected = true;
-            	
-            	view.print("Room description: " + p.getCurrentRoom().getDescription());
+
+                view.print("");
             	
             	if(p.getCurrentRoom().getItems().isEmpty()) {
             		view.print("There are no items in the current room.");
             	}
             	else {
-                	view.print("Items in room: " + p.getCurrentRoom().getItems());
+                	view.print("Items in room: " + yellow + p.getCurrentRoom().getItems() + reset);
             	}
             	try {
             		p.getCurrentRoom().getPuzzle().getId();
@@ -189,9 +193,11 @@ public class Room implements Serializable {
     public void lightsOn() { //Cobi
     	if(isDark) {
     		isDark = false;
+            view.print("");
     		view.print("You have turned the lights on.");
     	}
     	else {
+            view.print("");
     		view.print("The lights are already on.");
     	}
     }
@@ -205,11 +211,11 @@ public class Room implements Serializable {
 	    	else {
 	    		try {
 		    		roomPuzzle.activate();
-		    		view.print("You have started the " + roomPuzzle + " puzzle. Here is the prompt:");
+		    		view.print("\nYou have started the " + yellow + roomPuzzle + reset + " puzzle.\nHere is the prompt:");
 		    		currentMode = 2;
 	    		}
 	    		catch (NullPointerException npe) {
-	    			view.print("You have already solved the puzzle in this room.");
+	    			view.print("\nYou have already solved the puzzle in this room.");
 	    		}
 	    	}
     	} catch (NullPointerException npe) {
