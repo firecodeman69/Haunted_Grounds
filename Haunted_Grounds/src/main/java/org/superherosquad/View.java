@@ -147,7 +147,7 @@ public class View implements Serializable {
 		print("\nStarting a New Game...\n");
 	}
 	public void startingNewHard() { //When starting new hard game
-		print("Starting a New Hard-mode Game!");
+		print("\nStarting a New Hard-mode Game...\n");
 	}
 
 	public void helpPrompt() { //printed after room description
