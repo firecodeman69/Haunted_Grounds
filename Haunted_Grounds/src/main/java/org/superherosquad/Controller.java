@@ -272,6 +272,7 @@ public class Controller { //Cobi && Cobi
                 }
                 
                 view.print(active.getQuestion()); //Print the question at the start of each loop where puzzle mode is active.
+                view.userInput();
                 
                 if(prevMode == 3) {
                 	if(p.getCurrentRoom().getNpcId() == 0 && hard) {

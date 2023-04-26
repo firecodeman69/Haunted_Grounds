@@ -212,6 +212,7 @@ public class Room implements Serializable {
 	    		try {
 		    		roomPuzzle.activate();
 		    		view.print("\nYou have started the " + yellow + roomPuzzle + reset + " puzzle.\nHere is the prompt:");
+                    view.print("\033[1mType \"help\" for the list of game commands.\033[0m\n");
 		    		currentMode = 2;
 	    		}
 	    		catch (NullPointerException npe) {
