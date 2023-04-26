@@ -152,7 +152,7 @@ public class View implements Serializable {
 	}
 
 	public void helpPrompt() { //printed after room description
-		print("Type \"help\" for the list of game commands.");
+		print(green + "Type \"help\" for the list of game commands." + reset);
 	}
 
 	public void inspectError() { //error message thrown on inspect command

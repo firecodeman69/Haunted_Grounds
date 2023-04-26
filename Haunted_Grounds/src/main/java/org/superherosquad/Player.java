@@ -114,6 +114,9 @@ public class Player extends Character implements Serializable {
         for (Item i: playerInventory) {
             if (i.getName().equalsIgnoreCase(itemName)) return i;
         }
+        for (Item i: equippedItems) {
+            if (i.getName().equalsIgnoreCase(itemName)) return i;
+        }
         return null;
     }
 
