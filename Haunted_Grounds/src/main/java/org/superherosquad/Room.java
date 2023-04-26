@@ -145,7 +145,7 @@ public class Room implements Serializable {
 
     	else {
             if (p.roomHasMonster() && proceed == false) { //Only enter this if statement if the room has a monster and the proceed parameter is false. If the proceed parameter is true, that means that the final boss conditions have not been met, so we're going to inspect the room with the final boss.
-            	if(id == 14) {
+            	if(id == 20) {
             		currentMode = 10; //Activate the final boss check because we are in the rooom with the final boss.
             	}
             	else {

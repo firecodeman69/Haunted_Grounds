@@ -102,6 +102,11 @@ public class View implements Serializable {
 	public void printExpelled() {
 		print("How dare you try and attack " + blue + "Queen B" + reset + "?! You have been " + red + "EXPELLED!!!\n" + reset + orange + "Go back to the main menu and think about your actions." + reset);
 	}
+	
+	public void finalBossNotification() {
+		print(orange + "You hear a loud, menacing growl in the horizon! You know that it must be time for the final fight." + reset);
+	}
+	
 	// ReAnn
 	public void mainMenu() {print("" +
 							    "\033[1m\033[93m  - Main Menu -\033[0m\n" +
