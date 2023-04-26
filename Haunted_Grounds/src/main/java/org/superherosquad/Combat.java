@@ -36,15 +36,15 @@ public class Combat {
                         case "use", "u" -> {
                             if (tokens.length == 2) {
                                 if (p.getItem(tokens[1]) != null) {
-                                    p.useConsumableItem(p.getItem(tokens[1])); //add item effect to player's health
+                                    p.useConsumableItemCombat(p.getItem(tokens[1])); //add item effect to player's health
                                 }
                             } else if (tokens.length == 3){
                                 if (p.getItem(tokens[1] + " " + tokens[2]) != null) {
-                                    p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2])); //add item effect to player's health
+                                    p.useConsumableItemCombat(p.getItem(tokens[1] + " " + tokens[2])); //add item effect to player's health
                                 }
                             } else if (tokens.length == 4){
                                 if (p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3]) != null) {
-                                    p.useConsumableItem(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3])); //add item effect to player's health
+                                    p.useConsumableItemCombat(p.getItem(tokens[1] + " " + tokens[2] + " " + tokens[3])); //add item effect to player's health
                                 }
                             }
                             playerTurn = false;
@@ -96,10 +96,16 @@ public class Combat {
     }
 
     public void itemMenu(ArrayList<Item> playerInventory, Scanner input) { //handle the item menu logic
+            ArrayList<Item> combatInventory = new ArrayList<>();
             boolean itemMenuOpen = true;
             view.combatInventoryMenuPrompt();
+            for (Item i: playerInventory) {
+                if (i.getType().equalsIgnoreCase("CHP")) {
+                    combatInventory.add(i);
+                }
+            }
             while (itemMenuOpen) {
-                view.combatInventory(playerInventory);
+                view.combatInventory(combatInventory);
                 String playerInput = input.nextLine().toLowerCase();
                 String[] tokens = playerInput.split(" ");
                 if (tokens[0].equalsIgnoreCase("exit")) {

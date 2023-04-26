@@ -66,19 +66,22 @@ public class Player extends Character implements Serializable {
     }
 
     public void equipItem(Item item) {
-        if (hasItem(item))
-                if (item.getType().equals("E")) {
-                    equippedItems.add(item);
-                    playerInventory.remove(item);
-                    addHP(item.getEffect());
-                    view.print(item.getName() + " has been equipped.\n" + item.getEffect() + " added to your hp. It is now " + getHP());
-                }else if (item.getType().equals("EW")) {
-                    equippedItems.add(item);
-                    playerInventory.remove(item);
-                    addAttack(item.getEffect());
-                    view.print(item.getName() + " has been equipped.\n" + item.getEffect() + " added to your attack. It is now " + getAttack());
-                } else view.print("You either don't have that item, or it's not an equip-able item. Please try again.");
-            }
+        if (hasItem(item)) {
+            if (item.getType().equals("E")) {
+                equippedItems.add(item);
+                playerInventory.remove(item);
+                addHP(item.getEffect());
+                view.print(item.getName() + " has been equipped.\n" + item.getEffect() + " added to your hp. It is now " + getHP());
+            } else if (item.getType().equals("EW")) {
+                equippedItems.add(item);
+                playerInventory.remove(item);
+                addAttack(item.getEffect());
+                view.print(item.getName() + " has been equipped.\n" + item.getEffect() + " added to your attack. It is now " + getAttack());
+            } else view.print("That item is not an equip-able item. Please try inspecting item to see the effect.");
+        }else {
+            view.print("You do not have that item.");
+        }
+    }
 
     public void unEquipItem(Item item) {
         if (hasItemEquiped(item)) {
@@ -170,6 +173,17 @@ public class Player extends Character implements Serializable {
                     }
                     default -> view.print(red + "That is not a consumable item or you do not have this item." + reset);
                 }
+    }
+
+    public void useConsumableItemCombat(Item item) {
+        switch (item.getType()) {
+            case "CHP" -> {
+                addHP(item.getEffect());
+                view.print("Successfully used " + item.getName() + "! " + green + "HP Gained: " + item.getEffect()
+                        + "\nHP is now: " + getHP() + reset);
+                playerInventory.remove(item);
+            }
+        }
     }
 
     public void inspectInventoryItem(Item item) {
