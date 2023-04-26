@@ -253,6 +253,9 @@ public class Controller { //Cobi && Cobi
 
             case 1: //Combat - Cody
                 mode = combat.combatLoop(p, input, prevMode, hard);
+                if(p.finalBossCheck(monsters, puzzles)) {
+                	view.finalBossNotification();
+                }
                 return mode;
 
             case 2: { //Puzzle - Cobi
@@ -296,6 +299,9 @@ public class Controller { //Cobi && Cobi
                     default -> { //All other commands are treated as guesses to the solution of the puzzle.
                         if(playerInput.equalsIgnoreCase(active.getSolution())) {
                             mode = active.onSolve(p.getCurrentRoom(), rooms, items);
+                            if(p.finalBossCheck(monsters, puzzles)) {
+                            	view.finalBossNotification();
+                            }
                             return mode;
                         }
                         else {
