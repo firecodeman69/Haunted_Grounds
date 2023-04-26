@@ -46,7 +46,7 @@ public class Controller { //Cobi && Cobi
                     case "menuhelp": //Prints out the help message for the menu that the user is on.
                         if (mode == 5) {
                             view.mainMenuHelp();
-                            view.userInput();;
+                            view.userInput();
                         }
 
                         if (mode == 6) {
@@ -68,7 +68,7 @@ public class Controller { //Cobi && Cobi
                         }
                         return mode;
 
-                    case "newgame":  //Create a new game by effectively resetting to the start state.
+                    case "newgame":  //Create a new game.
                         view.startingNew();
                         return 90;
 
@@ -77,12 +77,7 @@ public class Controller { //Cobi && Cobi
                         return 80;
 
                     case "load": //Load a game from a previous save file
-                        if(mode == 5) {
-                        	return 75;
-                        }
-                        if(mode == 6) {
-                        	return 76;
-                        }
+                        return 70 + mode;
 
                     case "save": //Save a game from a previous save file
                         saver.saveGame(rooms, items, puzzles, monsters, npcs, p, shop, mode, prevMode, saveMode, hard);
@@ -112,6 +107,7 @@ public class Controller { //Cobi && Cobi
                 }
                 view.helpPrompt();
                 view.userInput(); // places user input.
+                
                 playerInput = input.nextLine().toLowerCase(); //Interpret player input.
                 tokens = playerInput.split(" ");
 
@@ -256,7 +252,7 @@ public class Controller { //Cobi && Cobi
                 /*****************************************************************END**************************************************************/
 
             case 1: //Combat - Cody
-                mode = combat.combatLoop(p, input, prevMode);
+                mode = combat.combatLoop(p, input, prevMode, hard);
                 return mode;
 
             case 2: { //Puzzle - Cobi

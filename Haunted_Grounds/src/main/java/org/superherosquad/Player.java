@@ -337,7 +337,7 @@ public class Player extends Character implements Serializable {
     public void exitRoom() { //Cobi
     	try {this.previousRoom.getId();}
     	catch (NullPointerException npe) {
-    		view.print("You can't run and you can't hide!");
+    		view.cobiEasterEgg();
     		System.exit(0);
     	}
     	
@@ -347,7 +347,7 @@ public class Player extends Character implements Serializable {
         view.print("You have the exited the room that you were in.");
     }
     
-    public boolean finalBossCheck(ArrayList<Monster> monsters, ArrayList<Puzzle> puzzles) {
+    public boolean finalBossCheck(ArrayList<Monster> monsters, ArrayList<Puzzle> puzzles) { //Cobi
     	for(Monster m: monsters) { //Check if all monsters are defeated.
     		if(m.getHP() > 0) {
     			return false; //If there is any monster undefeated, abort check.
@@ -370,12 +370,13 @@ public class Player extends Character implements Serializable {
         currentRoom = newRoom;
     }
 
-    public int playerDeath() {
-        return 5;
-    }
-
-    public int playerHardDeath(String fileName) {
-        return 5;
+    public int playerDeath(boolean hard) {
+        if (hard) { //Cobi - hard mode functionality handled here.
+        	return 105;
+        }
+        else {
+        	return 115;
+        }
     }
 
     public Room getPreviousRoom() {

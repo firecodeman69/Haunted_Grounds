@@ -11,6 +11,7 @@ public class View implements Serializable {
 	private String orange = "\u001B[38;2;255;165;0m";
 	private String green =  "\u001B[32m";
 	private String darkGreen = "\u001B[32";
+	private String lightYellow  = "\033[93m";
 	private static final long serialVersionUID = 673824491807579304L;
 
 	public void print(String s)
@@ -80,6 +81,10 @@ public class View implements Serializable {
 	public void playerDefeat() { //Cody - displays upon player death in combat
 		print(red + "You have been defeated in battle. Regroup and try again!" + reset);
 	}
+	
+	public void playerHardDefeat() {
+		print(red + "You have been defeated in battle! You do not have the strength to go forth. You have perished." + reset);
+	}
 
 	public void playerDefending() { //Cody - displays when the player is defending during combat
 		print("You are defending. Damage dealt will be half");
@@ -116,7 +121,7 @@ public class View implements Serializable {
 					"    Menu Help\n" +
 					"    Continue \n" +
 					"      Exit\033[0m\n\n" +
-					"Input Options: \"newgame\" | \"newhard\" | \"load\" | \"save\" | \"menuhelp\" | \"exit\"");}
+					"Input Options: \"newgame\" | \"newhard\" | \"load\" | \"save\" | \"menuhelp\" | \"continue\" \"exit\"");}
 	// End of Work
 
 	public void mainMenuInputOptions() { //Displays main menu input options
@@ -162,6 +167,10 @@ public class View implements Serializable {
 	public void shopQuantityError() {
 		print("");
 		print("\033[31mYou must send a quantity to use this command.\033[0m");
+	}
+	
+	public void cobiEasterEgg() {
+		print(lightYellow + "You " + red + "can't " + blue + "run " + orange + "and " + lightYellow + "you " + red + "can't " + blue + "hide!" + reset);
 	}
 
 	public void shopPrint(Item i) {
