@@ -72,6 +72,7 @@ public class Player extends Character implements Serializable {
                 playerInventory.remove(item);
                 addHP(item.getEffect());
                 view.print(item.getName() + " has been equipped.\n" + item.getEffect() + " added to your hp. It is now " + getHP());
+                boostAllStats();
             } else if (item.getType().equals("EW")) {
                 equippedItems.add(item);
                 playerInventory.remove(item);
@@ -143,6 +144,22 @@ public class Player extends Character implements Serializable {
             }
         }
         return false;
+    }
+
+    public void boostAllStats() {
+        int count = 0;
+        for (Item i: equippedItems) {
+            if (i.getType().equalsIgnoreCase("E")) {
+                count++;
+            }
+        }
+        if (count == 4) {
+            view.print("All stats boosted 5x!");
+            this.attack *= 5;
+            this.defense *= 5;
+            this.speed *= 5;
+            this.hp *= 5;
+        }
     }
 
     public void useConsumableItem(Item item) {
